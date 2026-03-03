@@ -21,7 +21,7 @@ namespace ClassLibrary
         /// <summary>
         /// Конструктор, для ручного создания книг
         /// </summary>
-        public Book(string title, string author, int id, string genre, int pages, double price)
+        public Book(string title, string author, string genre, int pages, double price)
         {
             if(string.IsNullOrWhiteSpace(title)  || string.IsNullOrWhiteSpace(author))
             {
@@ -47,9 +47,13 @@ namespace ClassLibrary
             string finalTitle = titleHandler();
 
             int RandomPages = rng.Next(50, 500);
-            Double RandomPrice = rng.Next(300, 1500);
+            double RandomPrice = rng.Next(300, 1500);
+            string RandomAuthor = GetrandomAuthor();
 
-           
+            return new Book(finalTitle, RandomAuthor, genre, RandomPages, RandomPrice); // Вызов конструктора для создания книги, на основе случайных значений
         }
+
+     
+
     }
 }
