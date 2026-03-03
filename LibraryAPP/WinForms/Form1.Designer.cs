@@ -126,12 +126,11 @@
             // RandomizeBookB
             // 
             RandomizeBookB.BackColor = Color.FromArgb(172, 199, 221);
-            RandomizeBookB.Font = new Font("Cambria", 9F, FontStyle.Bold, GraphicsUnit.Point, 204);
+            RandomizeBookB.Font = new Font("Cambria", 22.2F, FontStyle.Bold, GraphicsUnit.Point, 204);
             RandomizeBookB.Location = new Point(484, 565);
             RandomizeBookB.Name = "RandomizeBookB";
             RandomizeBookB.Size = new Size(53, 36);
             RandomizeBookB.TabIndex = 14;
-            RandomizeBookB.Text = "RND";
             RandomizeBookB.UseVisualStyleBackColor = false;
             // 
             // AddBookB
@@ -342,7 +341,7 @@
             label2.Name = "label2";
             label2.Size = new Size(152, 63);
             label2.TabIndex = 0;
-            label2.Text = "Автор";
+            label2.Text = "- Автор -";
             label2.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // panel1
@@ -376,7 +375,7 @@
             label1.Name = "label1";
             label1.Size = new Size(152, 63);
             label1.TabIndex = 0;
-            label1.Text = "Название";
+            label1.Text = "- Название -";
             label1.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // titleP
