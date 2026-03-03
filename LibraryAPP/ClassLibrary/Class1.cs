@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Dynamic;
-using System.Reflection;
 using System.IO;
+using System.Reflection;
 using System.Runtime.CompilerServices;
+using static System.Net.WebRequestMethods;
 
 namespace ClassLibrary
 {
@@ -103,6 +104,28 @@ namespace ClassLibrary
            string[] authors = new string[] {"Стивен Кинг", "Михаил Булгаков", "Федор Достоевский", "Уильям Шекспир", "Лев Толстой", "Джордж Оруэлл", "Джоан Роулинг", "Николай Гоголь", "Александр Пушкин", "Эрих Мария Ремарк"};
             Random rng = new Random();
             return authors[rng.Next(authors.Length)]; // Возвращаем случайного автора из массива
+        }
+
+        private static string titleHandler(string rawTitle, List<Book> ExistingBooks)
+        {
+            int count = 0;
+
+            foreach (Book i in ExistingBooks)
+            {
+                if (i.Title == rawTitle)
+                {
+                    count++;
+                }
+
+            }
+                if(count > 0)
+                {
+                    return $"{rawTitle} {count + 1}";
+                }
+                else
+                {
+                    return rawTitle;
+                }  
         }
 
 
