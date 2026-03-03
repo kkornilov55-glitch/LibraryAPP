@@ -1,12 +1,13 @@
 ﻿using System;
+using System.Dynamic;
 using System.Reflection;
-
+using System.IO;
 
 namespace ClassLibrary
 {
     public class Book
     {
-      
+
         public string Title { get; private set; }
         public string Author { get; private set; }
         public int id { get; private set; }
@@ -23,7 +24,7 @@ namespace ClassLibrary
         /// </summary>
         public Book(string title, string author, string genre, int pages, double price)
         {
-            if(string.IsNullOrWhiteSpace(title)  || string.IsNullOrWhiteSpace(author))
+            if (string.IsNullOrWhiteSpace(title) || string.IsNullOrWhiteSpace(author))
             {
                 throw new ArgumentNullException("Название книги или автор не могут быть пустыми");
             }
@@ -53,7 +54,41 @@ namespace ClassLibrary
             return new Book(finalTitle, RandomAuthor, genre, RandomPages, RandomPrice); // Вызов конструктора для создания книги, на основе случайных значений
         }
 
-     
+        static private string GetRandomTitle()
+        {
+            string FilePath = "title.txt"; // Путь к файлу с названиями книг
+            List<string> titles = new List<string>(); // Список для хранения названий книг
 
+            try
+            {
+
+                if (!File.Exists(FilePath))
+                    return "Файл не найден";
+
+                using (StreamReader file = new StreamReader(FilePath)) //using чтобы файл автоматически закрывался после использования
+                {
+                    string line;
+
+                    while ((line = file.ReadLine()) != null)
+                    {
+                        if (!string.IsNullOrWhiteSpace(line))
+                        {
+                            titles.Add(line.Trim());
+
+                        }
+                    }
+
+                }
+
+
+            }
+        }
     }
 }
+
+
+        
+
+
+
+
