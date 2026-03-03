@@ -35,6 +35,21 @@ namespace ClassLibrary
             Price = price;
         }
 
+        /// <summary>
+        /// Статический метод, случайно генерирующий книгу.
+        /// Принадлежит самому классу а не конкретной книге т.е. создает новую книгу без привязки к существующей
+        /// </summary>
+        public static Book GenerateBook(List<Book> ExistingBooks, string genre)
+        {
+            Random rng = new Random();
 
+            string rawTitle = GetRandomTitle();
+            string finalTitle = titleHandler();
+
+            int RandomPages = rng.Next(50, 500);
+            Double RandomPrice = rng.Next(300, 1500);
+
+           
+        }
     }
 }
