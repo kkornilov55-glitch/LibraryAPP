@@ -14,6 +14,27 @@ namespace ClassLibrary
         public int Pages { get; private set; }
         public double Price { get; private set; }
 
+        private int counter = 0;
+
+
+
+        /// <summary>
+        /// Конструктор, для ручного создания книг
+        /// </summary>
+        public Book(string title, string author, int id, string genre, int pages, double price)
+        {
+            if(string.IsNullOrWhiteSpace(title)  || string.IsNullOrWhiteSpace(author))
+            {
+                throw new ArgumentNullException("Название книги или автор не могут быть пустыми");
+            }
+            id = ++counter;
+            Title = title;
+            Author = author;
+            Genre = genre;
+            Pages = pages;
+            Price = price;
+        }
+
 
     }
 }
