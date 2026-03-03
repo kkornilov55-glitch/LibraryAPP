@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics.Contracts;
 using System.Dynamic;
 using System.IO;
 using System.Reflection;
@@ -130,8 +131,13 @@ namespace ClassLibrary
                 return rawTitle;
             }  
         }
-
-
+        /// <summary>
+        /// Метод, продажи книги. При вызове возвращает стоимость книги.
+        /// </summary>
+        public double Sell()
+        {
+            return Price;
+        }
     }
 }
 
