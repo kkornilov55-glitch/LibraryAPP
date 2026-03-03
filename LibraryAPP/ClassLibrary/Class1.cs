@@ -3,7 +3,7 @@ using System.Dynamic;
 using System.IO;
 using System.Reflection;
 using System.Runtime.CompilerServices;
-using static System.Net.WebRequestMethods;
+
 
 namespace ClassLibrary
 {
@@ -42,13 +42,15 @@ namespace ClassLibrary
         /// Статический метод, случайно генерирующий книгу.
         /// Принадлежит самому классу а не конкретной книге т.е. создает новую книгу без привязки к существующей
         /// </summary>
-        public static Book GenerateBook(List<Book> ExistingBooks, string genre)
+        public static Book GenerateBook(List<Book> ExistingBooks, string genre) //список ExistingBooks должен содержать в себе все созданные книги.
+                                                                                //он будет заполняться в классе реализующем логику книжного шкафа
+
         {
             Random rng = new Random();
 
             string rawTitle = GetRandomTitle();
-            string finalTitle = titleHandler();
-
+            string finalTitle = titleHandler(rawTitle, ExistingBooks);
+             
             int RandomPages = rng.Next(50, 500);
             double RandomPrice = rng.Next(300, 1500);
             string RandomAuthor = GetrandomAuthor();
@@ -112,20 +114,21 @@ namespace ClassLibrary
 
             foreach (Book i in ExistingBooks)
             {
-                if (i.Title == rawTitle)
+                if (i.Title.StartsWith(rawTitle))
                 {
                     count++;
                 }
-
             }
-                if(count > 0)
-                {
-                    return $"{rawTitle} {count + 1}";
-                }
-                else
-                {
-                    return rawTitle;
-                }  
+
+            if(count > 0)
+             {
+                return $"{rawTitle} {count + 1}";
+             }
+
+            else
+            {
+                return rawTitle;
+            }  
         }
 
 
