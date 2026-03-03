@@ -64,7 +64,7 @@ namespace ClassLibrary
             List<string> titles = new List<string>(); // Список для хранения названий книг
 
             try
-            {dj
+            {
 
                 if (!File.Exists(FilePath))
                     return "Файл не найден";
@@ -95,7 +95,14 @@ namespace ClassLibrary
             catch (Exception ex)
             {
                 return $"Ошибка при чтении файла: {ex.Message}";
-            }            
+            }  
+        }
+
+        private static string GetrandomAuthor()
+        {
+           string[] authors = new string[] {"Стивен Кинг", "Михаил Булгаков", "Федор Достоевский", "Уильям Шекспир", "Лев Толстой", "Джордж Оруэлл", "Джоан Роулинг", "Николай Гоголь", "Александр Пушкин", "Эрих Мария Ремарк"};
+            Random rng = new Random();
+            return authors[rng.Next(authors.Length)]; // Возвращаем случайного автора из массива
         }
 
 
