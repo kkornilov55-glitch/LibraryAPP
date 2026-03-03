@@ -2,6 +2,7 @@
 using System.Dynamic;
 using System.Reflection;
 using System.IO;
+using System.Runtime.CompilerServices;
 
 namespace ClassLibrary
 {
@@ -54,13 +55,16 @@ namespace ClassLibrary
             return new Book(finalTitle, RandomAuthor, genre, RandomPages, RandomPrice); // Вызов конструктора для создания книги, на основе случайных значений
         }
 
+        /// <summary>
+        /// Метод для получения случайного названия книги из заранее определенного списка
+        /// </summary>
         static private string GetRandomTitle()
         {
             string FilePath = "title.txt"; // Путь к файлу с названиями книг
             List<string> titles = new List<string>(); // Список для хранения названий книг
 
             try
-            {
+            {dj
 
                 if (!File.Exists(FilePath))
                     return "Файл не найден";
@@ -78,16 +82,26 @@ namespace ClassLibrary
                         }
                     }
 
-                    if (titles.Count == 0)
-                        return "Файл пустой";
-
                 }
+                if (titles.Count == 0)
+                    return "Файл пустой";
 
+                Random rng = new Random();
+
+                return titles[rng.Next(titles.Count)]; // Возвращаем случайное название из списка
 
             }
+
+            catch (Exception ex)
+            {
+                return $"Ошибка при чтении файла: {ex.Message}";
+            }            
         }
+
+
     }
 }
+
 
 
         
