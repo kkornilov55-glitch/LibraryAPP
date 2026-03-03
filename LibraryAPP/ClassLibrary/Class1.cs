@@ -78,6 +78,9 @@ namespace ClassLibrary
                         }
                     }
 
+                    if (titles.Count == 0)
+                        return "Файл пустой";
+
                 }
 
 
