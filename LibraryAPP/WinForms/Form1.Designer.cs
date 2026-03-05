@@ -28,7 +28,29 @@
         /// </summary>
         private void InitializeComponent()
         {
-            MainTC = new TabControl();
+            StoreTP = new TabPage();
+            panel14 = new Panel();
+            panel13 = new Panel();
+            ClearCaseB = new Button();
+            SellBookB = new Button();
+            FoundB = new Button();
+            FoundStringTB = new TextBox();
+            label9 = new Label();
+            dataGridView1 = new DataGridView();
+            colId = new DataGridViewTextBoxColumn();
+            colTitle = new DataGridViewTextBoxColumn();
+            colAuthor = new DataGridViewTextBoxColumn();
+            colPrice = new DataGridViewTextBoxColumn();
+            label8 = new Label();
+            GenreSelectCB = new ComboBox();
+            label7 = new Label();
+            BalanceL = new Label();
+            panel15 = new Panel();
+            panel16 = new Panel();
+            panel17 = new Panel();
+            panel24 = new Panel();
+            panel25 = new Panel();
+            label13 = new Label();
             tabPage1 = new TabPage();
             panel12 = new Panel();
             panel11 = new Panel();
@@ -58,8 +80,12 @@
             titleP = new Panel();
             panel9 = new Panel();
             titleL = new Label();
-            tabPage2 = new TabPage();
-            MainTC.SuspendLayout();
+            MainTC = new TabControl();
+            panel18 = new Panel();
+            panel19 = new Panel();
+            StoreTP.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
+            panel24.SuspendLayout();
             tabPage1.SuspendLayout();
             panel6.SuspendLayout();
             panel5.SuspendLayout();
@@ -68,18 +94,244 @@
             panel3.SuspendLayout();
             panel1.SuspendLayout();
             titleP.SuspendLayout();
+            MainTC.SuspendLayout();
             SuspendLayout();
             // 
-            // MainTC
+            // StoreTP
             // 
-            MainTC.Controls.Add(tabPage1);
-            MainTC.Controls.Add(tabPage2);
-            MainTC.Dock = DockStyle.Fill;
-            MainTC.Location = new Point(0, 0);
-            MainTC.Name = "MainTC";
-            MainTC.SelectedIndex = 0;
-            MainTC.Size = new Size(582, 653);
-            MainTC.TabIndex = 0;
+            StoreTP.BackColor = Color.FromArgb(221, 194, 172);
+            StoreTP.Controls.Add(panel19);
+            StoreTP.Controls.Add(panel18);
+            StoreTP.Controls.Add(panel14);
+            StoreTP.Controls.Add(panel13);
+            StoreTP.Controls.Add(ClearCaseB);
+            StoreTP.Controls.Add(SellBookB);
+            StoreTP.Controls.Add(FoundB);
+            StoreTP.Controls.Add(FoundStringTB);
+            StoreTP.Controls.Add(label9);
+            StoreTP.Controls.Add(dataGridView1);
+            StoreTP.Controls.Add(label8);
+            StoreTP.Controls.Add(GenreSelectCB);
+            StoreTP.Controls.Add(label7);
+            StoreTP.Controls.Add(BalanceL);
+            StoreTP.Controls.Add(panel15);
+            StoreTP.Controls.Add(panel16);
+            StoreTP.Controls.Add(panel17);
+            StoreTP.Controls.Add(panel24);
+            StoreTP.Location = new Point(4, 29);
+            StoreTP.Name = "StoreTP";
+            StoreTP.Padding = new Padding(3);
+            StoreTP.Size = new Size(574, 620);
+            StoreTP.TabIndex = 2;
+            StoreTP.Text = "Магазин";
+            // 
+            // panel14
+            // 
+            panel14.BackColor = Color.Silver;
+            panel14.BorderStyle = BorderStyle.FixedSingle;
+            panel14.Location = new Point(534, 120);
+            panel14.Name = "panel14";
+            panel14.Size = new Size(10, 340);
+            panel14.TabIndex = 23;
+            // 
+            // panel13
+            // 
+            panel13.BackColor = Color.Silver;
+            panel13.BorderStyle = BorderStyle.FixedSingle;
+            panel13.Location = new Point(33, 120);
+            panel13.Name = "panel13";
+            panel13.Size = new Size(10, 340);
+            panel13.TabIndex = 22;
+            // 
+            // ClearCaseB
+            // 
+            ClearCaseB.Font = new Font("Cambria", 11F);
+            ClearCaseB.Location = new Point(305, 567);
+            ClearCaseB.Name = "ClearCaseB";
+            ClearCaseB.Size = new Size(195, 35);
+            ClearCaseB.TabIndex = 21;
+            ClearCaseB.Text = "Отчистить шкаф";
+            ClearCaseB.UseVisualStyleBackColor = true;
+            // 
+            // SellBookB
+            // 
+            SellBookB.Font = new Font("Cambria", 11F);
+            SellBookB.Location = new Point(75, 567);
+            SellBookB.Name = "SellBookB";
+            SellBookB.Size = new Size(190, 35);
+            SellBookB.TabIndex = 20;
+            SellBookB.Text = "Продать";
+            SellBookB.UseVisualStyleBackColor = true;
+            // 
+            // FoundB
+            // 
+            FoundB.Font = new Font("Cambria", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 204);
+            FoundB.Location = new Point(75, 523);
+            FoundB.Name = "FoundB";
+            FoundB.Size = new Size(425, 38);
+            FoundB.TabIndex = 19;
+            FoundB.Text = "Найти!";
+            FoundB.UseVisualStyleBackColor = true;
+            // 
+            // FoundStringTB
+            // 
+            FoundStringTB.Location = new Point(192, 481);
+            FoundStringTB.Name = "FoundStringTB";
+            FoundStringTB.Size = new Size(294, 27);
+            FoundStringTB.TabIndex = 18;
+            FoundStringTB.TextChanged += textBox1_TextChanged;
+            // 
+            // label9
+            // 
+            label9.BackColor = Color.Transparent;
+            label9.Font = new Font("Cambria", 13.8F, FontStyle.Bold);
+            label9.ImageAlign = ContentAlignment.MiddleLeft;
+            label9.Location = new Point(75, 476);
+            label9.Name = "label9";
+            label9.Size = new Size(105, 30);
+            label9.TabIndex = 17;
+            label9.Text = "Поиск";
+            label9.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // dataGridView1
+            // 
+            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridView1.Columns.AddRange(new DataGridViewColumn[] { colId, colTitle, colAuthor, colPrice });
+            dataGridView1.Location = new Point(75, 161);
+            dataGridView1.Name = "dataGridView1";
+            dataGridView1.RowHeadersWidth = 51;
+            dataGridView1.Size = new Size(427, 299);
+            dataGridView1.TabIndex = 16;
+            // 
+            // colId
+            // 
+            colId.HeaderText = "ID";
+            colId.MinimumWidth = 6;
+            colId.Name = "colId";
+            colId.Visible = false;
+            colId.Width = 125;
+            // 
+            // colTitle
+            // 
+            colTitle.HeaderText = "Title";
+            colTitle.MinimumWidth = 6;
+            colTitle.Name = "colTitle";
+            colTitle.Width = 125;
+            // 
+            // colAuthor
+            // 
+            colAuthor.HeaderText = "Author";
+            colAuthor.MinimumWidth = 6;
+            colAuthor.Name = "colAuthor";
+            colAuthor.Width = 125;
+            // 
+            // colPrice
+            // 
+            colPrice.HeaderText = "Price";
+            colPrice.MinimumWidth = 6;
+            colPrice.Name = "colPrice";
+            colPrice.Width = 125;
+            // 
+            // label8
+            // 
+            label8.BackColor = Color.Transparent;
+            label8.Font = new Font("Cambria", 13.8F, FontStyle.Bold);
+            label8.ImageAlign = ContentAlignment.MiddleLeft;
+            label8.Location = new Point(349, 90);
+            label8.Name = "label8";
+            label8.Size = new Size(101, 30);
+            label8.TabIndex = 15;
+            label8.Text = "Жанр:";
+            // 
+            // GenreSelectCB
+            // 
+            GenreSelectCB.FormattingEnabled = true;
+            GenreSelectCB.Location = new Point(349, 127);
+            GenreSelectCB.Name = "GenreSelectCB";
+            GenreSelectCB.Size = new Size(151, 28);
+            GenreSelectCB.TabIndex = 14;
+            // 
+            // label7
+            // 
+            label7.BackColor = Color.Transparent;
+            label7.Font = new Font("Cambria", 13.8F, FontStyle.Bold);
+            label7.ImageAlign = ContentAlignment.MiddleLeft;
+            label7.Location = new Point(72, 90);
+            label7.Name = "label7";
+            label7.Size = new Size(101, 30);
+            label7.TabIndex = 13;
+            label7.Text = "Баланс:";
+            // 
+            // BalanceL
+            // 
+            BalanceL.BackColor = Color.White;
+            BalanceL.Location = new Point(75, 120);
+            BalanceL.Name = "BalanceL";
+            BalanceL.Size = new Size(101, 35);
+            BalanceL.TabIndex = 12;
+            // 
+            // panel15
+            // 
+            panel15.BackColor = Color.Silver;
+            panel15.BorderStyle = BorderStyle.FixedSingle;
+            panel15.ForeColor = SystemColors.ActiveCaption;
+            panel15.Location = new Point(3, 0);
+            panel15.Name = "panel15";
+            panel15.Size = new Size(574, 10);
+            panel15.TabIndex = 12;
+            // 
+            // panel16
+            // 
+            panel16.BackColor = Color.Silver;
+            panel16.BorderStyle = BorderStyle.FixedSingle;
+            panel16.ForeColor = SystemColors.ActiveCaption;
+            panel16.Location = new Point(440, 0);
+            panel16.Name = "panel16";
+            panel16.Size = new Size(10, 73);
+            panel16.TabIndex = 4;
+            // 
+            // panel17
+            // 
+            panel17.BackColor = Color.Silver;
+            panel17.BorderStyle = BorderStyle.FixedSingle;
+            panel17.ForeColor = SystemColors.ActiveCaption;
+            panel17.Location = new Point(109, 0);
+            panel17.Name = "panel17";
+            panel17.Size = new Size(10, 73);
+            panel17.TabIndex = 3;
+            // 
+            // panel24
+            // 
+            panel24.BackColor = Color.FromArgb(172, 199, 221);
+            panel24.Controls.Add(panel25);
+            panel24.Controls.Add(label13);
+            panel24.Dock = DockStyle.Top;
+            panel24.Location = new Point(3, 3);
+            panel24.Name = "panel24";
+            panel24.Size = new Size(568, 70);
+            panel24.TabIndex = 0;
+            // 
+            // panel25
+            // 
+            panel25.BackColor = Color.Silver;
+            panel25.BorderStyle = BorderStyle.FixedSingle;
+            panel25.ForeColor = SystemColors.ActiveCaption;
+            panel25.Location = new Point(-3, 60);
+            panel25.Name = "panel25";
+            panel25.Size = new Size(574, 10);
+            panel25.TabIndex = 11;
+            // 
+            // label13
+            // 
+            label13.Dock = DockStyle.Fill;
+            label13.Font = new Font("Cambria", 24F, FontStyle.Regular, GraphicsUnit.Point, 204);
+            label13.ForeColor = SystemColors.InfoText;
+            label13.Location = new Point(0, 0);
+            label13.Name = "label13";
+            label13.Size = new Size(568, 70);
+            label13.TabIndex = 0;
+            label13.Text = "Магазин";
+            label13.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // tabPage1
             // 
@@ -297,6 +549,7 @@
             ID_TB.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point, 204);
             ID_TB.Location = new Point(158, 24);
             ID_TB.Name = "ID_TB";
+            ID_TB.ReadOnly = true;
             ID_TB.Size = new Size(321, 20);
             ID_TB.TabIndex = 1;
             // 
@@ -413,15 +666,34 @@
             titleL.Text = "Новая книга";
             titleL.TextAlign = ContentAlignment.MiddleCenter;
             // 
-            // tabPage2
+            // MainTC
             // 
-            tabPage2.Location = new Point(4, 29);
-            tabPage2.Name = "tabPage2";
-            tabPage2.Padding = new Padding(3);
-            tabPage2.Size = new Size(574, 620);
-            tabPage2.TabIndex = 1;
-            tabPage2.Text = "Магазин";
-            tabPage2.UseVisualStyleBackColor = true;
+            MainTC.Controls.Add(tabPage1);
+            MainTC.Controls.Add(StoreTP);
+            MainTC.Dock = DockStyle.Fill;
+            MainTC.Location = new Point(0, 0);
+            MainTC.Name = "MainTC";
+            MainTC.SelectedIndex = 0;
+            MainTC.Size = new Size(582, 653);
+            MainTC.TabIndex = 0;
+            // 
+            // panel18
+            // 
+            panel18.BackColor = Color.Silver;
+            panel18.BorderStyle = BorderStyle.FixedSingle;
+            panel18.Location = new Point(33, 513);
+            panel18.Name = "panel18";
+            panel18.Size = new Size(10, 58);
+            panel18.TabIndex = 24;
+            // 
+            // panel19
+            // 
+            panel19.BackColor = Color.Silver;
+            panel19.BorderStyle = BorderStyle.FixedSingle;
+            panel19.Location = new Point(534, 513);
+            panel19.Name = "panel19";
+            panel19.Size = new Size(10, 58);
+            panel19.TabIndex = 25;
             // 
             // BookStoreF
             // 
@@ -433,7 +705,10 @@
             MaximizeBox = false;
             Name = "BookStoreF";
             Text = "Книжный Магазин";
-            MainTC.ResumeLayout(false);
+            StoreTP.ResumeLayout(false);
+            StoreTP.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
+            panel24.ResumeLayout(false);
             tabPage1.ResumeLayout(false);
             panel6.ResumeLayout(false);
             panel6.PerformLayout();
@@ -448,19 +723,27 @@
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
             titleP.ResumeLayout(false);
+            MainTC.ResumeLayout(false);
             ResumeLayout(false);
         }
 
         #endregion
 
-        private TabControl MainTC;
+        private TabPage StoreTP;
+        private Panel panel15;
+        private Panel panel16;
+        private Panel panel17;
+        private Panel panel24;
+        private Panel panel25;
+        private Label label13;
         private TabPage tabPage1;
-        private TabPage tabPage2;
-        private Panel titleP;
-        private Label titleL;
-        private Panel panel1;
-        private Label label1;
-        private TextBox TitleTB;
+        private Panel panel12;
+        private Panel panel11;
+        private Button RandomizeBookB;
+        private Button AddBookB;
+        private Panel panel10;
+        private Panel panel8;
+        private Panel panel7;
         private Panel panel6;
         private TextBox PriceTB;
         private Label label6;
@@ -476,13 +759,30 @@
         private Panel panel3;
         private TextBox AuthorTB;
         private Label label2;
-        private Panel panel10;
+        private Panel panel1;
+        private TextBox TitleTB;
+        private Label label1;
+        private Panel titleP;
         private Panel panel9;
-        private Button AddBookB;
-        private Button RandomizeBookB;
-        private Panel panel8;
-        private Panel panel7;
-        private Panel panel11;
-        private Panel panel12;
+        private Label titleL;
+        private TabControl MainTC;
+        private Label label7;
+        private Label BalanceL;
+        private Label label8;
+        private ComboBox GenreSelectCB;
+        private DataGridView dataGridView1;
+        private DataGridViewTextBoxColumn colId;
+        private DataGridViewTextBoxColumn colTitle;
+        private DataGridViewTextBoxColumn colAuthor;
+        private DataGridViewTextBoxColumn colPrice;
+        private Label label9;
+        private TextBox FoundStringTB;
+        private Button FoundB;
+        private Button ClearCaseB;
+        private Button SellBookB;
+        private Panel panel14;
+        private Panel panel13;
+        private Panel panel19;
+        private Panel panel18;
     }
 }

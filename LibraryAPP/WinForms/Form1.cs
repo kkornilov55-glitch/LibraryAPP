@@ -17,16 +17,9 @@ namespace WinForms
         {
             InitializeComponent();
 
-            //Настройка формы (требование №9)
-            //this.Text = "Книжный Магазин";
-            //this.Name = "BookStoreForm";
-
             //ID генерируется автоматически — поле только для чтения
-            ID_TB.ReadOnly = true;
-            ID_TB.TabStop = false;
-
-            //Текст для кнопки генерации
-            //RandomizeBookB.Text = "🎲";
+            //ID_TB.ReadOnly = true;
+            //ID_TB.TabStop = false;
 
             //Инициализация данных
             _bookCases = new List<BookCase>();
@@ -157,6 +150,11 @@ namespace WinForms
             PriceTB.Clear();
             ID_TB.Clear();
             TitleTB.Focus();
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }
