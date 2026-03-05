@@ -5,7 +5,7 @@ using ClassLibrary;
 
 namespace WinForms
 {
-    public partial class Form1 : Form
+    public partial class BookStoreF : Form
     {
         //Коллекция шкафов — пока только один для примера
         private List<BookCase> _bookCases;
@@ -13,20 +13,20 @@ namespace WinForms
         //Список всех книг — нужен для GenerateBook (уникальность названий)
         private List<Book> _allBooks;
 
-        public Form1()
+        public BookStoreF()
         {
             InitializeComponent();
 
             //Настройка формы (требование №9)
-            this.Text = "Книжный Магазин";
-            this.Name = "BookStoreForm";
+            //this.Text = "Книжный Магазин";
+            //this.Name = "BookStoreForm";
 
             //ID генерируется автоматически — поле только для чтения
             ID_TB.ReadOnly = true;
             ID_TB.TabStop = false;
 
             //Текст для кнопки генерации
-            RandomizeBookB.Text = "🎲";
+            //RandomizeBookB.Text = "🎲";
 
             //Инициализация данных
             _bookCases = new List<BookCase>();

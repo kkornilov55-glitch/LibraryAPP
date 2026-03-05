@@ -1,6 +1,6 @@
 ﻿namespace WinForms
 {
-    partial class Form1
+    partial class BookStoreF
     {
         /// <summary>
         ///  Required designer variable.
@@ -126,11 +126,13 @@
             // RandomizeBookB
             // 
             RandomizeBookB.BackColor = Color.FromArgb(172, 199, 221);
-            RandomizeBookB.Font = new Font("Cambria", 22.2F, FontStyle.Bold, GraphicsUnit.Point, 204);
-            RandomizeBookB.Location = new Point(471, 553);
+            RandomizeBookB.Font = new Font("Cambria", 14F, FontStyle.Bold);
+            RandomizeBookB.Location = new Point(471, 565);
             RandomizeBookB.Name = "RandomizeBookB";
-            RandomizeBookB.Size = new Size(77, 59);
+            RandomizeBookB.Size = new Size(66, 36);
             RandomizeBookB.TabIndex = 14;
+            RandomizeBookB.Text = "🎲";
+            RandomizeBookB.TextAlign = ContentAlignment.TopCenter;
             RandomizeBookB.UseVisualStyleBackColor = false;
             // 
             // AddBookB
@@ -421,7 +423,7 @@
             tabPage2.Text = "Магазин";
             tabPage2.UseVisualStyleBackColor = true;
             // 
-            // Form1
+            // BookStoreF
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
@@ -429,8 +431,8 @@
             Controls.Add(MainTC);
             FormBorderStyle = FormBorderStyle.FixedSingle;
             MaximizeBox = false;
-            Name = "Form1";
-            Text = "Form1";
+            Name = "BookStoreF";
+            Text = "Книжный Магазин";
             MainTC.ResumeLayout(false);
             tabPage1.ResumeLayout(false);
             panel6.ResumeLayout(false);
