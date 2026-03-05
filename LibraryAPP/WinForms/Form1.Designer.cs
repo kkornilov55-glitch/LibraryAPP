@@ -127,9 +127,9 @@
             // 
             RandomizeBookB.BackColor = Color.FromArgb(172, 199, 221);
             RandomizeBookB.Font = new Font("Cambria", 22.2F, FontStyle.Bold, GraphicsUnit.Point, 204);
-            RandomizeBookB.Location = new Point(484, 565);
+            RandomizeBookB.Location = new Point(471, 553);
             RandomizeBookB.Name = "RandomizeBookB";
-            RandomizeBookB.Size = new Size(53, 36);
+            RandomizeBookB.Size = new Size(77, 59);
             RandomizeBookB.TabIndex = 14;
             RandomizeBookB.UseVisualStyleBackColor = false;
             // 
