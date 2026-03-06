@@ -18,7 +18,7 @@ namespace ClassLibrary
         public int Pages { get; private set; }
         public double Price { get; private set; }
 
-        private int counter = 0;
+        private static int counter = 0;
 
 
 
@@ -27,9 +27,14 @@ namespace ClassLibrary
         /// </summary>
         public Book(string title, string author, string genre, int pages, double price)
         {
-            if (string.IsNullOrWhiteSpace(title) || string.IsNullOrWhiteSpace(author))
+            if (string.IsNullOrWhiteSpace(title))
             {
-                throw new ArgumentNullException("Название книги или автор не могут быть пустыми");
+                throw new ArgumentNullException(nameof(title), "Название книги не может быть пустым");
+            }
+
+            if (string.IsNullOrWhiteSpace(author))
+            {
+                throw new ArgumentNullException(nameof(author), "Автор не может быть пустым.");
             }
             id = ++counter;
             Title = title;
@@ -140,11 +145,3 @@ namespace ClassLibrary
         }
     }
 }
-
-
-
-        
-
-
-
-
