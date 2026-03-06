@@ -118,11 +118,10 @@
             StoreTP.Controls.Add(panel16);
             StoreTP.Controls.Add(panel17);
             StoreTP.Controls.Add(panel24);
-            StoreTP.Location = new Point(4, 24);
-            StoreTP.Margin = new Padding(3, 2, 3, 2);
+            StoreTP.Location = new Point(4, 29);
             StoreTP.Name = "StoreTP";
-            StoreTP.Padding = new Padding(3, 2, 3, 2);
-            StoreTP.Size = new Size(501, 479);
+            StoreTP.Padding = new Padding(3, 3, 3, 3);
+            StoreTP.Size = new Size(574, 643);
             StoreTP.TabIndex = 2;
             StoreTP.Text = "Магазин";
             // 
@@ -130,40 +129,36 @@
             // 
             panel19.BackColor = Color.Silver;
             panel19.BorderStyle = BorderStyle.FixedSingle;
-            panel19.Location = new Point(467, 385);
-            panel19.Margin = new Padding(3, 2, 3, 2);
+            panel19.Location = new Point(534, 513);
             panel19.Name = "panel19";
-            panel19.Size = new Size(9, 44);
+            panel19.Size = new Size(10, 58);
             panel19.TabIndex = 25;
             // 
             // panel18
             // 
             panel18.BackColor = Color.Silver;
             panel18.BorderStyle = BorderStyle.FixedSingle;
-            panel18.Location = new Point(29, 385);
-            panel18.Margin = new Padding(3, 2, 3, 2);
+            panel18.Location = new Point(33, 513);
             panel18.Name = "panel18";
-            panel18.Size = new Size(9, 44);
+            panel18.Size = new Size(10, 58);
             panel18.TabIndex = 24;
             // 
             // panel14
             // 
             panel14.BackColor = Color.Silver;
             panel14.BorderStyle = BorderStyle.FixedSingle;
-            panel14.Location = new Point(467, 90);
-            panel14.Margin = new Padding(3, 2, 3, 2);
+            panel14.Location = new Point(534, 120);
             panel14.Name = "panel14";
-            panel14.Size = new Size(9, 256);
+            panel14.Size = new Size(10, 341);
             panel14.TabIndex = 23;
             // 
             // panel13
             // 
             panel13.BackColor = Color.Silver;
             panel13.BorderStyle = BorderStyle.FixedSingle;
-            panel13.Location = new Point(29, 90);
-            panel13.Margin = new Padding(3, 2, 3, 2);
+            panel13.Location = new Point(33, 120);
             panel13.Name = "panel13";
-            panel13.Size = new Size(9, 256);
+            panel13.Size = new Size(10, 341);
             panel13.TabIndex = 22;
             // 
             // ClearCaseB
@@ -172,10 +167,9 @@
             ClearCaseB.FlatAppearance.BorderColor = Color.Black;
             ClearCaseB.FlatStyle = FlatStyle.Flat;
             ClearCaseB.Font = new Font("Cambria", 11F);
-            ClearCaseB.Location = new Point(255, 433);
-            ClearCaseB.Margin = new Padding(3, 2, 3, 2);
+            ClearCaseB.Location = new Point(291, 577);
             ClearCaseB.Name = "ClearCaseB";
-            ClearCaseB.Size = new Size(183, 26);
+            ClearCaseB.Size = new Size(209, 35);
             ClearCaseB.TabIndex = 21;
             ClearCaseB.Text = "Очистить шкаф";
             ClearCaseB.UseVisualStyleBackColor = false;
@@ -186,10 +180,9 @@
             SellBookB.FlatAppearance.BorderColor = Color.Black;
             SellBookB.FlatStyle = FlatStyle.Flat;
             SellBookB.Font = new Font("Cambria", 11F);
-            SellBookB.Location = new Point(66, 433);
-            SellBookB.Margin = new Padding(3, 2, 3, 2);
+            SellBookB.Location = new Point(75, 577);
             SellBookB.Name = "SellBookB";
-            SellBookB.Size = new Size(183, 26);
+            SellBookB.Size = new Size(209, 35);
             SellBookB.TabIndex = 20;
             SellBookB.Text = "Продать";
             SellBookB.UseVisualStyleBackColor = false;
@@ -201,20 +194,18 @@
             FoundB.FlatStyle = FlatStyle.Flat;
             FoundB.Font = new Font("Cambria", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 204);
             FoundB.ForeColor = SystemColors.ButtonHighlight;
-            FoundB.Location = new Point(66, 392);
-            FoundB.Margin = new Padding(3, 2, 3, 2);
+            FoundB.Location = new Point(75, 523);
             FoundB.Name = "FoundB";
-            FoundB.Size = new Size(372, 37);
+            FoundB.Size = new Size(425, 49);
             FoundB.TabIndex = 19;
             FoundB.Text = "НАЙТИ!";
             FoundB.UseVisualStyleBackColor = false;
             // 
             // FoundStringTB
             // 
-            FoundStringTB.Location = new Point(141, 359);
-            FoundStringTB.Margin = new Padding(3, 2, 3, 2);
+            FoundStringTB.Location = new Point(160, 479);
             FoundStringTB.Name = "FoundStringTB";
-            FoundStringTB.Size = new Size(299, 23);
+            FoundStringTB.Size = new Size(342, 27);
             FoundStringTB.TabIndex = 18;
             FoundStringTB.TextChanged += textBox1_TextChanged;
             // 
@@ -223,9 +214,9 @@
             label9.BackColor = Color.Transparent;
             label9.Font = new Font("Cambria", 13.8F, FontStyle.Bold);
             label9.ImageAlign = ContentAlignment.MiddleLeft;
-            label9.Location = new Point(66, 359);
+            label9.Location = new Point(75, 479);
             label9.Name = "label9";
-            label9.Size = new Size(69, 22);
+            label9.Size = new Size(84, 29);
             label9.TabIndex = 17;
             label9.Text = "Поиск";
             label9.TextAlign = ContentAlignment.MiddleLeft;
@@ -234,11 +225,10 @@
             // 
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridView1.Columns.AddRange(new DataGridViewColumn[] { colId, colTitle, colAuthor, colPrice });
-            dataGridView1.Location = new Point(66, 121);
-            dataGridView1.Margin = new Padding(3, 2, 3, 2);
+            dataGridView1.Location = new Point(75, 161);
             dataGridView1.Name = "dataGridView1";
             dataGridView1.RowHeadersWidth = 51;
-            dataGridView1.Size = new Size(374, 224);
+            dataGridView1.Size = new Size(427, 299);
             dataGridView1.TabIndex = 16;
             // 
             // colId
@@ -275,19 +265,18 @@
             label8.BackColor = Color.Transparent;
             label8.Font = new Font("Cambria", 13.8F, FontStyle.Bold);
             label8.ImageAlign = ContentAlignment.MiddleLeft;
-            label8.Location = new Point(305, 68);
+            label8.Location = new Point(349, 91);
             label8.Name = "label8";
-            label8.Size = new Size(88, 22);
+            label8.Size = new Size(101, 29);
             label8.TabIndex = 15;
             label8.Text = "Жанр:";
             // 
             // GenreSelectCB
             // 
             GenreSelectCB.FormattingEnabled = true;
-            GenreSelectCB.Location = new Point(305, 95);
-            GenreSelectCB.Margin = new Padding(3, 2, 3, 2);
+            GenreSelectCB.Location = new Point(349, 127);
             GenreSelectCB.Name = "GenreSelectCB";
-            GenreSelectCB.Size = new Size(133, 23);
+            GenreSelectCB.Size = new Size(151, 28);
             GenreSelectCB.TabIndex = 14;
             // 
             // label7
@@ -295,18 +284,18 @@
             label7.BackColor = Color.Transparent;
             label7.Font = new Font("Cambria", 13.8F, FontStyle.Bold);
             label7.ImageAlign = ContentAlignment.MiddleLeft;
-            label7.Location = new Point(63, 68);
+            label7.Location = new Point(72, 91);
             label7.Name = "label7";
-            label7.Size = new Size(88, 22);
+            label7.Size = new Size(101, 29);
             label7.TabIndex = 13;
             label7.Text = "Баланс:";
             // 
             // BalanceL
             // 
             BalanceL.BackColor = Color.White;
-            BalanceL.Location = new Point(66, 95);
+            BalanceL.Location = new Point(75, 127);
             BalanceL.Name = "BalanceL";
-            BalanceL.Size = new Size(88, 21);
+            BalanceL.Size = new Size(101, 28);
             BalanceL.TabIndex = 12;
             // 
             // panel15
@@ -315,9 +304,8 @@
             panel15.BorderStyle = BorderStyle.FixedSingle;
             panel15.ForeColor = SystemColors.ActiveCaption;
             panel15.Location = new Point(3, 0);
-            panel15.Margin = new Padding(3, 2, 3, 2);
             panel15.Name = "panel15";
-            panel15.Size = new Size(502, 8);
+            panel15.Size = new Size(573, 10);
             panel15.TabIndex = 12;
             // 
             // panel16
@@ -325,10 +313,9 @@
             panel16.BackColor = Color.Silver;
             panel16.BorderStyle = BorderStyle.FixedSingle;
             panel16.ForeColor = SystemColors.ActiveCaption;
-            panel16.Location = new Point(385, 0);
-            panel16.Margin = new Padding(3, 2, 3, 2);
+            panel16.Location = new Point(440, 0);
             panel16.Name = "panel16";
-            panel16.Size = new Size(9, 55);
+            panel16.Size = new Size(10, 73);
             panel16.TabIndex = 4;
             // 
             // panel17
@@ -336,10 +323,9 @@
             panel17.BackColor = Color.Silver;
             panel17.BorderStyle = BorderStyle.FixedSingle;
             panel17.ForeColor = SystemColors.ActiveCaption;
-            panel17.Location = new Point(95, 0);
-            panel17.Margin = new Padding(3, 2, 3, 2);
+            panel17.Location = new Point(109, 0);
             panel17.Name = "panel17";
-            panel17.Size = new Size(9, 55);
+            panel17.Size = new Size(10, 73);
             panel17.TabIndex = 3;
             // 
             // panel24
@@ -348,10 +334,9 @@
             panel24.Controls.Add(panel25);
             panel24.Controls.Add(label13);
             panel24.Dock = DockStyle.Top;
-            panel24.Location = new Point(3, 2);
-            panel24.Margin = new Padding(3, 2, 3, 2);
+            panel24.Location = new Point(3, 3);
             panel24.Name = "panel24";
-            panel24.Size = new Size(495, 52);
+            panel24.Size = new Size(568, 69);
             panel24.TabIndex = 0;
             // 
             // panel25
@@ -359,10 +344,9 @@
             panel25.BackColor = Color.Silver;
             panel25.BorderStyle = BorderStyle.FixedSingle;
             panel25.ForeColor = SystemColors.ActiveCaption;
-            panel25.Location = new Point(-3, 45);
-            panel25.Margin = new Padding(3, 2, 3, 2);
+            panel25.Location = new Point(-3, 60);
             panel25.Name = "panel25";
-            panel25.Size = new Size(502, 8);
+            panel25.Size = new Size(573, 10);
             panel25.TabIndex = 11;
             // 
             // label13
@@ -373,7 +357,7 @@
             label13.ForeColor = Color.FromArgb(253, 252, 232);
             label13.Location = new Point(0, 0);
             label13.Name = "label13";
-            label13.Size = new Size(495, 52);
+            label13.Size = new Size(568, 69);
             label13.TabIndex = 0;
             label13.Text = "Магазин";
             label13.TextAlign = ContentAlignment.MiddleCenter;
@@ -395,11 +379,10 @@
             tabPage1.Controls.Add(panel3);
             tabPage1.Controls.Add(panel1);
             tabPage1.Controls.Add(titleP);
-            tabPage1.Location = new Point(4, 24);
-            tabPage1.Margin = new Padding(3, 2, 3, 2);
+            tabPage1.Location = new Point(4, 29);
             tabPage1.Name = "tabPage1";
-            tabPage1.Padding = new Padding(3, 2, 3, 2);
-            tabPage1.Size = new Size(501, 479);
+            tabPage1.Padding = new Padding(3, 3, 3, 3);
+            tabPage1.Size = new Size(574, 643);
             tabPage1.TabIndex = 0;
             tabPage1.Text = "Новая книга";
             // 
@@ -407,20 +390,18 @@
             // 
             panel12.BackColor = Color.Silver;
             panel12.BorderStyle = BorderStyle.FixedSingle;
-            panel12.Location = new Point(7, 380);
-            panel12.Margin = new Padding(3, 2, 3, 2);
+            panel12.Location = new Point(8, 507);
             panel12.Name = "panel12";
-            panel12.Size = new Size(9, 16);
+            panel12.Size = new Size(10, 21);
             panel12.TabIndex = 16;
             // 
             // panel11
             // 
             panel11.BackColor = Color.Silver;
             panel11.BorderStyle = BorderStyle.FixedSingle;
-            panel11.Location = new Point(7, 112);
-            panel11.Margin = new Padding(3, 2, 3, 2);
+            panel11.Location = new Point(8, 149);
             panel11.Name = "panel11";
-            panel11.Size = new Size(9, 221);
+            panel11.Size = new Size(10, 294);
             panel11.TabIndex = 15;
             // 
             // RandomizeBookB
@@ -430,10 +411,9 @@
             RandomizeBookB.FlatStyle = FlatStyle.Flat;
             RandomizeBookB.Font = new Font("Cambria", 14F, FontStyle.Bold);
             RandomizeBookB.ForeColor = Color.FromArgb(57, 30, 16);
-            RandomizeBookB.Location = new Point(412, 424);
-            RandomizeBookB.Margin = new Padding(3, 2, 3, 2);
+            RandomizeBookB.Location = new Point(471, 565);
             RandomizeBookB.Name = "RandomizeBookB";
-            RandomizeBookB.Size = new Size(58, 35);
+            RandomizeBookB.Size = new Size(66, 47);
             RandomizeBookB.TabIndex = 14;
             RandomizeBookB.Text = "🎲";
             RandomizeBookB.TextAlign = ContentAlignment.TopCenter;
@@ -447,10 +427,9 @@
             AddBookB.FlatStyle = FlatStyle.Flat;
             AddBookB.Font = new Font("Cambria", 9F, FontStyle.Bold, GraphicsUnit.Point, 204);
             AddBookB.ForeColor = SystemColors.Control;
-            AddBookB.Location = new Point(33, 424);
-            AddBookB.Margin = new Padding(3, 2, 3, 2);
+            AddBookB.Location = new Point(38, 565);
             AddBookB.Name = "AddBookB";
-            AddBookB.Size = new Size(360, 35);
+            AddBookB.Size = new Size(411, 47);
             AddBookB.TabIndex = 13;
             AddBookB.Text = "СОХРАНИТЬ";
             AddBookB.UseVisualStyleBackColor = false;
@@ -461,9 +440,8 @@
             panel10.BorderStyle = BorderStyle.FixedSingle;
             panel10.ForeColor = SystemColors.ActiveCaption;
             panel10.Location = new Point(3, 0);
-            panel10.Margin = new Padding(3, 2, 3, 2);
             panel10.Name = "panel10";
-            panel10.Size = new Size(502, 8);
+            panel10.Size = new Size(573, 10);
             panel10.TabIndex = 12;
             // 
             // panel8
@@ -471,10 +449,9 @@
             panel8.BackColor = Color.Silver;
             panel8.BorderStyle = BorderStyle.FixedSingle;
             panel8.ForeColor = SystemColors.ActiveCaption;
-            panel8.Location = new Point(385, 0);
-            panel8.Margin = new Padding(3, 2, 3, 2);
+            panel8.Location = new Point(440, 0);
             panel8.Name = "panel8";
-            panel8.Size = new Size(9, 55);
+            panel8.Size = new Size(10, 73);
             panel8.TabIndex = 4;
             // 
             // panel7
@@ -482,10 +459,9 @@
             panel7.BackColor = Color.Silver;
             panel7.BorderStyle = BorderStyle.FixedSingle;
             panel7.ForeColor = SystemColors.ActiveCaption;
-            panel7.Location = new Point(95, 0);
-            panel7.Margin = new Padding(3, 2, 3, 2);
+            panel7.Location = new Point(109, 0);
             panel7.Name = "panel7";
-            panel7.Size = new Size(9, 55);
+            panel7.Size = new Size(10, 73);
             panel7.TabIndex = 3;
             // 
             // panel6
@@ -494,10 +470,9 @@
             panel6.BorderStyle = BorderStyle.FixedSingle;
             panel6.Controls.Add(PriceTB);
             panel6.Controls.Add(label6);
-            panel6.Location = new Point(32, 348);
-            panel6.Margin = new Padding(3, 2, 3, 2);
+            panel6.Location = new Point(37, 464);
             panel6.Name = "panel6";
-            panel6.Size = new Size(438, 49);
+            panel6.Size = new Size(500, 65);
             panel6.TabIndex = 10;
             // 
             // PriceTB
@@ -506,10 +481,9 @@
             PriceTB.BorderStyle = BorderStyle.None;
             PriceTB.Cursor = Cursors.IBeam;
             PriceTB.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point, 204);
-            PriceTB.Location = new Point(157, 18);
-            PriceTB.Margin = new Padding(3, 2, 3, 2);
+            PriceTB.Location = new Point(179, 24);
             PriceTB.Name = "PriceTB";
-            PriceTB.Size = new Size(262, 16);
+            PriceTB.Size = new Size(299, 20);
             PriceTB.TabIndex = 1;
             // 
             // label6
@@ -520,8 +494,8 @@
             label6.ForeColor = Color.FromArgb(253, 252, 232);
             label6.Location = new Point(0, 0);
             label6.Name = "label6";
-            label6.Padding = new Padding(10, 0, 10, 0);
-            label6.Size = new Size(141, 47);
+            label6.Padding = new Padding(11, 0, 11, 0);
+            label6.Size = new Size(161, 63);
             label6.TabIndex = 0;
             label6.Text = "Цена";
             label6.TextAlign = ContentAlignment.MiddleLeft;
@@ -532,10 +506,9 @@
             panel5.BorderStyle = BorderStyle.FixedSingle;
             panel5.Controls.Add(PagesCountTB);
             panel5.Controls.Add(label5);
-            panel5.Location = new Point(32, 293);
-            panel5.Margin = new Padding(3, 2, 3, 2);
+            panel5.Location = new Point(37, 391);
             panel5.Name = "panel5";
-            panel5.Size = new Size(438, 49);
+            panel5.Size = new Size(500, 65);
             panel5.TabIndex = 9;
             // 
             // PagesCountTB
@@ -544,10 +517,9 @@
             PagesCountTB.BorderStyle = BorderStyle.None;
             PagesCountTB.Cursor = Cursors.IBeam;
             PagesCountTB.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point, 204);
-            PagesCountTB.Location = new Point(157, 18);
-            PagesCountTB.Margin = new Padding(3, 2, 3, 2);
+            PagesCountTB.Location = new Point(179, 24);
             PagesCountTB.Name = "PagesCountTB";
-            PagesCountTB.Size = new Size(262, 16);
+            PagesCountTB.Size = new Size(299, 20);
             PagesCountTB.TabIndex = 1;
             // 
             // label5
@@ -558,8 +530,8 @@
             label5.ForeColor = Color.FromArgb(253, 252, 232);
             label5.Location = new Point(0, 0);
             label5.Name = "label5";
-            label5.Padding = new Padding(10, 0, 10, 0);
-            label5.Size = new Size(141, 47);
+            label5.Padding = new Padding(11, 0, 11, 0);
+            label5.Size = new Size(161, 63);
             label5.TabIndex = 0;
             label5.Text = "Количество страниц";
             label5.TextAlign = ContentAlignment.MiddleLeft;
@@ -570,10 +542,9 @@
             panel4.BorderStyle = BorderStyle.FixedSingle;
             panel4.Controls.Add(GenreTB);
             panel4.Controls.Add(label4);
-            panel4.Location = new Point(32, 240);
-            panel4.Margin = new Padding(3, 2, 3, 2);
+            panel4.Location = new Point(37, 320);
             panel4.Name = "panel4";
-            panel4.Size = new Size(438, 49);
+            panel4.Size = new Size(500, 65);
             panel4.TabIndex = 8;
             // 
             // GenreTB
@@ -582,10 +553,9 @@
             GenreTB.BorderStyle = BorderStyle.None;
             GenreTB.Cursor = Cursors.IBeam;
             GenreTB.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point, 204);
-            GenreTB.Location = new Point(157, 18);
-            GenreTB.Margin = new Padding(3, 2, 3, 2);
+            GenreTB.Location = new Point(179, 24);
             GenreTB.Name = "GenreTB";
-            GenreTB.Size = new Size(262, 16);
+            GenreTB.Size = new Size(299, 20);
             GenreTB.TabIndex = 1;
             // 
             // label4
@@ -596,8 +566,8 @@
             label4.ForeColor = Color.FromArgb(253, 252, 232);
             label4.Location = new Point(0, 0);
             label4.Name = "label4";
-            label4.Padding = new Padding(10, 0, 10, 0);
-            label4.Size = new Size(141, 47);
+            label4.Padding = new Padding(11, 0, 11, 0);
+            label4.Size = new Size(161, 63);
             label4.TabIndex = 0;
             label4.Text = "Жанр";
             label4.TextAlign = ContentAlignment.MiddleLeft;
@@ -608,10 +578,9 @@
             panel2.BorderStyle = BorderStyle.FixedSingle;
             panel2.Controls.Add(ID_TB);
             panel2.Controls.Add(label3);
-            panel2.Location = new Point(32, 187);
-            panel2.Margin = new Padding(3, 2, 3, 2);
+            panel2.Location = new Point(37, 249);
             panel2.Name = "panel2";
-            panel2.Size = new Size(438, 49);
+            panel2.Size = new Size(500, 65);
             panel2.TabIndex = 7;
             // 
             // ID_TB
@@ -620,11 +589,10 @@
             ID_TB.BorderStyle = BorderStyle.None;
             ID_TB.Cursor = Cursors.IBeam;
             ID_TB.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point, 204);
-            ID_TB.Location = new Point(157, 18);
-            ID_TB.Margin = new Padding(3, 2, 3, 2);
+            ID_TB.Location = new Point(179, 24);
             ID_TB.Name = "ID_TB";
             ID_TB.ReadOnly = true;
-            ID_TB.Size = new Size(262, 16);
+            ID_TB.Size = new Size(299, 20);
             ID_TB.TabIndex = 1;
             // 
             // label3
@@ -635,8 +603,8 @@
             label3.ForeColor = Color.FromArgb(253, 252, 232);
             label3.Location = new Point(0, 0);
             label3.Name = "label3";
-            label3.Padding = new Padding(10, 0, 10, 0);
-            label3.Size = new Size(141, 47);
+            label3.Padding = new Padding(11, 0, 11, 0);
+            label3.Size = new Size(161, 63);
             label3.TabIndex = 0;
             label3.Text = "ID";
             label3.TextAlign = ContentAlignment.MiddleLeft;
@@ -647,10 +615,9 @@
             panel3.BorderStyle = BorderStyle.FixedSingle;
             panel3.Controls.Add(AuthorTB);
             panel3.Controls.Add(label2);
-            panel3.Location = new Point(32, 134);
-            panel3.Margin = new Padding(3, 2, 3, 2);
+            panel3.Location = new Point(37, 179);
             panel3.Name = "panel3";
-            panel3.Size = new Size(438, 49);
+            panel3.Size = new Size(500, 65);
             panel3.TabIndex = 6;
             // 
             // AuthorTB
@@ -659,10 +626,9 @@
             AuthorTB.BorderStyle = BorderStyle.None;
             AuthorTB.Cursor = Cursors.IBeam;
             AuthorTB.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point, 204);
-            AuthorTB.Location = new Point(157, 18);
-            AuthorTB.Margin = new Padding(3, 2, 3, 2);
+            AuthorTB.Location = new Point(179, 24);
             AuthorTB.Name = "AuthorTB";
-            AuthorTB.Size = new Size(262, 16);
+            AuthorTB.Size = new Size(299, 20);
             AuthorTB.TabIndex = 1;
             // 
             // label2
@@ -673,8 +639,8 @@
             label2.ForeColor = Color.FromArgb(253, 252, 232);
             label2.Location = new Point(0, 0);
             label2.Name = "label2";
-            label2.Padding = new Padding(10, 0, 10, 0);
-            label2.Size = new Size(141, 47);
+            label2.Padding = new Padding(11, 0, 11, 0);
+            label2.Size = new Size(161, 63);
             label2.TabIndex = 0;
             label2.Text = "Автор";
             label2.TextAlign = ContentAlignment.MiddleLeft;
@@ -685,10 +651,9 @@
             panel1.BorderStyle = BorderStyle.FixedSingle;
             panel1.Controls.Add(TitleTB);
             panel1.Controls.Add(label1);
-            panel1.Location = new Point(32, 81);
-            panel1.Margin = new Padding(3, 2, 3, 2);
+            panel1.Location = new Point(37, 108);
             panel1.Name = "panel1";
-            panel1.Size = new Size(438, 49);
+            panel1.Size = new Size(500, 65);
             panel1.TabIndex = 1;
             // 
             // TitleTB
@@ -697,10 +662,9 @@
             TitleTB.BorderStyle = BorderStyle.None;
             TitleTB.Cursor = Cursors.IBeam;
             TitleTB.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point, 204);
-            TitleTB.Location = new Point(157, 18);
-            TitleTB.Margin = new Padding(3, 2, 3, 2);
+            TitleTB.Location = new Point(179, 24);
             TitleTB.Name = "TitleTB";
-            TitleTB.Size = new Size(262, 16);
+            TitleTB.Size = new Size(299, 20);
             TitleTB.TabIndex = 1;
             // 
             // label1
@@ -711,8 +675,8 @@
             label1.ForeColor = Color.FromArgb(253, 252, 232);
             label1.Location = new Point(0, 0);
             label1.Name = "label1";
-            label1.Padding = new Padding(10, 0, 10, 0);
-            label1.Size = new Size(141, 47);
+            label1.Padding = new Padding(11, 0, 11, 0);
+            label1.Size = new Size(161, 63);
             label1.TabIndex = 0;
             label1.Text = "Название";
             label1.TextAlign = ContentAlignment.MiddleLeft;
@@ -723,10 +687,9 @@
             titleP.Controls.Add(panel9);
             titleP.Controls.Add(titleL);
             titleP.Dock = DockStyle.Top;
-            titleP.Location = new Point(3, 2);
-            titleP.Margin = new Padding(3, 2, 3, 2);
+            titleP.Location = new Point(3, 3);
             titleP.Name = "titleP";
-            titleP.Size = new Size(495, 52);
+            titleP.Size = new Size(568, 69);
             titleP.TabIndex = 0;
             // 
             // panel9
@@ -734,10 +697,9 @@
             panel9.BackColor = Color.Silver;
             panel9.BorderStyle = BorderStyle.FixedSingle;
             panel9.ForeColor = SystemColors.ActiveCaption;
-            panel9.Location = new Point(-3, 45);
-            panel9.Margin = new Padding(3, 2, 3, 2);
+            panel9.Location = new Point(-3, 60);
             panel9.Name = "panel9";
-            panel9.Size = new Size(502, 8);
+            panel9.Size = new Size(573, 10);
             panel9.TabIndex = 11;
             // 
             // titleL
@@ -748,7 +710,7 @@
             titleL.ForeColor = Color.FromArgb(253, 252, 232);
             titleL.Location = new Point(0, 0);
             titleL.Name = "titleL";
-            titleL.Size = new Size(495, 52);
+            titleL.Size = new Size(568, 69);
             titleL.TabIndex = 0;
             titleL.Text = "Новая книга";
             titleL.TextAlign = ContentAlignment.MiddleCenter;
@@ -759,20 +721,18 @@
             MainTC.Controls.Add(StoreTP);
             MainTC.Dock = DockStyle.Fill;
             MainTC.Location = new Point(0, 0);
-            MainTC.Margin = new Padding(3, 2, 3, 2);
             MainTC.Name = "MainTC";
             MainTC.SelectedIndex = 0;
-            MainTC.Size = new Size(509, 507);
+            MainTC.Size = new Size(582, 676);
             MainTC.TabIndex = 0;
             // 
             // BookStoreF
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(509, 507);
+            ClientSize = new Size(582, 676);
             Controls.Add(MainTC);
             FormBorderStyle = FormBorderStyle.FixedSingle;
-            Margin = new Padding(3, 2, 3, 2);
             MaximizeBox = false;
             Name = "BookStoreF";
             Text = "Книжный Магазин";

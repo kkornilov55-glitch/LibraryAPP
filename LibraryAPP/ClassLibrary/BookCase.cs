@@ -19,7 +19,7 @@ namespace ClassLibrary
         /// </summary>
         public BookCase(string Genre, int Capacity)
         {
-            if (string.IsNullOrWhiteSpace(genre))
+            if (string.IsNullOrWhiteSpace(Genre))
             {
                 throw new ArgumentException("Жанр шкафа должен быть указан");
             }
