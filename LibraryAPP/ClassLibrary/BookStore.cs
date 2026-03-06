@@ -197,6 +197,13 @@ namespace ClassLibrary
                 Balance += book.Sell();
 
             bookCases.Remove(bookCase);
+
         }
-    }
+        public void AddBook(string title, string author, string genre, int pages, double price)
+        {
+            // Создаём книгу внутри библиотеки — не в форме
+            var book = new Book(title, author, genre, pages, price);
+            AddBook(book);
+        }
+    }   
 }
