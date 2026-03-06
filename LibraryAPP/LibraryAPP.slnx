@@ -1,4 +1,5 @@
 <Solution>
+  <Project Path="BookTests.cs/BookTests.cs.csproj" Id="c93c5348-0949-4185-b9b8-db470c9eac50" />
   <Project Path="ClassLibrary/ClassLibrary.csproj" />
   <Project Path="WinForms/WinForms.csproj" />
 </Solution>
