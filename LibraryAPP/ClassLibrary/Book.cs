@@ -23,7 +23,7 @@ namespace ClassLibrary
 
 
         /// <summary>
-        /// Конструктор, для ручного создания книг
+        /// Конструктор для ручного создания книг
         /// </summary>
         public Book(string title, string author, string genre, int pages, double price)
         {
