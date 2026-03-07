@@ -37,6 +37,7 @@
             colAuthor = new DataGridViewTextBoxColumn();
             colPrice = new DataGridViewTextBoxColumn();
             SearchResultTP = new TabPage();
+            SearchedBookGrid = new DataGridView();
             panel19 = new Panel();
             panel18 = new Panel();
             panel14 = new Panel();
@@ -86,18 +87,18 @@
             panel9 = new Panel();
             titleL = new Label();
             MainTC = new TabControl();
-            dataGridView2 = new DataGridView();
             ID = new DataGridViewTextBoxColumn();
             colTitleSearch = new DataGridViewTextBoxColumn();
             colGenreSearch = new DataGridViewTextBoxColumn();
             colAuthorSearch = new DataGridViewTextBoxColumn();
-            PagesCountSearch = new DataGridViewTextBoxColumn();
+            colPagesCountSearch = new DataGridViewTextBoxColumn();
             colPriceSearch = new DataGridViewTextBoxColumn();
             StoreTP.SuspendLayout();
             StoreTC.SuspendLayout();
             MainTP.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             SearchResultTP.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)SearchedBookGrid).BeginInit();
             panel24.SuspendLayout();
             tabPage1.SuspendLayout();
             panel6.SuspendLayout();
@@ -108,7 +109,6 @@
             panel1.SuspendLayout();
             titleP.SuspendLayout();
             MainTC.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)dataGridView2).BeginInit();
             SuspendLayout();
             // 
             // StoreTP
@@ -202,7 +202,7 @@
             // 
             // SearchResultTP
             // 
-            SearchResultTP.Controls.Add(dataGridView2);
+            SearchResultTP.Controls.Add(SearchedBookGrid);
             SearchResultTP.Location = new Point(4, 29);
             SearchResultTP.Name = "SearchResultTP";
             SearchResultTP.Padding = new Padding(3);
@@ -210,6 +210,17 @@
             SearchResultTP.TabIndex = 1;
             SearchResultTP.Text = "Результаты поиска";
             SearchResultTP.UseVisualStyleBackColor = true;
+            // 
+            // SearchedBookGrid
+            // 
+            SearchedBookGrid.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            SearchedBookGrid.Columns.AddRange(new DataGridViewColumn[] { ID, colTitleSearch, colGenreSearch, colAuthorSearch, colPagesCountSearch, colPriceSearch });
+            SearchedBookGrid.Dock = DockStyle.Fill;
+            SearchedBookGrid.Location = new Point(3, 3);
+            SearchedBookGrid.Name = "SearchedBookGrid";
+            SearchedBookGrid.RowHeadersWidth = 51;
+            SearchedBookGrid.Size = new Size(411, 261);
+            SearchedBookGrid.TabIndex = 0;
             // 
             // panel19
             // 
@@ -774,17 +785,6 @@
             MainTC.Size = new Size(582, 676);
             MainTC.TabIndex = 0;
             // 
-            // dataGridView2
-            // 
-            dataGridView2.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView2.Columns.AddRange(new DataGridViewColumn[] { ID, colTitleSearch, colGenreSearch, colAuthorSearch, PagesCountSearch, colPriceSearch });
-            dataGridView2.Dock = DockStyle.Fill;
-            dataGridView2.Location = new Point(3, 3);
-            dataGridView2.Name = "dataGridView2";
-            dataGridView2.RowHeadersWidth = 51;
-            dataGridView2.Size = new Size(411, 261);
-            dataGridView2.TabIndex = 0;
-            // 
             // ID
             // 
             ID.HeaderText = "ID";
@@ -816,13 +816,13 @@
             colAuthorSearch.ReadOnly = true;
             colAuthorSearch.Width = 125;
             // 
-            // PagesCountSearch
+            // colPagesCountSearch
             // 
-            PagesCountSearch.HeaderText = "Количество страниц";
-            PagesCountSearch.MinimumWidth = 6;
-            PagesCountSearch.Name = "PagesCountSearch";
-            PagesCountSearch.ReadOnly = true;
-            PagesCountSearch.Width = 125;
+            colPagesCountSearch.HeaderText = "Количество страниц";
+            colPagesCountSearch.MinimumWidth = 6;
+            colPagesCountSearch.Name = "colPagesCountSearch";
+            colPagesCountSearch.ReadOnly = true;
+            colPagesCountSearch.Width = 125;
             // 
             // colPriceSearch
             // 
@@ -848,6 +848,7 @@
             MainTP.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
             SearchResultTP.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)SearchedBookGrid).EndInit();
             panel24.ResumeLayout(false);
             tabPage1.ResumeLayout(false);
             panel6.ResumeLayout(false);
@@ -864,7 +865,6 @@
             panel1.PerformLayout();
             titleP.ResumeLayout(false);
             MainTC.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)dataGridView2).EndInit();
             ResumeLayout(false);
         }
 
@@ -928,12 +928,12 @@
         private TabControl StoreTC;
         private TabPage MainTP;
         private TabPage SearchResultTP;
-        private DataGridView dataGridView2;
+        private DataGridView SearchedBookGrid;
         private DataGridViewTextBoxColumn ID;
         private DataGridViewTextBoxColumn colTitleSearch;
-        private DataGridViewTextBoxColumn colAuthorSearch;
-        private DataGridViewTextBoxColumn PagesCountSearch;
-        private DataGridViewTextBoxColumn colPriceSearch;
         private DataGridViewTextBoxColumn colGenreSearch;
+        private DataGridViewTextBoxColumn colAuthorSearch;
+        private DataGridViewTextBoxColumn colPagesCountSearch;
+        private DataGridViewTextBoxColumn colPriceSearch;
     }
 }

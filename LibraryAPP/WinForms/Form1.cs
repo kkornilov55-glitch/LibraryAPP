@@ -160,6 +160,21 @@ namespace WinForms
             }
         }
 
+        private void SearchBooks(Book b)
+        {
+            SearchedBookGrid.Rows.Clear();
+
+            var row = SearchedBookGrid.Rows.Add();
+
+            SearchedBookGrid.Rows[row].Cells["ID"].Value = b.id;
+            SearchedBookGrid.Rows[row].Cells["colTitleSearch"].Value = b.Title;
+            SearchedBookGrid.Rows[row].Cells["colAuthorSearch"].Value = b.Author;
+            SearchedBookGrid.Rows[row].Cells["colPriceSearch"].Value = $"{b.Price:F2} ₽";
+            SearchedBookGrid.Rows[row].Cells["colPagesCountSearch"].Value = b.Pages;
+            SearchedBookGrid.Rows[row].Cells["colGenreSearch"].Value = b.Genre;
+
+        }
+
         private void textBox1_TextChanged(object sender, EventArgs e) { }
     }
 }
