@@ -481,7 +481,7 @@
             PriceTB.BorderStyle = BorderStyle.None;
             PriceTB.Cursor = Cursors.IBeam;
             PriceTB.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point, 204);
-            PriceTB.Location = new Point(179, 24);
+            PriceTB.Location = new Point(187, 24);
             PriceTB.Name = "PriceTB";
             PriceTB.Size = new Size(299, 20);
             PriceTB.TabIndex = 1;
@@ -495,7 +495,7 @@
             label6.Location = new Point(0, 0);
             label6.Name = "label6";
             label6.Padding = new Padding(11, 0, 11, 0);
-            label6.Size = new Size(161, 63);
+            label6.Size = new Size(173, 63);
             label6.TabIndex = 0;
             label6.Text = "Цена";
             label6.TextAlign = ContentAlignment.MiddleLeft;
@@ -517,7 +517,7 @@
             PagesCountTB.BorderStyle = BorderStyle.None;
             PagesCountTB.Cursor = Cursors.IBeam;
             PagesCountTB.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point, 204);
-            PagesCountTB.Location = new Point(179, 24);
+            PagesCountTB.Location = new Point(187, 24);
             PagesCountTB.Name = "PagesCountTB";
             PagesCountTB.Size = new Size(299, 20);
             PagesCountTB.TabIndex = 1;
@@ -531,7 +531,7 @@
             label5.Location = new Point(0, 0);
             label5.Name = "label5";
             label5.Padding = new Padding(11, 0, 11, 0);
-            label5.Size = new Size(161, 63);
+            label5.Size = new Size(173, 63);
             label5.TabIndex = 0;
             label5.Text = "Количество страниц";
             label5.TextAlign = ContentAlignment.MiddleLeft;
@@ -553,7 +553,7 @@
             GenreTB.BorderStyle = BorderStyle.None;
             GenreTB.Cursor = Cursors.IBeam;
             GenreTB.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point, 204);
-            GenreTB.Location = new Point(179, 24);
+            GenreTB.Location = new Point(187, 24);
             GenreTB.Name = "GenreTB";
             GenreTB.Size = new Size(299, 20);
             GenreTB.TabIndex = 1;
@@ -567,7 +567,7 @@
             label4.Location = new Point(0, 0);
             label4.Name = "label4";
             label4.Padding = new Padding(11, 0, 11, 0);
-            label4.Size = new Size(161, 63);
+            label4.Size = new Size(173, 63);
             label4.TabIndex = 0;
             label4.Text = "Жанр";
             label4.TextAlign = ContentAlignment.MiddleLeft;
@@ -589,7 +589,7 @@
             ID_TB.BorderStyle = BorderStyle.None;
             ID_TB.Cursor = Cursors.IBeam;
             ID_TB.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point, 204);
-            ID_TB.Location = new Point(179, 24);
+            ID_TB.Location = new Point(187, 24);
             ID_TB.Name = "ID_TB";
             ID_TB.ReadOnly = true;
             ID_TB.Size = new Size(299, 20);
@@ -605,7 +605,7 @@
             label3.Location = new Point(0, 0);
             label3.Name = "label3";
             label3.Padding = new Padding(11, 0, 11, 0);
-            label3.Size = new Size(161, 63);
+            label3.Size = new Size(173, 63);
             label3.TabIndex = 0;
             label3.Text = "ID";
             label3.TextAlign = ContentAlignment.MiddleLeft;
@@ -627,7 +627,7 @@
             AuthorTB.BorderStyle = BorderStyle.None;
             AuthorTB.Cursor = Cursors.IBeam;
             AuthorTB.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point, 204);
-            AuthorTB.Location = new Point(179, 24);
+            AuthorTB.Location = new Point(187, 24);
             AuthorTB.Name = "AuthorTB";
             AuthorTB.Size = new Size(299, 20);
             AuthorTB.TabIndex = 1;
@@ -641,7 +641,7 @@
             label2.Location = new Point(0, 0);
             label2.Name = "label2";
             label2.Padding = new Padding(11, 0, 11, 0);
-            label2.Size = new Size(161, 63);
+            label2.Size = new Size(173, 63);
             label2.TabIndex = 0;
             label2.Text = "Автор";
             label2.TextAlign = ContentAlignment.MiddleLeft;
@@ -663,7 +663,7 @@
             TitleTB.BorderStyle = BorderStyle.None;
             TitleTB.Cursor = Cursors.IBeam;
             TitleTB.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point, 204);
-            TitleTB.Location = new Point(179, 24);
+            TitleTB.Location = new Point(187, 24);
             TitleTB.Name = "TitleTB";
             TitleTB.Size = new Size(299, 20);
             TitleTB.TabIndex = 1;
@@ -677,7 +677,7 @@
             label1.Location = new Point(0, 0);
             label1.Name = "label1";
             label1.Padding = new Padding(11, 0, 11, 0);
-            label1.Size = new Size(161, 63);
+            label1.Size = new Size(173, 63);
             label1.TabIndex = 0;
             label1.Text = "Название";
             label1.TextAlign = ContentAlignment.MiddleLeft;
