@@ -155,7 +155,7 @@ namespace BookTests.cs
 
         /// <summary>
         /// ТЗ п.3.a: Если книга с таким названием уже есть, к названию добавляется цифра.
-        /// "Айсберг" → "Айсберг 2"
+        /// "Айсберг" -> "Айсберг 2"
         /// </summary>
         [TestMethod]
         public void GenerateBook_DuplicateTitle_AddsNumericSuffix()

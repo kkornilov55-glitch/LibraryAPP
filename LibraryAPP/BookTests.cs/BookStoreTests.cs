@@ -287,7 +287,7 @@ namespace BookTests.cs
 
         /// <summary>
         /// ТЗ п.3.b: Пустой шкаф может быть перепрофилирован на другой жанр.
-        /// Детективы → Любовные романы.
+        /// Детективы в любовные романы.
         /// </summary>
         [TestMethod]
         public void EmptyBookCase_CanBeReassignedToNewGenre()
