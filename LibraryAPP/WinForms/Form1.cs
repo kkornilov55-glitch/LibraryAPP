@@ -120,8 +120,8 @@ namespace WinForms
             if (!Required(q, "Запрос")) return;
 
             var book = int.TryParse(q, out var id) ? store.FindBookById(id) : store.FindBookByTitle(q);
-            MessageBox.Show(book != null ? $"Найдено: {book.Title}" : "Не найдено", "Результат",
-                MessageBoxButtons.OK, book != null ? MessageBoxIcon.Information : MessageBoxIcon.Warning);
+
+            SearchBooks(book);
         }
 
         //ВСПОМОГАТЕЛЬНЫЕ МЕТОДЫ
@@ -164,15 +164,19 @@ namespace WinForms
         {
             SearchedBookGrid.Rows.Clear();
 
-            var row = SearchedBookGrid.Rows.Add();
+            if (b != null)
+            {
+                var row = SearchedBookGrid.Rows.Add();
+                SearchedBookGrid.Rows[row].Cells["ID"].Value = b.id;
+                SearchedBookGrid.Rows[row].Cells["colTitleSearch"].Value = b.Title;
+                SearchedBookGrid.Rows[row].Cells["colAuthorSearch"].Value = b.Author;
+                SearchedBookGrid.Rows[row].Cells["colPriceSearch"].Value = $"{b.Price:F2} ₽";
+                SearchedBookGrid.Rows[row].Cells["colPagesCountSearch"].Value = b.Pages;
+                SearchedBookGrid.Rows[row].Cells["colGenreSearch"].Value = b.Genre;
+            }
 
-            SearchedBookGrid.Rows[row].Cells["ID"].Value = b.id;
-            SearchedBookGrid.Rows[row].Cells["colTitleSearch"].Value = b.Title;
-            SearchedBookGrid.Rows[row].Cells["colAuthorSearch"].Value = b.Author;
-            SearchedBookGrid.Rows[row].Cells["colPriceSearch"].Value = $"{b.Price:F2} ₽";
-            SearchedBookGrid.Rows[row].Cells["colPagesCountSearch"].Value = b.Pages;
-            SearchedBookGrid.Rows[row].Cells["colGenreSearch"].Value = b.Genre;
-
+            MessageBox.Show(b != null ? $"Найдено: {b.Title}" : "Не найдено", "Результат",
+                MessageBoxButtons.OK, b != null ? MessageBoxIcon.Information : MessageBoxIcon.Warning);
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e) { }
