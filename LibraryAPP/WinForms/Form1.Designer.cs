@@ -32,12 +32,14 @@
             StoreTC = new TabControl();
             MainTP = new TabPage();
             dataGridView1 = new DataGridView();
-            colId = new DataGridViewTextBoxColumn();
-            colTitle = new DataGridViewTextBoxColumn();
-            colAuthor = new DataGridViewTextBoxColumn();
-            colPrice = new DataGridViewTextBoxColumn();
             SearchResultTP = new TabPage();
             SearchedBookGrid = new DataGridView();
+            ID = new DataGridViewTextBoxColumn();
+            colTitleSearch = new DataGridViewTextBoxColumn();
+            colGenreSearch = new DataGridViewTextBoxColumn();
+            colAuthorSearch = new DataGridViewTextBoxColumn();
+            colPagesCountSearch = new DataGridViewTextBoxColumn();
+            colPriceSearch = new DataGridViewTextBoxColumn();
             panel19 = new Panel();
             panel18 = new Panel();
             panel14 = new Panel();
@@ -87,12 +89,10 @@
             panel9 = new Panel();
             titleL = new Label();
             MainTC = new TabControl();
-            ID = new DataGridViewTextBoxColumn();
-            colTitleSearch = new DataGridViewTextBoxColumn();
-            colGenreSearch = new DataGridViewTextBoxColumn();
-            colAuthorSearch = new DataGridViewTextBoxColumn();
-            colPagesCountSearch = new DataGridViewTextBoxColumn();
-            colPriceSearch = new DataGridViewTextBoxColumn();
+            colId = new DataGridViewTextBoxColumn();
+            colTitle = new DataGridViewTextBoxColumn();
+            colAuthor = new DataGridViewTextBoxColumn();
+            colPrice = new DataGridViewTextBoxColumn();
             StoreTP.SuspendLayout();
             StoreTC.SuspendLayout();
             MainTP.SuspendLayout();
@@ -171,35 +171,6 @@
             dataGridView1.Size = new Size(411, 261);
             dataGridView1.TabIndex = 16;
             // 
-            // colId
-            // 
-            colId.HeaderText = "ID";
-            colId.MinimumWidth = 6;
-            colId.Name = "colId";
-            colId.Visible = false;
-            colId.Width = 125;
-            // 
-            // colTitle
-            // 
-            colTitle.HeaderText = "Название";
-            colTitle.MinimumWidth = 6;
-            colTitle.Name = "colTitle";
-            colTitle.Width = 125;
-            // 
-            // colAuthor
-            // 
-            colAuthor.HeaderText = "Автор";
-            colAuthor.MinimumWidth = 6;
-            colAuthor.Name = "colAuthor";
-            colAuthor.Width = 125;
-            // 
-            // colPrice
-            // 
-            colPrice.HeaderText = "Цена";
-            colPrice.MinimumWidth = 6;
-            colPrice.Name = "colPrice";
-            colPrice.Width = 125;
-            // 
             // SearchResultTP
             // 
             SearchResultTP.Controls.Add(SearchedBookGrid);
@@ -221,6 +192,53 @@
             SearchedBookGrid.RowHeadersWidth = 51;
             SearchedBookGrid.Size = new Size(411, 261);
             SearchedBookGrid.TabIndex = 0;
+            // 
+            // ID
+            // 
+            ID.HeaderText = "ID";
+            ID.MinimumWidth = 6;
+            ID.Name = "ID";
+            ID.Width = 125;
+            // 
+            // colTitleSearch
+            // 
+            colTitleSearch.HeaderText = "Название";
+            colTitleSearch.MinimumWidth = 6;
+            colTitleSearch.Name = "colTitleSearch";
+            colTitleSearch.ReadOnly = true;
+            colTitleSearch.Width = 125;
+            // 
+            // colGenreSearch
+            // 
+            colGenreSearch.HeaderText = "Жанр";
+            colGenreSearch.MinimumWidth = 6;
+            colGenreSearch.Name = "colGenreSearch";
+            colGenreSearch.ReadOnly = true;
+            colGenreSearch.Width = 125;
+            // 
+            // colAuthorSearch
+            // 
+            colAuthorSearch.HeaderText = "Автор";
+            colAuthorSearch.MinimumWidth = 6;
+            colAuthorSearch.Name = "colAuthorSearch";
+            colAuthorSearch.ReadOnly = true;
+            colAuthorSearch.Width = 125;
+            // 
+            // colPagesCountSearch
+            // 
+            colPagesCountSearch.HeaderText = "Количество страниц";
+            colPagesCountSearch.MinimumWidth = 6;
+            colPagesCountSearch.Name = "colPagesCountSearch";
+            colPagesCountSearch.ReadOnly = true;
+            colPagesCountSearch.Width = 125;
+            // 
+            // colPriceSearch
+            // 
+            colPriceSearch.HeaderText = "Цена";
+            colPriceSearch.MinimumWidth = 6;
+            colPriceSearch.Name = "colPriceSearch";
+            colPriceSearch.ReadOnly = true;
+            colPriceSearch.Width = 125;
             // 
             // panel19
             // 
@@ -785,52 +803,38 @@
             MainTC.Size = new Size(582, 676);
             MainTC.TabIndex = 0;
             // 
-            // ID
+            // colId
             // 
-            ID.HeaderText = "ID";
-            ID.MinimumWidth = 6;
-            ID.Name = "ID";
-            ID.Width = 125;
+            colId.HeaderText = "ID";
+            colId.MinimumWidth = 6;
+            colId.Name = "colId";
+            colId.ReadOnly = true;
+            colId.Visible = false;
+            colId.Width = 125;
             // 
-            // colTitleSearch
+            // colTitle
             // 
-            colTitleSearch.HeaderText = "Название";
-            colTitleSearch.MinimumWidth = 6;
-            colTitleSearch.Name = "colTitleSearch";
-            colTitleSearch.ReadOnly = true;
-            colTitleSearch.Width = 125;
+            colTitle.HeaderText = "Название";
+            colTitle.MinimumWidth = 6;
+            colTitle.Name = "colTitle";
+            colTitle.ReadOnly = true;
+            colTitle.Width = 125;
             // 
-            // colGenreSearch
+            // colAuthor
             // 
-            colGenreSearch.HeaderText = "Жанр";
-            colGenreSearch.MinimumWidth = 6;
-            colGenreSearch.Name = "colGenreSearch";
-            colGenreSearch.ReadOnly = true;
-            colGenreSearch.Width = 125;
+            colAuthor.HeaderText = "Автор";
+            colAuthor.MinimumWidth = 6;
+            colAuthor.Name = "colAuthor";
+            colAuthor.ReadOnly = true;
+            colAuthor.Width = 125;
             // 
-            // colAuthorSearch
+            // colPrice
             // 
-            colAuthorSearch.HeaderText = "Автор";
-            colAuthorSearch.MinimumWidth = 6;
-            colAuthorSearch.Name = "colAuthorSearch";
-            colAuthorSearch.ReadOnly = true;
-            colAuthorSearch.Width = 125;
-            // 
-            // colPagesCountSearch
-            // 
-            colPagesCountSearch.HeaderText = "Количество страниц";
-            colPagesCountSearch.MinimumWidth = 6;
-            colPagesCountSearch.Name = "colPagesCountSearch";
-            colPagesCountSearch.ReadOnly = true;
-            colPagesCountSearch.Width = 125;
-            // 
-            // colPriceSearch
-            // 
-            colPriceSearch.HeaderText = "Цена";
-            colPriceSearch.MinimumWidth = 6;
-            colPriceSearch.Name = "colPriceSearch";
-            colPriceSearch.ReadOnly = true;
-            colPriceSearch.Width = 125;
+            colPrice.HeaderText = "Цена";
+            colPrice.MinimumWidth = 6;
+            colPrice.Name = "colPrice";
+            colPrice.ReadOnly = true;
+            colPrice.Width = 125;
             // 
             // BookStoreF
             // 
@@ -921,10 +925,6 @@
         private Panel panel13;
         private Panel panel19;
         private Panel panel18;
-        private DataGridViewTextBoxColumn colId;
-        private DataGridViewTextBoxColumn colTitle;
-        private DataGridViewTextBoxColumn colAuthor;
-        private DataGridViewTextBoxColumn colPrice;
         private TabControl StoreTC;
         private TabPage MainTP;
         private TabPage SearchResultTP;
@@ -935,5 +935,9 @@
         private DataGridViewTextBoxColumn colAuthorSearch;
         private DataGridViewTextBoxColumn colPagesCountSearch;
         private DataGridViewTextBoxColumn colPriceSearch;
+        private DataGridViewTextBoxColumn colId;
+        private DataGridViewTextBoxColumn colTitle;
+        private DataGridViewTextBoxColumn colAuthor;
+        private DataGridViewTextBoxColumn colPrice;
     }
 }

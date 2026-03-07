@@ -97,7 +97,7 @@ namespace WinForms
 
             store.SellBook(id);
             MessageBox.Show("Продано!", "Готово", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            Refresh(); ShowBooks();
+            Refresh(); ShowBooks(); 
         }
 
         /// <summary>Очищает шкаф выбранного жанра.</summary>
@@ -167,12 +167,17 @@ namespace WinForms
             if (b != null)
             {
                 var row = SearchedBookGrid.Rows.Add();
+
                 SearchedBookGrid.Rows[row].Cells["ID"].Value = b.id;
                 SearchedBookGrid.Rows[row].Cells["colTitleSearch"].Value = b.Title;
                 SearchedBookGrid.Rows[row].Cells["colAuthorSearch"].Value = b.Author;
                 SearchedBookGrid.Rows[row].Cells["colPriceSearch"].Value = $"{b.Price:F2} ₽";
                 SearchedBookGrid.Rows[row].Cells["colPagesCountSearch"].Value = b.Pages;
                 SearchedBookGrid.Rows[row].Cells["colGenreSearch"].Value = b.Genre;
+
+                StoreTC.SelectedIndex = 1; //Переключаем tabControl на 2 страничку (по индексу 1)
+                SearchedBookGrid.ClearSelection(); //Отчищаем предыдущее выделение
+                SearchedBookGrid.Rows[row].Selected = true; //Выделяем найденную книгу
             }
 
             MessageBox.Show(b != null ? $"Найдено: {b.Title}" : "Не найдено", "Результат",
