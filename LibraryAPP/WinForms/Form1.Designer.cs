@@ -39,10 +39,6 @@
             FoundStringTB = new TextBox();
             label9 = new Label();
             dataGridView1 = new DataGridView();
-            colId = new DataGridViewTextBoxColumn();
-            colTitle = new DataGridViewTextBoxColumn();
-            colAuthor = new DataGridViewTextBoxColumn();
-            colPrice = new DataGridViewTextBoxColumn();
             label8 = new Label();
             GenreSelectCB = new ComboBox();
             label7 = new Label();
@@ -83,6 +79,10 @@
             panel9 = new Panel();
             titleL = new Label();
             MainTC = new TabControl();
+            colId = new DataGridViewTextBoxColumn();
+            colTitle = new DataGridViewTextBoxColumn();
+            colAuthor = new DataGridViewTextBoxColumn();
+            colPrice = new DataGridViewTextBoxColumn();
             StoreTP.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             panel24.SuspendLayout();
@@ -230,35 +230,6 @@
             dataGridView1.RowHeadersWidth = 51;
             dataGridView1.Size = new Size(427, 299);
             dataGridView1.TabIndex = 16;
-            // 
-            // colId
-            // 
-            colId.HeaderText = "ID";
-            colId.MinimumWidth = 6;
-            colId.Name = "colId";
-            colId.Visible = false;
-            colId.Width = 125;
-            // 
-            // colTitle
-            // 
-            colTitle.HeaderText = "Title";
-            colTitle.MinimumWidth = 6;
-            colTitle.Name = "colTitle";
-            colTitle.Width = 125;
-            // 
-            // colAuthor
-            // 
-            colAuthor.HeaderText = "Author";
-            colAuthor.MinimumWidth = 6;
-            colAuthor.Name = "colAuthor";
-            colAuthor.Width = 125;
-            // 
-            // colPrice
-            // 
-            colPrice.HeaderText = "Price";
-            colPrice.MinimumWidth = 6;
-            colPrice.Name = "colPrice";
-            colPrice.Width = 125;
             // 
             // label8
             // 
@@ -727,6 +698,35 @@
             MainTC.Size = new Size(582, 676);
             MainTC.TabIndex = 0;
             // 
+            // colId
+            // 
+            colId.HeaderText = "ID";
+            colId.MinimumWidth = 6;
+            colId.Name = "colId";
+            colId.Visible = false;
+            colId.Width = 125;
+            // 
+            // colTitle
+            // 
+            colTitle.HeaderText = "Название";
+            colTitle.MinimumWidth = 6;
+            colTitle.Name = "colTitle";
+            colTitle.Width = 125;
+            // 
+            // colAuthor
+            // 
+            colAuthor.HeaderText = "Автор";
+            colAuthor.MinimumWidth = 6;
+            colAuthor.Name = "colAuthor";
+            colAuthor.Width = 125;
+            // 
+            // colPrice
+            // 
+            colPrice.HeaderText = "Цена";
+            colPrice.MinimumWidth = 6;
+            colPrice.Name = "colPrice";
+            colPrice.Width = 125;
+            // 
             // BookStoreF
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -803,10 +803,6 @@
         private Label label8;
         private ComboBox GenreSelectCB;
         private DataGridView dataGridView1;
-        private DataGridViewTextBoxColumn colId;
-        private DataGridViewTextBoxColumn colTitle;
-        private DataGridViewTextBoxColumn colAuthor;
-        private DataGridViewTextBoxColumn colPrice;
         private Label label9;
         private TextBox FoundStringTB;
         private Button FoundB;
@@ -816,5 +812,9 @@
         private Panel panel13;
         private Panel panel19;
         private Panel panel18;
+        private DataGridViewTextBoxColumn colId;
+        private DataGridViewTextBoxColumn colTitle;
+        private DataGridViewTextBoxColumn colAuthor;
+        private DataGridViewTextBoxColumn colPrice;
     }
 }
