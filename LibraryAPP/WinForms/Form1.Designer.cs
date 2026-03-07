@@ -120,7 +120,7 @@
             StoreTP.Controls.Add(panel24);
             StoreTP.Location = new Point(4, 29);
             StoreTP.Name = "StoreTP";
-            StoreTP.Padding = new Padding(3, 3, 3, 3);
+            StoreTP.Padding = new Padding(3);
             StoreTP.Size = new Size(574, 643);
             StoreTP.TabIndex = 2;
             StoreTP.Text = "Магазин";
@@ -381,7 +381,7 @@
             tabPage1.Controls.Add(titleP);
             tabPage1.Location = new Point(4, 29);
             tabPage1.Name = "tabPage1";
-            tabPage1.Padding = new Padding(3, 3, 3, 3);
+            tabPage1.Padding = new Padding(3);
             tabPage1.Size = new Size(574, 643);
             tabPage1.TabIndex = 0;
             tabPage1.Text = "Новая книга";
@@ -594,6 +594,7 @@
             ID_TB.ReadOnly = true;
             ID_TB.Size = new Size(299, 20);
             ID_TB.TabIndex = 1;
+            ID_TB.Text = "Авто";
             // 
             // label3
             // 

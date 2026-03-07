@@ -17,7 +17,6 @@ namespace WinForms
         {
             InitializeComponent();
             store = new BookStore(5);
-            ID_TB.ReadOnly = true; ID_TB.Text = "Авто";
 
             //Подписки на события — в конструкторе
             AddBookB.Click += (s, e) => AddBook();
