@@ -29,6 +29,14 @@
         private void InitializeComponent()
         {
             StoreTP = new TabPage();
+            StoreTC = new TabControl();
+            MainTP = new TabPage();
+            dataGridView1 = new DataGridView();
+            colId = new DataGridViewTextBoxColumn();
+            colTitle = new DataGridViewTextBoxColumn();
+            colAuthor = new DataGridViewTextBoxColumn();
+            colPrice = new DataGridViewTextBoxColumn();
+            SearchResultTP = new TabPage();
             panel19 = new Panel();
             panel18 = new Panel();
             panel14 = new Panel();
@@ -38,7 +46,6 @@
             FoundB = new Button();
             FoundStringTB = new TextBox();
             label9 = new Label();
-            dataGridView1 = new DataGridView();
             label8 = new Label();
             GenreSelectCB = new ComboBox();
             label7 = new Label();
@@ -79,12 +86,18 @@
             panel9 = new Panel();
             titleL = new Label();
             MainTC = new TabControl();
-            colId = new DataGridViewTextBoxColumn();
-            colTitle = new DataGridViewTextBoxColumn();
-            colAuthor = new DataGridViewTextBoxColumn();
-            colPrice = new DataGridViewTextBoxColumn();
+            dataGridView2 = new DataGridView();
+            ID = new DataGridViewTextBoxColumn();
+            colTitleSearch = new DataGridViewTextBoxColumn();
+            colGenreSearch = new DataGridViewTextBoxColumn();
+            colAuthorSearch = new DataGridViewTextBoxColumn();
+            PagesCountSearch = new DataGridViewTextBoxColumn();
+            colPriceSearch = new DataGridViewTextBoxColumn();
             StoreTP.SuspendLayout();
+            StoreTC.SuspendLayout();
+            MainTP.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
+            SearchResultTP.SuspendLayout();
             panel24.SuspendLayout();
             tabPage1.SuspendLayout();
             panel6.SuspendLayout();
@@ -95,11 +108,13 @@
             panel1.SuspendLayout();
             titleP.SuspendLayout();
             MainTC.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dataGridView2).BeginInit();
             SuspendLayout();
             // 
             // StoreTP
             // 
             StoreTP.BackColor = Color.FromArgb(226, 206, 177);
+            StoreTP.Controls.Add(StoreTC);
             StoreTP.Controls.Add(panel19);
             StoreTP.Controls.Add(panel18);
             StoreTP.Controls.Add(panel14);
@@ -109,7 +124,6 @@
             StoreTP.Controls.Add(FoundB);
             StoreTP.Controls.Add(FoundStringTB);
             StoreTP.Controls.Add(label9);
-            StoreTP.Controls.Add(dataGridView1);
             StoreTP.Controls.Add(label8);
             StoreTP.Controls.Add(GenreSelectCB);
             StoreTP.Controls.Add(label7);
@@ -124,6 +138,78 @@
             StoreTP.Size = new Size(574, 643);
             StoreTP.TabIndex = 2;
             StoreTP.Text = "Магазин";
+            // 
+            // StoreTC
+            // 
+            StoreTC.Controls.Add(MainTP);
+            StoreTC.Controls.Add(SearchResultTP);
+            StoreTC.Location = new Point(75, 161);
+            StoreTC.Name = "StoreTC";
+            StoreTC.SelectedIndex = 0;
+            StoreTC.Size = new Size(425, 300);
+            StoreTC.TabIndex = 26;
+            // 
+            // MainTP
+            // 
+            MainTP.Controls.Add(dataGridView1);
+            MainTP.Location = new Point(4, 29);
+            MainTP.Name = "MainTP";
+            MainTP.Padding = new Padding(3);
+            MainTP.Size = new Size(417, 267);
+            MainTP.TabIndex = 0;
+            MainTP.Text = "Главная";
+            MainTP.UseVisualStyleBackColor = true;
+            // 
+            // dataGridView1
+            // 
+            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridView1.Columns.AddRange(new DataGridViewColumn[] { colId, colTitle, colAuthor, colPrice });
+            dataGridView1.Dock = DockStyle.Fill;
+            dataGridView1.Location = new Point(3, 3);
+            dataGridView1.Name = "dataGridView1";
+            dataGridView1.RowHeadersWidth = 51;
+            dataGridView1.Size = new Size(411, 261);
+            dataGridView1.TabIndex = 16;
+            // 
+            // colId
+            // 
+            colId.HeaderText = "ID";
+            colId.MinimumWidth = 6;
+            colId.Name = "colId";
+            colId.Visible = false;
+            colId.Width = 125;
+            // 
+            // colTitle
+            // 
+            colTitle.HeaderText = "Название";
+            colTitle.MinimumWidth = 6;
+            colTitle.Name = "colTitle";
+            colTitle.Width = 125;
+            // 
+            // colAuthor
+            // 
+            colAuthor.HeaderText = "Автор";
+            colAuthor.MinimumWidth = 6;
+            colAuthor.Name = "colAuthor";
+            colAuthor.Width = 125;
+            // 
+            // colPrice
+            // 
+            colPrice.HeaderText = "Цена";
+            colPrice.MinimumWidth = 6;
+            colPrice.Name = "colPrice";
+            colPrice.Width = 125;
+            // 
+            // SearchResultTP
+            // 
+            SearchResultTP.Controls.Add(dataGridView2);
+            SearchResultTP.Location = new Point(4, 29);
+            SearchResultTP.Name = "SearchResultTP";
+            SearchResultTP.Padding = new Padding(3);
+            SearchResultTP.Size = new Size(417, 267);
+            SearchResultTP.TabIndex = 1;
+            SearchResultTP.Text = "Результаты поиска";
+            SearchResultTP.UseVisualStyleBackColor = true;
             // 
             // panel19
             // 
@@ -220,16 +306,6 @@
             label9.TabIndex = 17;
             label9.Text = "Поиск";
             label9.TextAlign = ContentAlignment.MiddleLeft;
-            // 
-            // dataGridView1
-            // 
-            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Columns.AddRange(new DataGridViewColumn[] { colId, colTitle, colAuthor, colPrice });
-            dataGridView1.Location = new Point(75, 161);
-            dataGridView1.Name = "dataGridView1";
-            dataGridView1.RowHeadersWidth = 51;
-            dataGridView1.Size = new Size(427, 299);
-            dataGridView1.TabIndex = 16;
             // 
             // label8
             // 
@@ -698,34 +774,63 @@
             MainTC.Size = new Size(582, 676);
             MainTC.TabIndex = 0;
             // 
-            // colId
+            // dataGridView2
             // 
-            colId.HeaderText = "ID";
-            colId.MinimumWidth = 6;
-            colId.Name = "colId";
-            colId.Visible = false;
-            colId.Width = 125;
+            dataGridView2.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridView2.Columns.AddRange(new DataGridViewColumn[] { ID, colTitleSearch, colGenreSearch, colAuthorSearch, PagesCountSearch, colPriceSearch });
+            dataGridView2.Dock = DockStyle.Fill;
+            dataGridView2.Location = new Point(3, 3);
+            dataGridView2.Name = "dataGridView2";
+            dataGridView2.RowHeadersWidth = 51;
+            dataGridView2.Size = new Size(411, 261);
+            dataGridView2.TabIndex = 0;
             // 
-            // colTitle
+            // ID
             // 
-            colTitle.HeaderText = "Название";
-            colTitle.MinimumWidth = 6;
-            colTitle.Name = "colTitle";
-            colTitle.Width = 125;
+            ID.HeaderText = "ID";
+            ID.MinimumWidth = 6;
+            ID.Name = "ID";
+            ID.Width = 125;
             // 
-            // colAuthor
+            // colTitleSearch
             // 
-            colAuthor.HeaderText = "Автор";
-            colAuthor.MinimumWidth = 6;
-            colAuthor.Name = "colAuthor";
-            colAuthor.Width = 125;
+            colTitleSearch.HeaderText = "Название";
+            colTitleSearch.MinimumWidth = 6;
+            colTitleSearch.Name = "colTitleSearch";
+            colTitleSearch.ReadOnly = true;
+            colTitleSearch.Width = 125;
             // 
-            // colPrice
+            // colGenreSearch
             // 
-            colPrice.HeaderText = "Цена";
-            colPrice.MinimumWidth = 6;
-            colPrice.Name = "colPrice";
-            colPrice.Width = 125;
+            colGenreSearch.HeaderText = "Жанр";
+            colGenreSearch.MinimumWidth = 6;
+            colGenreSearch.Name = "colGenreSearch";
+            colGenreSearch.ReadOnly = true;
+            colGenreSearch.Width = 125;
+            // 
+            // colAuthorSearch
+            // 
+            colAuthorSearch.HeaderText = "Автор";
+            colAuthorSearch.MinimumWidth = 6;
+            colAuthorSearch.Name = "colAuthorSearch";
+            colAuthorSearch.ReadOnly = true;
+            colAuthorSearch.Width = 125;
+            // 
+            // PagesCountSearch
+            // 
+            PagesCountSearch.HeaderText = "Количество страниц";
+            PagesCountSearch.MinimumWidth = 6;
+            PagesCountSearch.Name = "PagesCountSearch";
+            PagesCountSearch.ReadOnly = true;
+            PagesCountSearch.Width = 125;
+            // 
+            // colPriceSearch
+            // 
+            colPriceSearch.HeaderText = "Цена";
+            colPriceSearch.MinimumWidth = 6;
+            colPriceSearch.Name = "colPriceSearch";
+            colPriceSearch.ReadOnly = true;
+            colPriceSearch.Width = 125;
             // 
             // BookStoreF
             // 
@@ -739,7 +844,10 @@
             Text = "Книжный Магазин";
             StoreTP.ResumeLayout(false);
             StoreTP.PerformLayout();
+            StoreTC.ResumeLayout(false);
+            MainTP.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
+            SearchResultTP.ResumeLayout(false);
             panel24.ResumeLayout(false);
             tabPage1.ResumeLayout(false);
             panel6.ResumeLayout(false);
@@ -756,6 +864,7 @@
             panel1.PerformLayout();
             titleP.ResumeLayout(false);
             MainTC.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)dataGridView2).EndInit();
             ResumeLayout(false);
         }
 
@@ -816,5 +925,15 @@
         private DataGridViewTextBoxColumn colTitle;
         private DataGridViewTextBoxColumn colAuthor;
         private DataGridViewTextBoxColumn colPrice;
+        private TabControl StoreTC;
+        private TabPage MainTP;
+        private TabPage SearchResultTP;
+        private DataGridView dataGridView2;
+        private DataGridViewTextBoxColumn ID;
+        private DataGridViewTextBoxColumn colTitleSearch;
+        private DataGridViewTextBoxColumn colAuthorSearch;
+        private DataGridViewTextBoxColumn PagesCountSearch;
+        private DataGridViewTextBoxColumn colPriceSearch;
+        private DataGridViewTextBoxColumn colGenreSearch;
     }
 }
