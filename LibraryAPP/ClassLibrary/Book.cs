@@ -11,7 +11,7 @@ namespace ClassLibrary
     public class Book
     {
 
-        public string Title { get; private set; }
+        public string Title { get; set; }
         public string Author { get; private set; }
         public int id { get; private set; }
         public string Genre { get; private set; }
@@ -56,7 +56,7 @@ namespace ClassLibrary
 
             string rawTitle = GetRandomTitle();
             string finalTitle = titleHandler(rawTitle, ExistingBooks);
-             
+
             int RandomPages = rng.Next(50, 500);
             double RandomPrice = rng.Next(300, 1500);
             string RandomAuthor = GetrandomAuthor();
@@ -104,12 +104,12 @@ namespace ClassLibrary
             catch (Exception ex)
             {
                 return $"Ошибка при чтении файла: {ex.Message}";
-            }  
+            }
         }
 
         private static string GetrandomAuthor()
         {
-           string[] authors = new string[] {"Стивен Кинг", "Михаил Булгаков", "Федор Достоевский", "Уильям Шекспир", "Лев Толстой", "Джордж Оруэлл", "Джоан Роулинг", "Николай Гоголь", "Александр Пушкин", "Эрих Мария Ремарк"};
+            string[] authors = new string[] { "Стивен Кинг", "Михаил Булгаков", "Федор Достоевский", "Уильям Шекспир", "Лев Толстой", "Джордж Оруэлл", "Джоан Роулинг", "Николай Гоголь", "Александр Пушкин", "Эрих Мария Ремарк" };
             Random rng = new Random();
             return authors[rng.Next(authors.Length)]; // Возвращаем случайного автора из массива
         }
@@ -126,15 +126,15 @@ namespace ClassLibrary
                 }
             }
 
-            if(count > 0)
-             {
+            if (count > 0)
+            {
                 return $"{rawTitle} {count + 1}";
-             }
+            }
 
             else
             {
                 return rawTitle;
-            }  
+            }
         }
         /// <summary>
         /// Метод, продажи книги. При вызове возвращает стоимость книги.
@@ -143,5 +143,7 @@ namespace ClassLibrary
         {
             return Price;
         }
+
+        
     }
 }
