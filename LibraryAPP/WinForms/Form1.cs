@@ -75,11 +75,14 @@ namespace WinForms
         private void Generate()
         {
             var g = GenreTB.Text.Trim();
-            if (!Required(g, "Жанр")) return;
+            
 
             var book = Book.GenerateBook(store.GetAllBooks(), g);
-            TitleTB.Text = book.Title; AuthorTB.Text = book.Author;
-            PagesCountTB.Text = book.Pages.ToString(); PriceTB.Text = book.Price.ToString("F2");
+            TitleTB.Text = book.Title;
+            AuthorTB.Text = book.Author;
+            GenreTB.Text = book.Genre;
+            PagesCountTB.Text = book.Pages.ToString();
+            PriceTB.Text = book.Price.ToString("F2");
             ID_TB.Text = book.id.ToString();
 
             MessageBox.Show($"Сгенерировано: {book.Title}", "Готово", MessageBoxButtons.OK, MessageBoxIcon.Information);

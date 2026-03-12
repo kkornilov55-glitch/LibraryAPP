@@ -80,7 +80,7 @@ namespace ClassLibrary
         /// Метод для поиска книги по её id.
         /// </summary>
         public Book FindById(int id)
-        {
+        {,
             foreach (var i in books)
             {
                 if (i.id == id)

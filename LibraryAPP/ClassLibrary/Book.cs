@@ -60,8 +60,9 @@ namespace ClassLibrary
             int RandomPages = rng.Next(50, 500);
             double RandomPrice = rng.Next(300, 1500);
             string RandomAuthor = GetrandomAuthor();
+            string RandomGenre = GetRandomGenre();
 
-            return new Book(finalTitle, RandomAuthor, genre, RandomPages, RandomPrice); // Вызов конструктора для создания книги, на основе случайных значений
+            return new Book(finalTitle, RandomAuthor, RandomGenre, RandomPages, RandomPrice); // Вызов конструктора для создания книги, на основе случайных значений
         }
 
         /// <summary>
@@ -112,6 +113,13 @@ namespace ClassLibrary
             string[] authors = new string[] { "Стивен Кинг", "Михаил Булгаков", "Федор Достоевский", "Уильям Шекспир", "Лев Толстой", "Джордж Оруэлл", "Джоан Роулинг", "Николай Гоголь", "Александр Пушкин", "Эрих Мария Ремарк" };
             Random rng = new Random();
             return authors[rng.Next(authors.Length)]; // Возвращаем случайного автора из массива
+        }
+
+        private static string GetRandomGenre()
+        {
+            string[] genres = new string[] { "Фэнтези", "Детектив", "Триллер", "Научная фантастика", "Роман", "Драма" };
+            Random rng = new Random();
+            return genres[rng.Next(genres.Length)];
         }
 
         private static string titleHandler(string rawTitle, List<Book> ExistingBooks)
