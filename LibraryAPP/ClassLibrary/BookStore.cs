@@ -8,6 +8,7 @@ namespace ClassLibrary
     /// </summary>
     public class BookStore
     {
+        public static Book PendingBook;
         private List<BookCase> bookCases;
         public int MaxBookCases { get; private set; }
         public double Balance { get; private set; }
@@ -203,11 +204,11 @@ namespace ClassLibrary
             bookCases.Remove(bookCase);
 
         }
-        public void AddBook(string title, string author, string genre, int pages, double price)
-        {
-            // Создаём книгу внутри библиотеки — не в форме
-            var book = new Book(title, author, genre, pages, price);
-            AddBook(book);
-        }
+        //public void AddBook(string title, string author, string genre, int pages, double price)
+        //{
+        //    // Создаём книгу внутри библиотеки — не в форме
+        //    var book = new Book(title, author, genre, pages, price);
+        //    AddBook(book);
+        //}
     }   
 }

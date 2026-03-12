@@ -63,9 +63,19 @@ namespace WinForms
             if (!Required(t, "Название") || !Required(a, "Автор") || !Required(g, "Жанр")) return;
             if (!PositiveInt(PagesCountTB.Text, "Страницы", out var p)) return;
             if (!PositiveDouble(PriceTB.Text, out var pr)) return;
+            
+            //Книга изменена если какое-то поле не равно полю книги в ожидании
+            bool BookWasChanged = BookStore.PendingBook.Title != t || BookStore.PendingBook.Author != a || BookStore.PendingBook.Genre != g || BookStore.PendingBook.Pages != p || BookStore.PendingBook.Price != pr;
 
-            //Форма НЕ создаёт Book — только передаёт данные в библиотеку
-            store.AddBook(t, a, g, p, pr);
+            if (BookWasChanged) Book.counter -= 1; //Забываем о существовании той книги
+
+            if (BookStore.PendingBook == null || BookWasChanged)
+            {
+                BookStore.PendingBook = new Book(t, a, g, p, pr);
+            }
+
+            store.AddBook(BookStore.PendingBook);
+            BookStore.PendingBook = null;
 
             MessageBox.Show("Добавлено!", "Готово", MessageBoxButtons.OK, MessageBoxIcon.Information);
             ClearForm(); Refresh();
@@ -77,15 +87,15 @@ namespace WinForms
             var g = GenreTB.Text.Trim();
             
 
-            var book = Book.GenerateBook(store.GetAllBooks(), g);
-            TitleTB.Text = book.Title;
-            AuthorTB.Text = book.Author;
-            GenreTB.Text = book.Genre;
-            PagesCountTB.Text = book.Pages.ToString();
-            PriceTB.Text = book.Price.ToString("F2");
-            ID_TB.Text = book.id.ToString();
+            Book.GenerateBook(store.GetAllBooks(), g);
+            TitleTB.Text = BookStore.PendingBook.Title;
+            AuthorTB.Text = BookStore.PendingBook.Author;
+            GenreTB.Text = BookStore.PendingBook.Genre;
+            PagesCountTB.Text = BookStore.PendingBook.Pages.ToString();
+            PriceTB.Text = BookStore.PendingBook.Price.ToString("F2");
+            ID_TB.Text = BookStore.PendingBook.id.ToString();
 
-            MessageBox.Show($"Сгенерировано: {book.Title}", "Готово", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBox.Show($"Сгенерировано: {BookStore.PendingBook.Title}", "Готово", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         /// <summary>Продаёт выделенную книгу через библиотеку.</summary>

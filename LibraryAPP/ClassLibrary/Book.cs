@@ -18,7 +18,7 @@ namespace ClassLibrary
         public int Pages { get; private set; }
         public double Price { get; private set; }
 
-        private static int counter = 0;
+        public static int counter = 0;
 
 
 
@@ -48,7 +48,7 @@ namespace ClassLibrary
         /// Статический метод, случайно генерирующий книгу.
         /// Принадлежит самому классу а не конкретной книге т.е. создает новую книгу без привязки к существующей
         /// </summary>
-        public static Book GenerateBook(List<Book> ExistingBooks, string genre) //список ExistingBooks должен содержать в себе все созданные книги.
+        public static void GenerateBook(List<Book> ExistingBooks, string genre) //список ExistingBooks должен содержать в себе все созданные книги.
                                                                                 //он будет заполняться в классе реализующем логику книжного шкафа
 
         {
@@ -61,7 +61,9 @@ namespace ClassLibrary
             double RandomPrice = rng.Next(300, 1500);
             string RandomGenre = GetRandomGenre();
 
-            return new Book(finalTitle, RandomAuthor, RandomGenre, RandomPages, RandomPrice); // Вызов конструктора для создания книги, на основе случайных значений
+            // Вызов конструктора для создания книги, на основе случайных значений
+            BookStore.PendingBook = new Book(finalTitle, RandomAuthor, RandomGenre, RandomPages, RandomPrice); 
+            return;
         }
 
         /// <summary>
