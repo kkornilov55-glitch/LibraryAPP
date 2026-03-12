@@ -95,7 +95,7 @@ namespace WinForms
             var g = GenreTB.Text.Trim();
             
 
-            Book.GenerateBook(store.GetAllBooks(), g);
+            Book.GenerateBook(BookStore.GetAllBooks(), g);
             TitleTB.Text = BookStore.PendingBook.Title;
             AuthorTB.Text = BookStore.PendingBook.Author;
             GenreTB.Text = BookStore.PendingBook.Genre;
@@ -138,6 +138,8 @@ namespace WinForms
                     MessageBoxButtons.YesNo, MessageBoxIcon.Question) != DialogResult.Yes) return;
 
             store.ClearBookCase(g);
+            if (SearchedBookGrid.SelectedRows.Count != 0) SearchedBookGrid.Rows.Clear();
+
             MessageBox.Show("Очищено", "Готово", MessageBoxButtons.OK, MessageBoxIcon.Information);
             Refresh(); dataGridView1.Rows.Clear();
         }

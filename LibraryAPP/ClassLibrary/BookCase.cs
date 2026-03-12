@@ -14,11 +14,11 @@ namespace ClassLibrary
         public int capacity { get; private set; }
         public string genre { get; private set; }
 
-        static string GetUniqueTitle(string title, string author, List<Book> books)
+        static string GetUniqueTitle(string title, string author)
         {
+            List<Book> books = BookStore.GetAllBooks();
             string uniqueTitle = title;
             int counter = 2;
-
 
             for (int i = 0; i < books.Count; i++)
             {
@@ -28,11 +28,7 @@ namespace ClassLibrary
                     uniqueTitle = $"{title} {counter}";
                     counter++;
                 }
-                else
-                {
-
-                    break;
-                }
+                else break;
             }
 
             return uniqueTitle;
@@ -73,7 +69,8 @@ namespace ClassLibrary
             {
                 throw new InvalidOperationException($"Невозможно добавить книгу жанра {book.Genre} в шкаф жанра {genre}.");
             }
-            book.Title = GetUniqueTitle(book.Title, book.Author, books);
+
+            book.Title = GetUniqueTitle(book.Title, book.Author);
             books.Add(book);
         }
         /// <summary>
