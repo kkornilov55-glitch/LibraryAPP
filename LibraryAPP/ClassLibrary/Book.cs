@@ -53,13 +53,12 @@ namespace ClassLibrary
 
         {
             Random rng = new Random();
-
+            string RandomAuthor = GetrandomAuthor();
             string rawTitle = GetRandomTitle();
-            string finalTitle = titleHandler(rawTitle, ExistingBooks);
+            string finalTitle = titleHandler(rawTitle,RandomAuthor, ExistingBooks);
 
             int RandomPages = rng.Next(50, 500);
             double RandomPrice = rng.Next(300, 1500);
-            string RandomAuthor = GetrandomAuthor();
             string RandomGenre = GetRandomGenre();
 
             return new Book(finalTitle, RandomAuthor, RandomGenre, RandomPages, RandomPrice); // Вызов конструктора для создания книги, на основе случайных значений
@@ -122,13 +121,13 @@ namespace ClassLibrary
             return genres[rng.Next(genres.Length)];
         }
 
-        private static string titleHandler(string rawTitle, List<Book> ExistingBooks)
+        private static string titleHandler(string rawTitle, string RandomAuthor, List<Book> ExistingBooks)
         {
             int count = 0;
 
             foreach (Book i in ExistingBooks)
             {
-                if (i.Title.StartsWith(rawTitle))
+                if (i.Title.StartsWith(rawTitle) && i.Author == RandomAuthor)
                 {
                     count++;
                 }
