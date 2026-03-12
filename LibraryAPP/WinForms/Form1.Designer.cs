@@ -322,7 +322,6 @@
             FoundStringTB.Name = "FoundStringTB";
             FoundStringTB.Size = new Size(342, 27);
             FoundStringTB.TabIndex = 18;
-            FoundStringTB.TextChanged += textBox1_TextChanged;
             // 
             // label9
             // 
@@ -809,7 +808,6 @@
             colId.MinimumWidth = 6;
             colId.Name = "colId";
             colId.ReadOnly = true;
-            colId.Visible = false;
             colId.Width = 125;
             // 
             // colTitle

@@ -91,16 +91,24 @@ namespace WinForms
         /// <summary>Продаёт выделенную книгу через библиотеку.</summary>
         private void Sell()
         {
-            if (dataGridView1.SelectedRows.Count == 0)
-            { ShowWarning("Выберите книгу"); return; }
+            if (dataGridView1.SelectedRows.Count == 0 && SearchedBookGrid.SelectedRows.Count == 0)
+            { 
+                ShowWarning("Выберите книгу"); 
+                return; 
+            }
 
-            var v = dataGridView1.SelectedRows[0].Cells["colId"].Value;
+            var v = dataGridView1.SelectedRows.Count == 0 ? SearchedBookGrid.SelectedRows[0].Cells["ID"].Value : dataGridView1.SelectedRows[0].Cells["colId"].Value;
             if (v == null || !int.TryParse(v.ToString(), out var id))
-            { MessageBox.Show("Ошибка ID", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
+            { 
+                MessageBox.Show("Ошибка ID", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error); 
+                return; 
+            }
+
+            if (SearchedBookGrid.SelectedRows.Count != 0) SearchedBookGrid.Rows.Clear(); 
 
             store.SellBook(id);
             MessageBox.Show("Продано!", "Готово", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            Refresh(); ShowBooks(); 
+            Refresh(); ShowBooks();
         }
 
         /// <summary>Очищает шкаф выбранного жанра.</summary>
@@ -186,7 +194,5 @@ namespace WinForms
             MessageBox.Show(b != null ? $"Найдено: {b.Title}" : "Не найдено", "Результат",
                 MessageBoxButtons.OK, b != null ? MessageBoxIcon.Information : MessageBoxIcon.Warning);
         }
-
-        private void textBox1_TextChanged(object sender, EventArgs e) { }
     }
 }
