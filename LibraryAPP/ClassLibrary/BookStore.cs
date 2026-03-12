@@ -170,7 +170,11 @@ namespace ClassLibrary
         {
             List<string> genres = new List<string>();
             foreach (var bc in bookCases)
-                genres.Add(bc.genre);
+            {
+                if (bc.GetAllBooks().Count != 0)
+                    genres.Add(bc.genre);
+            }
+                
             return genres;
         }
 

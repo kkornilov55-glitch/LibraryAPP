@@ -148,7 +148,11 @@ namespace WinForms
         {
             BalanceL.Text = $"{store.Balance:F2} ₽";
             GenreSelectCB.Items.Clear();
-            foreach (var g in store.GetAllGenres()) GenreSelectCB.Items.Add(g);
+            foreach (var g in store.GetAllGenres()) 
+                GenreSelectCB.Items.Add(g);
+
+            if (GenreSelectCB.Items.Count == 0) GenreSelectCB.Text = string.Empty;
+
             if (GenreSelectCB.Items.Count > 0 && GenreSelectCB.SelectedIndex == -1)
                 GenreSelectCB.SelectedIndex = 0;
             else if (GenreSelectCB.Items.Count == 0)
