@@ -73,8 +73,16 @@ namespace WinForms
             {
                 BookStore.PendingBook = new Book(t, a, g, p, pr);
             }
-
-            store.AddBook(BookStore.PendingBook);
+            
+            try
+            {
+                store.AddBook(BookStore.PendingBook);
+            }
+            catch (InvalidOperationException)
+            {
+                MessageBox.Show("Нет места для нового жанра.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
             BookStore.PendingBook = null;
 
             MessageBox.Show("Добавлено!", "Готово", MessageBoxButtons.OK, MessageBoxIcon.Information);

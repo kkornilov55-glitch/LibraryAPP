@@ -98,7 +98,10 @@ namespace ClassLibrary
                 if (bookCase.FindById(bookId) != null)
                 {
                     Balance += book.Sell();
-                    bookCase.RemoveBook(bookId);
+                    if (bookCase.GetAllBooks().Count == 1) //Если последняя книга в шкафу избавляемя от шкафа
+                        bookCases.Remove(bookCase);
+                    else
+                        bookCase.RemoveBook(bookId);
                     return;
                 }
             }
