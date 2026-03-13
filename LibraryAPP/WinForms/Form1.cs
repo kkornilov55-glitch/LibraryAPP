@@ -11,12 +11,11 @@ namespace WinForms
     /// </summary>
     public partial class BookStoreF : Form
     {
-        Book book = null;
 
         private readonly BookStore store;
-        
+
         // Храним ссылку на последнюю сгенерированную, но не сохраненную книгу
-        private Book _lastGeneratedBook = null;
+        private Book _currentGeneratedBook = null;
 
         public BookStoreF()
         {
@@ -69,17 +68,22 @@ namespace WinForms
             if (!PositiveInt(PagesCountTB.Text, "Страницы", out var p)) return;
             if (!PositiveDouble(PriceTB.Text, out var pr)) return;
 
-            // Проверка уникальности
+
+            if (_currentGeneratedBook != null)
+            {
+                // Откатываем счетчик, так как старая книга не будет использована
+                Book.DecrementCounter();
+                _currentGeneratedBook = null;
+            }
+
             string uniqueTitle = Book.EnsureUniqueTitle(t, a, store.GetAllBooks());
 
-            // Исправлено: создаем книгу сразу, без PendingBook и сброса counter
             var newBook = new Book(uniqueTitle, a, g, p, pr);
 
             try
             {
                 store.AddBook(newBook);
-                _lastGeneratedBook = null; // Книга успешно добавлена, сбрасываем ссылку на сгенерированную
-                MessageBox.Show("Добавлено!", "Готово", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show($"Добавлено!", "Готово", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 ClearForm();
                 Refresh();
             }
@@ -90,27 +94,26 @@ namespace WinForms
         }
 
 
+
         /// <summary>Генерирует книгу через библиотеку и заполняет форму.</summary>
         private void Generate()
         {
             // Если есть предыдущая сгенерированная книга, которую не сохранили — откатываем ID
-            if (_lastGeneratedBook != null)
+            if (_currentGeneratedBook != null)
             {
                 Book.DecrementCounter();
             }
 
-            // Исправлено: получаем книгу напрямую из возвращаемого значения
-            var generatedBook = Book.GenerateBook(store.GetAllBooks(), "");
-            _lastGeneratedBook = generatedBook; // Запоминаем текущую
+            _currentGeneratedBook = Book.GenerateBook(store.GetAllBooks(), "");
 
-            TitleTB.Text = generatedBook.Title;
-            AuthorTB.Text = generatedBook.Author;
-            GenreTB.Text = generatedBook.Genre;
-            PagesCountTB.Text = generatedBook.Pages.ToString();
-            PriceTB.Text = generatedBook.Price.ToString("F2");
-            ID_TB.Text = generatedBook.id.ToString();
+            TitleTB.Text = _currentGeneratedBook.Title;
+            AuthorTB.Text = _currentGeneratedBook.Author;
+            GenreTB.Text = _currentGeneratedBook.Genre;
+            PagesCountTB.Text = _currentGeneratedBook.Pages.ToString();
+            PriceTB.Text = _currentGeneratedBook.Price.ToString("F2");
+            ID_TB.Text = _currentGeneratedBook.id.ToString();
 
-            MessageBox.Show($"Сгенерировано: {generatedBook.Title}", "Готово", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBox.Show($"Сгенерировано: {_currentGeneratedBook.Title}", "Готово", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         /// <summary>Продаёт выделенную книгу через библиотеку.</summary>
@@ -169,6 +172,7 @@ namespace WinForms
             TitleTB.Clear(); AuthorTB.Clear(); GenreTB.Clear();
             PagesCountTB.Clear(); PriceTB.Clear();
             ID_TB.Text = "Авто"; TitleTB.Focus();
+            _currentGeneratedBook = null;
         }
 
         private void Refresh()

@@ -115,7 +115,6 @@ namespace ClassLibrary
                     }
                     return;
                 }
-            }
 
         /// <summary>
         /// Находит книгу по ID во всех шкафах.

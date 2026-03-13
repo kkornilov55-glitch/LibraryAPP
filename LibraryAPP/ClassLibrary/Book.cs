@@ -60,7 +60,6 @@ namespace ClassLibrary
             string randomAuthor = GetrandomAuthor();
             string rawTitle = GetRandomTitle();
 
-            // Если файл не найден, используем заглушку
             if (rawTitle.StartsWith("Ошибка") || rawTitle.StartsWith("Файл"))
                 rawTitle = "Без названия";
 
@@ -71,8 +70,6 @@ namespace ClassLibrary
             string randomGenre = GetRandomGenre();
 
             return new Book(finalTitle, randomAuthor, randomGenre, randomPages, randomPrice);
-            BookStore.PendingBook = book;
-            return book;
         }
 
         /// <summary>
