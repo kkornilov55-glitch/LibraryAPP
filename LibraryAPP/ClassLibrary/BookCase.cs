@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Linq;
 
 namespace ClassLibrary
 {
@@ -14,25 +15,25 @@ namespace ClassLibrary
         public int capacity { get; private set; }
         public string genre { get; private set; }
 
-        static string GetUniqueTitle(string title, string author)
-        {
-            List<Book> books = BookStore.GetAllBooks();
-            string uniqueTitle = title;
-            int counter = 2;
+        //static string GetUniqueTitle(string title, string author)
+        //{
+        //    List<Book> books = BookStore.GetAllBooks();
+        //    string uniqueTitle = title;
+        //    int counter = 2;
 
-            for (int i = 0; i < books.Count; i++)
-            {
+        //    for (int i = 0; i < books.Count; i++)
+        //    {
 
-                if (books.Any(b => b.Title == uniqueTitle && b.Author == author))
-                {
-                    uniqueTitle = $"{title} {counter}";
-                    counter++;
-                }
-                else break;
-            }
+        //        if (books.Any(b => b.Title == uniqueTitle && b.Author == author))
+        //        {
+        //            uniqueTitle = $"{title} {counter}";
+        //            counter++;
+        //        }
+        //        else break;
+        //    }
 
-            return uniqueTitle;
-        }
+        //    return uniqueTitle;
+        //}
 
         /// <summary>
         /// Конструктор класса BookCase, инициализирует книжный шкаф с именем и вместимостью.
@@ -70,7 +71,7 @@ namespace ClassLibrary
                 throw new InvalidOperationException($"Невозможно добавить книгу жанра {book.Genre} в шкаф жанра {genre}.");
             }
 
-            book.Title = GetUniqueTitle(book.Title, book.Author);
+            //book.Title = GetUniqueTitle(book.Title, book.Author);
             books.Add(book);
         }
         /// <summary>

@@ -4,20 +4,13 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace BookTests.cs
+namespace BookTests
 {
-    /// <summary>
-    /// Класс тестов для проверки класса BookCase согласно требованиям ТЗ.
-    /// Проверяет хранение книг одного жанра, поиск, вместимость.
-    /// </summary>
     [TestClass]
     public class BookCaseTests
     {
         private BookCase _bookCase;
 
-        /// <summary>
-        /// Метод инициализации. Создаёт новый шкаф перед каждым тестом.
-        /// </summary>
         [TestInitialize]
         public void Setup()
         {
@@ -25,9 +18,7 @@ namespace BookTests.cs
         }
 
 
-        /// <summary>
-        /// ТЗ п.2.b: Проверяет создание шкафа с указанием жанра и вместимости.
-        /// </summary>
+        // Проверяет создание шкафа с указанием жанра и вместимости.
         [TestMethod]
         public void BookCaseConstructor_ValidParameters_InitializesCorrectly()
         {
@@ -43,9 +34,7 @@ namespace BookTests.cs
             Assert.AreEqual(capacity, bookCase.capacity, "Вместимость должна совпадать с указанной");
         }
 
-        /// <summary>
-        /// ТЗ п.5: Проверяет, что шкаф не создаётся без указания жанра.
-        /// </summary>
+        // Проверяет, что шкаф не создаётся без указания жанра.
         [TestMethod]
         public void BookCaseConstructor_EmptyGenre_ThrowsArgumentException()
         {
@@ -69,10 +58,7 @@ namespace BookTests.cs
         }
 
 
-        /// <summary>
-        /// ТЗ п.2.b: В шкафу хранятся книги только одного жанра.
-        /// Проверяет успешное добавление книги правильного жанра.
-        /// </summary>
+        // В шкафу хранятся книги только одного жанра.
         [TestMethod]
         public void AddBook_ValidBook_AddsSuccessfully()
         {
@@ -88,10 +74,7 @@ namespace BookTests.cs
             Assert.AreEqual("Фантастика", books[0].Genre, "Жанр книги должен совпадать с жанром шкафа");
         }
 
-        /// <summary>
-        /// ТЗ п.2.b: В шкафу могут храниться книги ТОЛЬКО одного жанра.
-        /// Книга другого жанра не должна добавляться.
-        /// </summary>
+        // В шкафу могут храниться книги ТОЛЬКО одного жанра.
         [TestMethod]
         public void AddBook_WrongGenre_ThrowsInvalidOperationException()
         {
@@ -113,9 +96,7 @@ namespace BookTests.cs
             Assert.IsTrue(exceptionThrown, "Книга другого жанра не должна добавляться в шкаф");
         }
 
-        /// <summary>
-        /// ТЗ п.5: Проверяет обработку null книги.
-        /// </summary>
+        // Проверяет обработку null книги.
         [TestMethod]
         public void AddBook_NullBook_ThrowsArgumentNullException()
         {
@@ -137,10 +118,7 @@ namespace BookTests.cs
             Assert.IsTrue(exceptionThrown, "Null книга не должна добавляться");
         }
 
-        /// <summary>
-        /// ТЗ п.2.b: У каждого шкафа своя вместимость.
-        /// При превышении вместимости книга не должна добавляться.
-        /// </summary>
+        //  У каждого шкафа своя вместимость. При превышении вместимости книга не должна добавляться.
         [TestMethod]
         public void AddBook_CapacityExceeded_ThrowsInvalidOperationException()
         {
@@ -169,10 +147,7 @@ namespace BookTests.cs
             Assert.IsTrue(exceptionThrown, "При переполнении шкафа книга не должна добавляться");
         }
 
-
-        /// <summary>
-        /// ТЗ п.2.b: В шкафу можно искать книгу по идентификационному номеру.
-        /// </summary>
+        // В шкафу можно искать книгу по идентификационному номеру.
         [TestMethod]
         public void FindById_ExistingId_ReturnsBook()
         {
@@ -188,9 +163,7 @@ namespace BookTests.cs
             Assert.AreEqual("Искомая книга", found.Title);
         }
 
-        /// <summary>
-        /// ТЗ п.2.b: Поиск по несуществующему ID должен возвращать null.
-        /// </summary>
+        // Поиск по несуществующему ID
         [TestMethod]
         public void FindById_NonExistingId_ReturnsNull()
         {
@@ -204,9 +177,7 @@ namespace BookTests.cs
             Assert.IsNull(found, "Поиск несуществующего ID должен вернуть null");
         }
 
-        /// <summary>
-        /// ТЗ п.2.b: В шкафу можно искать книгу по названию.
-        /// </summary>
+        // В шкафу можно искать книгу по названию.
         [TestMethod]
         public void FindbyTitle_ExistingTitle_ReturnsBook()
         {
@@ -222,9 +193,7 @@ namespace BookTests.cs
             Assert.AreEqual("Уникальное название", found.Title);
         }
 
-        /// <summary>
-        /// ТЗ п.2.b: Поиск по несуществующему названию должен возвращать null.
-        /// </summary>
+        // Поиск по несуществующему названию
         [TestMethod]
         public void FindbyTitle_NonExistingTitle_ReturnsNull()
         {
@@ -238,11 +207,7 @@ namespace BookTests.cs
             Assert.IsNull(found, "Поиск несуществующего названия должен вернуть null");
         }
 
-
-        /// <summary>
-        /// ТЗ п.3.b: При продаже книги в шкафу освобождается место.
-        /// Проверяет удаление книги по ID.
-        /// </summary>
+        // При продаже книги в шкафу освобождается место. Проверяет удаление книги по ID.
         [TestMethod]
         public void RemoveBook_ExistingId_RemovesSuccessfully()
         {
@@ -261,9 +226,7 @@ namespace BookTests.cs
                 "После удаления количество книг должно уменьшиться на 1");
         }
 
-        /// <summary>
-        /// ТЗ п.5: Удаление несуществующей книги должно выбрасывать исключение.
-        /// </summary>
+        // Удаление несуществующей книги должно выбрасывать исключение.
         [TestMethod]
         public void RemoveBook_NonExistingId_ThrowsInvalidOperationException()
         {
@@ -285,11 +248,7 @@ namespace BookTests.cs
             Assert.IsTrue(exceptionThrown, "Удаление несуществующей книги должно выбрасывать исключение");
         }
 
-
-        /// <summary>
-        /// ТЗ п.2.b: Книги выводятся по порядку их добавления.
-        /// Проверяет, что GetAllBooks возвращает копию списка.
-        /// </summary>
+        // Книги выводятся по порядку их добавления.
         [TestMethod]
         public void GetAllBooks_ReturnsCopy_NotReference()
         {

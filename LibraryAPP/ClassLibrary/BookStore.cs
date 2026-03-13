@@ -9,7 +9,7 @@ namespace ClassLibrary
     public class BookStore
     {
         public static Book PendingBook;
-        private static List<BookCase> bookCases;
+        private List<BookCase> bookCases;
         public int MaxBookCases { get; private set; }
         public double Balance { get; private set; }
 
@@ -138,7 +138,7 @@ namespace ClassLibrary
         /// <summary>
         /// Возвращает все книги в магазине.
         /// </summary>
-        static public List<Book> GetAllBooks()
+        public List<Book> GetAllBooks()
         {
             List<Book> allBooks = new List<Book>();
             foreach (var bookCase in bookCases)

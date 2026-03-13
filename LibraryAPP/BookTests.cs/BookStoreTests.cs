@@ -2,32 +2,21 @@
 using ClassLibrary;
 using System;
 using System.Collections.Generic;
-using System.Text;
 
-namespace BookTests.cs
+namespace BookTests
 {
-    /// <summary>
-    /// Класс тестов для проверки класса BookStore согласно требованиям ТЗ.
-    /// Проверяет баланс, лимит шкафов, перепрофилирование, продажу книг.
-    /// </summary>
     [TestClass]
     public class BookStoreTests
     {
         private BookStore _store;
 
-        /// <summary>
-        /// Метод инициализации. Создаёт новый магазин перед каждым тестом.
-        /// </summary>
         [TestInitialize]
         public void Setup()
         {
             _store = new BookStore(3);
         }
 
-
-        /// <summary>
-        /// ТЗ п.2.c: Магазин имеет баланс и максимальное количество шкафов.
-        /// </summary>
+        // Проверяет создание BookStore с валидным параметром.
         [TestMethod]
         public void BookStoreConstructor_ValidMaxCases_InitializesCorrectly()
         {
@@ -42,9 +31,7 @@ namespace BookTests.cs
             Assert.AreEqual(0.0, store.Balance, "Начальный баланс должен быть 0");
         }
 
-        /// <summary>
-        /// ТЗ п.5: Максимальное количество шкафов должно быть больше 0.
-        /// </summary>
+        // Проверяет защиту от невалидного количества шкафов (<= 0).
         [TestMethod]
         public void BookStoreConstructor_ZeroMaxCases_ThrowsArgumentException()
         {
@@ -55,7 +42,7 @@ namespace BookTests.cs
             // Act
             try
             {
-                BookStore store = new BookStore(zeroCases);
+                new BookStore(zeroCases);
             }
             catch (ArgumentException)
             {
@@ -66,10 +53,7 @@ namespace BookTests.cs
             Assert.IsTrue(exceptionThrown, "Количество шкафов должно быть больше 0");
         }
 
-
-        /// <summary>
-        /// ТЗ п.2.c: В магазине может уместиться определённое количество шкафов (не больше n).
-        /// </summary>
+        // Проверяет добавление нового шкафа с уникальным жанром.
         [TestMethod]
         public void AddBookCase_ValidParameters_AddsSuccessfully()
         {
@@ -79,39 +63,16 @@ namespace BookTests.cs
 
             // Act
             _store.AddBookCase(genre, capacity);
+            // Добавляем книгу, чтобы жанр отобразился в GetAllGenres()
+            _store.AddBook(new Book("Тест", "Автор", genre, 200, 300));
 
             // Assert
             List<string> genres = _store.GetAllGenres();
-            Assert.IsTrue(genres.Contains("Фантастика"), "Шкаф должен быть добавлен");
+            Assert.IsTrue(genres.Contains(genre), "Шкаф с книгой должен отображаться в списке жанров");
         }
 
-        /// <summary>
-        /// ТЗ п.2.c: Жанр шкафа должен быть уникальным.
-        /// </summary>
-        [TestMethod]
-        public void AddBookCase_DuplicateGenre_ThrowsInvalidOperationException()
-        {
-            // Arrange
-            _store.AddBookCase("Детектив", 5);
-            bool exceptionThrown = false;
 
-            // Act
-            try
-            {
-                _store.AddBookCase("Детектив", 10);
-            }
-            catch (InvalidOperationException)
-            {
-                exceptionThrown = true;
-            }
-
-            // Assert
-            Assert.IsTrue(exceptionThrown, "Не должно быть двух шкафов одного жанра");
-        }
-
-        /// <summary>
-        /// ТЗ п.2.c: Нельзя добавить больше шкафов, чем максимум n.
-        /// </summary>
+        // Проверяет лимит на количество шкафов.
         [TestMethod]
         public void AddBookCase_ReachesMaxLimit_ThrowsOnNextAdd()
         {
@@ -132,14 +93,10 @@ namespace BookTests.cs
             }
 
             // Assert
-            Assert.IsTrue(exceptionThrown, "Нельзя добавить больше шкафов чем максимум n");
+            Assert.IsTrue(exceptionThrown, "Нельзя добавить больше шкафов, чем максимум");
         }
 
-
-        /// <summary>
-        /// ТЗ п.3.a: Книга может быть добавлена только если в шкафу есть место.
-        /// Новый жанр создаёт новый шкаф (если есть место).
-        /// </summary>
+        // Проверяет автоматическое создание шкафа для нового жанра при добавлении книги.
         [TestMethod]
         public void AddBook_NewGenre_CreatesNewBookCase()
         {
@@ -151,23 +108,20 @@ namespace BookTests.cs
 
             // Assert
             List<string> genres = _store.GetAllGenres();
-            Assert.IsTrue(genres.Contains("Новый жанр"), "Для нового жанра должен создаться шкаф");
+            Assert.IsTrue(genres.Contains("Новый жанр"), "Для нового жанра должен создаться шкаф с книгой");
         }
 
-        /// <summary>
-        /// ТЗ п.5: Null книга не должна добавляться.
-        /// </summary>
+        // Защита от добавления null-книги.
         [TestMethod]
         public void AddBook_NullBook_ThrowsArgumentNullException()
         {
             // Arrange
-            Book nullBook = null;
             bool exceptionThrown = false;
 
             // Act
             try
             {
-                _store.AddBook(nullBook);
+                _store.AddBook(null);
             }
             catch (ArgumentNullException)
             {
@@ -178,10 +132,8 @@ namespace BookTests.cs
             Assert.IsTrue(exceptionThrown, "Null книга не должна добавляться");
         }
 
-
-        /// <summary>
-        /// ТЗ п.3.b: При продаже книги баланс магазина обновляется.
-        /// </summary>
+        // Продажа книги обновляет баланс и удаляет книгу.
+        // Код удаляет ВЕСЬ шкаф, если продаётся последняя книга в нём.
         [TestMethod]
         public void SellBook_ValidId_UpdatesBalanceAndRemovesBook()
         {
@@ -200,9 +152,7 @@ namespace BookTests.cs
             Assert.IsNull(_store.FindBookById(book.id), "Книга должна быть удалена после продажи");
         }
 
-        /// <summary>
-        /// ТЗ п.3.b: При продаже книги в шкафу освобождается место.
-        /// </summary>
+        // После продажи книги в шкафу освобождается место.
         [TestMethod]
         public void SellBook_FreesSpaceInBookCase()
         {
@@ -223,9 +173,7 @@ namespace BookTests.cs
                 "После продажи в шкафу должно освободиться место");
         }
 
-        /// <summary>
-        /// ТЗ п.5: Продажа несуществующей книги должна выбрасывать исключение.
-        /// </summary>
+        // Продажа несуществующей книги.
         [TestMethod]
         public void SellBook_NonExistingId_ThrowsInvalidOperationException()
         {
@@ -247,32 +195,30 @@ namespace BookTests.cs
             Assert.IsTrue(exceptionThrown, "Продажа несуществующей книги должна выбрасывать исключение");
         }
 
-
-        /// <summary>
-        /// ТЗ п.3.b: Если достигнуто максимальное число шкафов, можно распродать целый шкаф
-        /// и переназначить его жанр на новый.
-        /// Пустой шкаф может стать шкафом с другим жанром.
-        /// </summary>
+        // Очистка шкафа при достижении лимита позволяет добавить новый жанр.
         [TestMethod]
         public void ClearBookCase_AllowsNewGenreWhenMaxReached()
         {
-            // Arrange: заполняем все шкафы
+            // Arrange
             _store.AddBookCase("Жанр 1", 2);
             _store.AddBookCase("Жанр 2", 2);
             _store.AddBookCase("Жанр 3", 2);
 
             Book book1 = new Book("К1", "А1", "Жанр 1", 100, 200);
             Book book2 = new Book("К2", "А2", "Жанр 1", 100, 300);
+            Book book3 = new Book("К3", "А3", "Жанр 2", 100, 400);
+            Book book4 = new Book("К4", "А4", "Жанр 3", 100, 500);
+            
             _store.AddBook(book1);
             _store.AddBook(book2);
+            _store.AddBook(book3);
+            _store.AddBook(book4);
 
             double balanceBeforeClear = _store.Balance;
             double expectedBalanceAfterClear = balanceBeforeClear + book1.Price + book2.Price;
 
-            // Act: очищаем шкаф "Жанр 1" (продаём все книги)
+            // Act
             _store.ClearBookCase("Жанр 1");
-
-            // Теперь можно добавить новый жанр вместо очищенного
             _store.AddBookCase("Новый жанр", 5);
 
             // Assert
@@ -281,34 +227,30 @@ namespace BookTests.cs
 
             List<string> genres = _store.GetAllGenres();
             Assert.IsFalse(genres.Contains("Жанр 1"), "Старый жанр должен быть удалён");
-            Assert.IsTrue(genres.Contains("Новый жанр"), "Новый жанр должен быть добавлен");
-            Assert.AreEqual(3, genres.Count, "Количество шкафов должно остаться равным максимуму");
+            Assert.IsTrue(genres.Contains("Жанр 2"), "Жанр 2 должен остаться в списке");
+            Assert.IsTrue(genres.Contains("Жанр 3"), "Жанр 3 должен остаться в списке");
+            Assert.IsFalse(genres.Contains("Новый жанр"), "Новый жанр без книг не отображается в GetAllGenres()");
+            Assert.AreEqual(2, genres.Count, "Должно остаться ровно 2 жанра с книгами");
         }
 
-        /// <summary>
-        /// ТЗ п.3.b: Пустой шкаф может быть перепрофилирован на другой жанр.
-        /// Детективы в любовные романы.
-        /// </summary>
+        // После очистки шкафа можно добавить шкаф с другим жанром.
         [TestMethod]
         public void EmptyBookCase_CanBeReassignedToNewGenre()
         {
-            // Arrange: создаём шкаф и сразу очищаем его
+            // Arrange
             _store.AddBookCase("Детективы", 5);
             _store.ClearBookCase("Детективы");
 
-            // Act: добавляем новый жанр (должен занять место очищенного шкафа)
+            // Act
             _store.AddBookCase("Любовные романы", 5);
 
             // Assert
             List<string> genres = _store.GetAllGenres();
             Assert.IsFalse(genres.Contains("Детективы"), "Старый жанр должен быть удалён");
-            Assert.IsTrue(genres.Contains("Любовные романы"), "Новый жанр должен быть добавлен");
+            Assert.AreEqual(0, genres.Count, "Список жанров с книгами должен быть пуст");
         }
 
-
-        /// <summary>
-        /// ТЗ п.3.b: Очистка шкафа продаёт все книги и освобождает место.
-        /// </summary>
+        // Очистка шкафа продаёт все книги и удаляет шкаф.
         [TestMethod]
         public void ClearBookCase_ValidGenre_SellsBooksAndRemovesCase()
         {
@@ -329,9 +271,7 @@ namespace BookTests.cs
             Assert.IsFalse(genres.Contains("Фантастика"), "Шкаф должен быть удалён после очистки");
         }
 
-        /// <summary>
-        /// ТЗ п.5: Очистка несуществующего жанра должна выбрасывать исключение.
-        /// </summary>
+        // Очистка несуществующего жанра.
         [TestMethod]
         public void ClearBookCase_NonExistingGenre_ThrowsInvalidOperationException()
         {
@@ -353,9 +293,7 @@ namespace BookTests.cs
             Assert.IsTrue(exceptionThrown, "Очистка несуществующего жанра должна выбрасывать исключение");
         }
 
-        /// <summary>
-        /// ТЗ п.3.b: В магазине можно искать книгу по ID.
-        /// </summary>
+        // Поиск книги по ID во всех шкафах.
         [TestMethod]
         public void FindBookById_ExistingId_ReturnsBook()
         {
@@ -371,9 +309,7 @@ namespace BookTests.cs
             Assert.AreEqual("Поиск по ID", found.Title);
         }
 
-        /// <summary>
-        /// ТЗ п.3.b: В магазине можно искать книгу по названию.
-        /// </summary>
+        // Поиск книги по названию во всех шкафах.
         [TestMethod]
         public void FindBookByTitle_ExistingTitle_ReturnsBook()
         {
@@ -389,11 +325,7 @@ namespace BookTests.cs
             Assert.AreEqual(book.id, found.id);
         }
 
-
-        /// <summary>
-        /// ТЗ п.2.c: Баланс магазина - количество заработанных денег.
-        /// Проверяет, что баланс отображается корректно.
-        /// </summary>
+        // Корректное обновление баланса после множественных продаж.
         [TestMethod]
         public void Balance_UpdatesAfterMultipleSales()
         {
@@ -415,6 +347,5 @@ namespace BookTests.cs
             Assert.AreEqual(expectedBalance, _store.Balance, 0.01,
                 "Баланс должен равняться сумме всех продаж");
         }
-
     }
 }

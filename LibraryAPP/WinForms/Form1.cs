@@ -64,12 +64,16 @@ namespace WinForms
             if (!PositiveInt(PagesCountTB.Text, "Страницы", out var p)) return;
             if (!PositiveDouble(PriceTB.Text, out var pr)) return;
 
+            // Проверка уникальности названия
+            string uniqueTitle = Book.EnsureUniqueTitle(t, a, store.GetAllBooks());
+
             //Книга изменена если какое-то поле не равно полю книги в ожидании
             bool BookWasChanged = false;
 
             if (BookStore.PendingBook != null)
             {
-                BookWasChanged = BookStore.PendingBook.Title != t ||
+                BookWasChanged = BookStore.PendingBook.Title != uniqueTitle ||
+                                 BookStore.PendingBook.Title != t ||
                                  BookStore.PendingBook.Author != a ||
                                  BookStore.PendingBook.Genre != g ||
                                  BookStore.PendingBook.Pages != p ||
@@ -82,7 +86,7 @@ namespace WinForms
 
             if (BookStore.PendingBook == null || BookWasChanged)
             {
-                BookStore.PendingBook = new Book(t, a, g, p, pr);
+                BookStore.PendingBook = new Book(uniqueTitle, a, g, p, pr);
             }
 
             try
@@ -104,9 +108,9 @@ namespace WinForms
         private void Generate()
         {
             var g = GenreTB.Text.Trim();
-            
 
-            Book.GenerateBook(BookStore.GetAllBooks(), g);
+
+            Book.GenerateBook(store.GetAllBooks(), g);
             TitleTB.Text = BookStore.PendingBook.Title;
             AuthorTB.Text = BookStore.PendingBook.Author;
             GenreTB.Text = BookStore.PendingBook.Genre;
