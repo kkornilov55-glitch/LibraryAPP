@@ -107,6 +107,8 @@ namespace ClassLibrary
                     {
                         bookCases.RemoveAt(i);
                     }
+                        return;
+                    }
                     else
                     {
                         bookCases[i].RemoveBook(bookId);

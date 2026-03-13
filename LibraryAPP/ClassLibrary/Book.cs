@@ -71,6 +71,8 @@ namespace ClassLibrary
             string randomGenre = GetRandomGenre();
 
             return new Book(finalTitle, randomAuthor, randomGenre, randomPages, randomPrice);
+            BookStore.PendingBook = book;
+            return book;
         }
 
         /// <summary>

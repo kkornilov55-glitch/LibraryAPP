@@ -11,6 +11,8 @@ namespace WinForms
     /// </summary>
     public partial class BookStoreF : Form
     {
+        Book book = null;
+
         private readonly BookStore store;
         
         // Храним ссылку на последнюю сгенерированную, но не сохраненную книгу
