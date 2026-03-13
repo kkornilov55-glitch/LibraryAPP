@@ -20,7 +20,14 @@ namespace ClassLibrary
 
         public static int counter = 0;
 
+        public static void DecrementCounter()
+        {
+            if (counter > 0)
+                counter--;
+        }
 
+        // Исправлено: один статический Random на весь класс
+        private static readonly Random rng = new Random();
 
         /// <summary>
         /// Конструктор для ручного создания книг
@@ -48,23 +55,22 @@ namespace ClassLibrary
         /// Статический метод, случайно генерирующий книгу.
         /// Принадлежит самому классу а не конкретной книге т.е. создает новую книгу без привязки к существующей
         /// </summary>
-        public static Book GenerateBook(List<Book> ExistingBooks, string genre) //список ExistingBooks должен содержать в себе все созданные книги.
-                                                                                //он будет заполняться в классе реализующем логику книжного шкафа
-
+        public static Book GenerateBook(List<Book> ExistingBooks, string genreHint) //список ExistingBooks должен содержать в себе все созданные книги.                                                                           //он будет заполняться в классе реализующем логику книжного шкаф
         {
-            Random rng = new Random();
-            string RandomAuthor = GetrandomAuthor();
+            string randomAuthor = GetrandomAuthor();
             string rawTitle = GetRandomTitle();
-            string finalTitle = titleHandler(rawTitle,RandomAuthor, ExistingBooks);
 
-            int RandomPages = rng.Next(50, 500);
-            double RandomPrice = rng.Next(300, 1500);
-            string RandomGenre = GetRandomGenre();
+            // Если файл не найден, используем заглушку
+            if (rawTitle.StartsWith("Ошибка") || rawTitle.StartsWith("Файл"))
+                rawTitle = "Без названия";
 
-            // Вызов конструктора для создания книги, на основе случайных значений
-            var book = new Book(finalTitle, RandomAuthor, RandomGenre, RandomPages, RandomPrice);
-            BookStore.PendingBook = book;
-            return book;
+            string finalTitle = EnsureUniqueTitle(rawTitle, randomAuthor, ExistingBooks);
+
+            int randomPages = rng.Next(50, 500);
+            double randomPrice = Math.Round(rng.Next(300, 1500) + rng.NextDouble(), 2);
+            string randomGenre = GetRandomGenre();
+
+            return new Book(finalTitle, randomAuthor, randomGenre, randomPages, randomPrice);
         }
 
         /// <summary>
@@ -98,8 +104,6 @@ namespace ClassLibrary
                 if (titles.Count == 0)
                     return "Файл пустой";
 
-                Random rng = new Random();
-
                 return titles[rng.Next(titles.Count)]; // Возвращаем случайное название из списка
 
             }
@@ -113,14 +117,12 @@ namespace ClassLibrary
         private static string GetrandomAuthor()
         {
             string[] authors = new string[] { "Стивен Кинг", "Михаил Булгаков", "Федор Достоевский", "Уильям Шекспир", "Лев Толстой", "Джордж Оруэлл", "Джоан Роулинг", "Николай Гоголь", "Александр Пушкин", "Эрих Мария Ремарк" };
-            Random rng = new Random();
             return authors[rng.Next(authors.Length)]; // Возвращаем случайного автора из массива
         }
 
         private static string GetRandomGenre()
         {
             string[] genres = new string[] { "Фэнтези", "Детектив", "Триллер", "Научная фантастика", "Роман", "Драма" };
-            Random rng = new Random();
             return genres[rng.Next(genres.Length)];
         }
 

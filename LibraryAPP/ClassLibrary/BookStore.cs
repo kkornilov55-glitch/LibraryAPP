@@ -8,7 +8,7 @@ namespace ClassLibrary
     /// </summary>
     public class BookStore
     {
-        public static Book PendingBook;
+        //public static Book PendingBook;
         private List<BookCase> bookCases;
         public int MaxBookCases { get; private set; }
         public double Balance { get; private set; }
@@ -60,6 +60,12 @@ namespace ClassLibrary
                     break;
                 }
             }
+            
+            if (targetCase != null)
+            {
+                targetCase.AddBook(book);
+                return;
+            }
 
             // Если шкаф не найден — создаём новый (если есть место)
             if (targetCase == null)
@@ -92,20 +98,22 @@ namespace ClassLibrary
             if (book == null)
                 throw new InvalidOperationException($"Книга с ID {bookId} не найдена.");
 
-            // Поиск и удаление книги из соответствующего шкафа
-            foreach (var bookCase in bookCases)
-            {
-                if (bookCase.FindById(bookId) != null)
+            for (int i = 0; i < bookCases.Count; i++) 
+                if (bookCases[i].FindById(bookId) != null)
                 {
                     Balance += book.Sell();
-                    if (bookCase.GetAllBooks().Count == 1) //Если последняя книга в шкафу избавляемя от шкафа
-                        bookCases.Remove(bookCase);
+
+                    if (bookCases[i].GetAllBooks().Count == 1)
+                    {
+                        bookCases.RemoveAt(i);
+                    }
                     else
-                        bookCase.RemoveBook(bookId);
+                    {
+                        bookCases[i].RemoveBook(bookId);
+                    }
                     return;
                 }
             }
-        }
 
         /// <summary>
         /// Находит книгу по ID во всех шкафах.

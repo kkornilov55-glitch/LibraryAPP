@@ -12,6 +12,9 @@ namespace WinForms
     public partial class BookStoreF : Form
     {
         private readonly BookStore store;
+        
+        // Храним ссылку на последнюю сгенерированную, но не сохраненную книгу
+        private Book _lastGeneratedBook = null;
 
         public BookStoreF()
         {
@@ -64,61 +67,48 @@ namespace WinForms
             if (!PositiveInt(PagesCountTB.Text, "Страницы", out var p)) return;
             if (!PositiveDouble(PriceTB.Text, out var pr)) return;
 
-            // Проверка уникальности названия
+            // Проверка уникальности
             string uniqueTitle = Book.EnsureUniqueTitle(t, a, store.GetAllBooks());
 
-            //Книга изменена если какое-то поле не равно полю книги в ожидании
-            bool BookWasChanged = false;
-
-            if (BookStore.PendingBook != null)
-            {
-                BookWasChanged = BookStore.PendingBook.Title != uniqueTitle ||
-                                 BookStore.PendingBook.Title != t ||
-                                 BookStore.PendingBook.Author != a ||
-                                 BookStore.PendingBook.Genre != g ||
-                                 BookStore.PendingBook.Pages != p ||
-                                 BookStore.PendingBook.Price != pr;
-            }
-            // если PendingBook == null, то BookWasChanged остаётся false
-
-            if (BookWasChanged)
-                Book.counter -= 1; //Забываем о существовании той книги
-
-            if (BookStore.PendingBook == null || BookWasChanged)
-            {
-                BookStore.PendingBook = new Book(uniqueTitle, a, g, p, pr);
-            }
+            // Исправлено: создаем книгу сразу, без PendingBook и сброса counter
+            var newBook = new Book(uniqueTitle, a, g, p, pr);
 
             try
             {
-                store.AddBook(BookStore.PendingBook);
+                store.AddBook(newBook);
+                _lastGeneratedBook = null; // Книга успешно добавлена, сбрасываем ссылку на сгенерированную
+                MessageBox.Show("Добавлено!", "Готово", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                ClearForm();
+                Refresh();
             }
-            catch (InvalidOperationException)
+            catch (InvalidOperationException ex)
             {
-                MessageBox.Show("Нет места для нового жанра.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
+                MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
-            BookStore.PendingBook = null;
-
-            MessageBox.Show("Добавлено!", "Готово", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            ClearForm(); Refresh();
         }
+
 
         /// <summary>Генерирует книгу через библиотеку и заполняет форму.</summary>
         private void Generate()
         {
-            var g = GenreTB.Text.Trim();
+            // Если есть предыдущая сгенерированная книга, которую не сохранили — откатываем ID
+            if (_lastGeneratedBook != null)
+            {
+                Book.DecrementCounter();
+            }
 
+            // Исправлено: получаем книгу напрямую из возвращаемого значения
+            var generatedBook = Book.GenerateBook(store.GetAllBooks(), "");
+            _lastGeneratedBook = generatedBook; // Запоминаем текущую
 
-            Book.GenerateBook(store.GetAllBooks(), g);
-            TitleTB.Text = BookStore.PendingBook.Title;
-            AuthorTB.Text = BookStore.PendingBook.Author;
-            GenreTB.Text = BookStore.PendingBook.Genre;
-            PagesCountTB.Text = BookStore.PendingBook.Pages.ToString();
-            PriceTB.Text = BookStore.PendingBook.Price.ToString("F2");
-            ID_TB.Text = BookStore.PendingBook.id.ToString();
+            TitleTB.Text = generatedBook.Title;
+            AuthorTB.Text = generatedBook.Author;
+            GenreTB.Text = generatedBook.Genre;
+            PagesCountTB.Text = generatedBook.Pages.ToString();
+            PriceTB.Text = generatedBook.Price.ToString("F2");
+            ID_TB.Text = generatedBook.id.ToString();
 
-            MessageBox.Show($"Сгенерировано: {BookStore.PendingBook.Title}", "Готово", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBox.Show($"Сгенерировано: {generatedBook.Title}", "Готово", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         /// <summary>Продаёт выделенную книгу через библиотеку.</summary>
