@@ -73,7 +73,7 @@ namespace WinForms
             {
                 if (book == null || book.Title != t || book.Author != a || book.Genre != g || book.Pages != p || book.Price != pr)
                 {
-                    book = new Book(t, a, g, p, pr);
+                    book = new Book(uniqueTitle, a, g, p, pr);
                 }
             }
             catch (InvalidOperationException)
