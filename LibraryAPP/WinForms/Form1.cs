@@ -63,17 +63,28 @@ namespace WinForms
             if (!Required(t, "Название") || !Required(a, "Автор") || !Required(g, "Жанр")) return;
             if (!PositiveInt(PagesCountTB.Text, "Страницы", out var p)) return;
             if (!PositiveDouble(PriceTB.Text, out var pr)) return;
-            
-            //Книга изменена если какое-то поле не равно полю книги в ожидании
-            bool BookWasChanged = BookStore.PendingBook.Title != t || BookStore.PendingBook.Author != a || BookStore.PendingBook.Genre != g || BookStore.PendingBook.Pages != p || BookStore.PendingBook.Price != pr;
 
-            if (BookWasChanged) Book.counter -= 1; //Забываем о существовании той книги
+            //Книга изменена если какое-то поле не равно полю книги в ожидании
+            bool BookWasChanged = false;
+
+            if (BookStore.PendingBook != null)
+            {
+                BookWasChanged = BookStore.PendingBook.Title != t ||
+                                 BookStore.PendingBook.Author != a ||
+                                 BookStore.PendingBook.Genre != g ||
+                                 BookStore.PendingBook.Pages != p ||
+                                 BookStore.PendingBook.Price != pr;
+            }
+            // если PendingBook == null, то BookWasChanged остаётся false
+
+            if (BookWasChanged)
+                Book.counter -= 1; //Забываем о существовании той книги
 
             if (BookStore.PendingBook == null || BookWasChanged)
             {
                 BookStore.PendingBook = new Book(t, a, g, p, pr);
             }
-            
+
             try
             {
                 store.AddBook(BookStore.PendingBook);
