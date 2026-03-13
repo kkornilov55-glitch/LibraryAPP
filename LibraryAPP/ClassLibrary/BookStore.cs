@@ -98,23 +98,20 @@ namespace ClassLibrary
             if (book == null)
                 throw new InvalidOperationException($"Книга с ID {bookId} не найдена.");
 
-            for (int i = 0; i < bookCases.Count; i++) 
+            for (int i = 0; i < bookCases.Count; i++)
                 if (bookCases[i].FindById(bookId) != null)
                 {
                     Balance += book.Sell();
+                    bookCases[i].RemoveBook(bookId);
 
-                    if (bookCases[i].GetAllBooks().Count == 1)
+                    if (bookCases[i].GetAllBooks().Count == 0)
                     {
                         bookCases.RemoveAt(i);
                     }
-                        return;
-                    }
-                    else
-                    {
-                        bookCases[i].RemoveBook(bookId);
-                    }
+
                     return;
                 }
+        }
 
         /// <summary>
         /// Находит книгу по ID во всех шкафах.

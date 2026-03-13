@@ -3,12 +3,21 @@ using ClassLibrary;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Reflection;
 
 namespace BookTests
 {
     [TestClass]
     public class BookTests
     {
+        private static void ResetBookCounter()
+        {
+            var field = typeof(Book).GetField("counter",
+                BindingFlags.Public | BindingFlags.Static);
+            if (field != null)
+                field.SetValue(null, 0);
+        }
+
         private List<Book> _books;
 
         [TestInitialize]
@@ -135,6 +144,38 @@ namespace BookTests
         {
             var book = new Book("Book", "Author", "Genre", 250, 799.50);
             Assert.AreEqual(799.50, book.Sell(), 0.01); // delta 0.01 для сравнения double
+        }
+
+        // Проверка метода DecrementCounter
+        [TestMethod]
+        public void DecrementCounter_ValidCounter_Decrements()
+        {
+            ResetBookCounter();
+            // Arrange
+            var b1 = new Book("A", "X", "G", 100, 100);
+            int counterBefore = Book.counter;
+
+            // Act
+            Book.DecrementCounter();
+
+            // Assert
+            Assert.AreEqual(counterBefore - 1, Book.counter);
+        }
+
+        // Генерация книги с уникальным названием (интеграционный)
+        [TestMethod]
+        public void GenerateBook_WithExistingTitle_AddsSuffix()
+        {
+            // Arrange
+            _books.Add(new Book("Тест", "Автор", "Жанр", 200, 300));
+
+            // Act - генерируем книгу, эмулируя поведение формы
+            var generated = Book.GenerateBook(_books, "");
+            // Принудительно меняем название на дубликат для проверки EnsureUniqueTitle
+            var finalTitle = Book.EnsureUniqueTitle("Тест", "Автор", _books);
+
+            // Assert
+            Assert.AreEqual("Тест 2", finalTitle);
         }
     }
 }

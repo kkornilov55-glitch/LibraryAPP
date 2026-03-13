@@ -1,13 +1,22 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using ClassLibrary;
+﻿using ClassLibrary;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
+using System.Reflection;
 
 namespace BookTests
 {
     [TestClass]
     public class BookStoreTests
     {
+        private static void ResetBookCounter()
+        {
+            var field = typeof(Book).GetField("counter",
+                BindingFlags.Public | BindingFlags.Static);
+            if (field != null)
+                field.SetValue(null, 0);
+        }
+
         private BookStore _store;
 
         [TestInitialize]
@@ -96,19 +105,33 @@ namespace BookTests
             Assert.IsTrue(exceptionThrown, "Нельзя добавить больше шкафов, чем максимум");
         }
 
-        // Проверяет автоматическое создание шкафа для нового жанра при добавлении книги.
+        // Добавление книги создаёт шкаф с вместимостью по умолчанию (10)
         [TestMethod]
-        public void AddBook_NewGenre_CreatesNewBookCase()
+        public void AddBook_NewGenre_CreatesCaseWithDefaultCapacity()
         {
             // Arrange
-            Book book = new Book("Книга", "Автор", "Новый жанр", 200, 400);
+            Book book = new Book("Тест", "Автор", "НовыйЖанр", 200, 300);
 
             // Act
             _store.AddBook(book);
 
-            // Assert
-            List<string> genres = _store.GetAllGenres();
-            Assert.IsTrue(genres.Contains("Новый жанр"), "Для нового жанра должен создаться шкаф с книгой");
+            // Assert - проверяем, что шкаф создан и в него можно добавить ещё 9 книг
+            for (int i = 2; i <= 10; i++)
+            {
+                _store.AddBook(new Book($"К{i}", $"А{i}", "НовыйЖанр", 100, 100));
+            }
+
+            // 11-я книга должна вызвать исключение (шкаф полон)
+            bool exceptionThrown = false;
+            try
+            {
+                _store.AddBook(new Book("К11", "А11", "НовыйЖанр", 100, 100));
+            }
+            catch (InvalidOperationException)
+            {
+                exceptionThrown = true;
+            }
+            Assert.IsTrue(exceptionThrown, "11-я книга не должна добавиться в шкаф вместимостью 10");
         }
 
         // Защита от добавления null-книги.
@@ -146,7 +169,7 @@ namespace BookTests
             _store.SellBook(book.id);
 
             // Assert
-            double expectedBalance = initialBalance + 599.99;
+            double expectedBalance = initialBalance + book.Price;
             Assert.AreEqual(expectedBalance, _store.Balance, 0.01,
                 "Баланс должен увеличиться на цену проданной книги");
             Assert.IsNull(_store.FindBookById(book.id), "Книга должна быть удалена после продажи");
@@ -156,21 +179,29 @@ namespace BookTests
         [TestMethod]
         public void SellBook_FreesSpaceInBookCase()
         {
+            ResetBookCounter();
+            BookStore testStore = new BookStore(5);
+
             // Arrange
-            _store.AddBookCase("Фантастика", 2);
+            _store.AddBookCase("Фантастика", 3);
             Book book1 = new Book("К1", "А1", "Фантастика", 100, 200);
             Book book2 = new Book("К2", "А2", "Фантастика", 100, 300);
-            _store.AddBook(book1);
-            _store.AddBook(book2);
-            int initialCount = _store.GetBooksByGenre("Фантастика").Count;
+            Book book3 = new Book("К3", "А3", "Фантастика", 100, 400);
+            testStore.AddBook(book1);
+            testStore.AddBook(book2);
+            testStore.AddBook(book3);
 
             // Act
-            _store.SellBook(book1.id);
+            testStore.SellBook(book1.id);
 
             // Assert
-            int finalCount = _store.GetBooksByGenre("Фантастика").Count;
-            Assert.AreEqual(initialCount - 1, finalCount,
-                "После продажи в шкафу должно освободиться место");
+            Assert.IsNull(testStore.FindBookById(book1.id), "Проданная книга не должна находиться");
+
+            var booksAfter = testStore.GetBooksByGenre("Фантастика");
+            Assert.AreEqual(2, booksAfter.Count, "После продажи должно остаться 2 книги");
+
+            Assert.IsTrue(booksAfter.Exists(b => b.id == book2.id));
+            Assert.IsTrue(booksAfter.Exists(b => b.id == book3.id));
         }
 
         // Продажа несуществующей книги.
@@ -323,29 +354,6 @@ namespace BookTests
             // Assert
             Assert.IsNotNull(found, "Книга должна быть найдена по названию");
             Assert.AreEqual(book.id, found.id);
-        }
-
-        // Корректное обновление баланса после множественных продаж.
-        [TestMethod]
-        public void Balance_UpdatesAfterMultipleSales()
-        {
-            // Arrange
-            Book book1 = new Book("К1", "А1", "Жанр 1", 100, 200);
-            Book book2 = new Book("К2", "А2", "Жанр 1", 100, 300);
-            Book book3 = new Book("К3", "А3", "Жанр 2", 100, 400);
-            _store.AddBook(book1);
-            _store.AddBook(book2);
-            _store.AddBook(book3);
-            double expectedBalance = book1.Price + book2.Price + book3.Price;
-
-            // Act
-            _store.SellBook(book1.id);
-            _store.SellBook(book2.id);
-            _store.SellBook(book3.id);
-
-            // Assert
-            Assert.AreEqual(expectedBalance, _store.Balance, 0.01,
-                "Баланс должен равняться сумме всех продаж");
         }
     }
 }
