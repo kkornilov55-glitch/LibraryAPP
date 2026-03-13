@@ -7,8 +7,7 @@ using ClassLibrary;
 namespace WinForms
 {
     /// <summary>
-    /// Главная форма. ОТВЕТСТВЕННОСТЬ: ввод → валидация → вызов библиотеки → вывод.
-    /// Не создаёт объекты Book и не меняет внутреннее состояние библиотеки.
+    /// Главная форма
     /// </summary>
     public partial class BookStoreF : Form
     {
@@ -19,7 +18,7 @@ namespace WinForms
             InitializeComponent();
             store = new BookStore(5);
 
-            // ✅ Подписки на события — в конструкторе
+            //Подписки на события — в конструкторе
             AddBookB.Click += (s, e) => AddBook();
             RandomizeBookB.Click += (s, e) => Generate();
             SellBookB.Click += (s, e) => Sell();
@@ -28,10 +27,11 @@ namespace WinForms
             GenreSelectCB.SelectedIndexChanged += (s, e) => ShowBooks();
             MainTC.SelectedIndexChanged += (s, e) => { if (MainTC.SelectedTab == StoreTP) Refresh(); };
 
-            Refresh(); // Первое обновление интерфейса
+            //Первое обновление — в конструкторе
+            Refresh();
         }
 
-        // ==================== ВАЛИДАЦИЯ (только формат) ====================
+        //ВАЛИДАЦИЯ
 
         /// <summary>Проверяет, что строка не пустая.</summary>
         private bool Required(string s, string name) =>
@@ -51,12 +51,11 @@ namespace WinForms
             return false;
         }
 
-        // ==================== ОСНОВНЫЕ ДЕЙСТВИЯ ====================
+        //ОСНОВНЫЕ ДЕЙСТВИЯ
 
-        /// <summary>Добавляет книгу: валидация → библиотека → вывод.</summary>
+        /// <summary>Добавляет книгу</summary>
         private void AddBook()
         {
-            // 1. Считываем и валидируем данные (формат)
             var t = TitleTB.Text.Trim();
             var a = AuthorTB.Text.Trim();
             var g = GenreTB.Text.Trim();
@@ -65,79 +64,84 @@ namespace WinForms
             if (!PositiveInt(PagesCountTB.Text, "Страницы", out var p)) return;
             if (!PositiveDouble(PriceTB.Text, out var pr)) return;
 
+            // Проверка уникальности названия
+            string uniqueTitle = Book.EnsureUniqueTitle(t, a, store.GetAllBooks());
+
+            //Книга изменена если какое-то поле не равно полю книги в ожидании
+            bool BookWasChanged = false;
+
+            if (BookStore.PendingBook != null)
+            {
+                BookWasChanged = BookStore.PendingBook.Title != uniqueTitle ||
+                                 BookStore.PendingBook.Title != t ||
+                                 BookStore.PendingBook.Author != a ||
+                                 BookStore.PendingBook.Genre != g ||
+                                 BookStore.PendingBook.Pages != p ||
+                                 BookStore.PendingBook.Price != pr;
+            }
+            // если PendingBook == null, то BookWasChanged остаётся false
+
+            if (BookWasChanged)
+                Book.counter -= 1; //Забываем о существовании той книги
+
+            if (BookStore.PendingBook == null || BookWasChanged)
+            {
+                BookStore.PendingBook = new Book(uniqueTitle, a, g, p, pr);
+            }
+
             try
             {
-                // 2. ✅ Передаём данные в библиотеку — она сама создаёт Book
-                store.AddBook(t, a, g, p, pr);
-
-                // 3. Показываем результат
-                MessageBox.Show("Добавлено!", "Готово", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                ClearForm();
-                Refresh();
+                store.AddBook(BookStore.PendingBook);
             }
-            catch (InvalidOperationException ex)
+            catch (InvalidOperationException)
             {
-                // Бизнес-ошибки: нет места, жанр существует и т.п.
-                MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Нет места для нового жанра.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
             }
+            BookStore.PendingBook = null;
+
+            MessageBox.Show("Добавлено!", "Готово", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            ClearForm(); Refresh();
         }
 
-        /// <summary>Генерирует книгу: библиотека возвращает объект → форма показывает.</summary>
-        /// <summary>
-        /// Генерирует полностью случайную книгу (жанр тоже случайный).
-        /// Поле жанра можно оставить пустым.
-        /// </summary>
+        /// <summary>Генерирует книгу через библиотеку и заполняет форму.</summary>
         private void Generate()
         {
-            // ✅ Берём жанр из поля, если ввели; если пусто — библиотека выберет сама
             var g = GenreTB.Text.Trim();
 
-            try
-            {
-                // Передаём жанр (может быть пустым) — библиотека разберётся
-                var book = Book.GenerateBook(store.GetAllBooks(), g);
 
-                // Заполняем форму сгенерированными данными
-                TitleTB.Text = book.Title;
-                AuthorTB.Text = book.Author;
-                GenreTB.Text = book.Genre;  // ← Покажем сгенерированный жанр
-                PagesCountTB.Text = book.Pages.ToString();
-                PriceTB.Text = book.Price.ToString("F2");
-                ID_TB.Text = book.id.ToString();
+            Book.GenerateBook(store.GetAllBooks(), g);
+            TitleTB.Text = BookStore.PendingBook.Title;
+            AuthorTB.Text = BookStore.PendingBook.Author;
+            GenreTB.Text = BookStore.PendingBook.Genre;
+            PagesCountTB.Text = BookStore.PendingBook.Pages.ToString();
+            PriceTB.Text = BookStore.PendingBook.Price.ToString("F2");
+            ID_TB.Text = BookStore.PendingBook.id.ToString();
 
-                MessageBox.Show($"Сгенерировано: {book.Title}\nЖанр: {book.Genre}", "Готово",
-                    MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+            MessageBox.Show($"Сгенерировано: {BookStore.PendingBook.Title}", "Готово", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         /// <summary>Продаёт выделенную книгу через библиотеку.</summary>
         private void Sell()
         {
-            // Определяем, из какой таблицы взята выделенная строка
-            var grid = dataGridView1.SelectedRows.Count > 0 ? dataGridView1 : SearchedBookGrid;
-            if (grid.SelectedRows.Count == 0) { ShowWarning("Выберите книгу"); return; }
-
-            // Получаем ID из нужной ячейки
-            var cellName = grid == dataGridView1 ? "colId" : "ID";
-            var v = grid.SelectedRows[0].Cells[cellName].Value;
-
-            if (v == null || !int.TryParse(v.ToString(), out var id))
-            {
-                MessageBox.Show("Ошибка ID", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
+            if (dataGridView1.SelectedRows.Count == 0 && SearchedBookGrid.SelectedRows.Count == 0)
+            { 
+                ShowWarning("Выберите книгу"); 
+                return; 
             }
 
-            // Очищаем таблицу поиска, если книга продавалась оттуда
-            if (grid == SearchedBookGrid) SearchedBookGrid.Rows.Clear();
+            var v = dataGridView1.SelectedRows.Count == 0 ? SearchedBookGrid.SelectedRows[0].Cells["ID"].Value : dataGridView1.SelectedRows[0].Cells["colId"].Value;
+            if (v == null || !int.TryParse(v.ToString(), out var id))
+            { 
+                MessageBox.Show("Ошибка ID", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error); 
+                return; 
+            }
+
+            if (SearchedBookGrid.SelectedRows.Count != 0) SearchedBookGrid.Rows.Clear(); 
 
             store.SellBook(id);
             MessageBox.Show("Продано!", "Готово", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            Refresh();
-            ShowBooks();
+            Refresh(); ShowBooks();
         }
 
         /// <summary>Очищает шкаф выбранного жанра.</summary>
@@ -145,16 +149,14 @@ namespace WinForms
         {
             var g = GenreSelectCB.SelectedItem?.ToString();
             if (string.IsNullOrEmpty(g)) { ShowWarning("Выберите жанр"); return; }
-
             if (MessageBox.Show($"Распродать \"{g}\"?", "Подтверждение",
                     MessageBoxButtons.YesNo, MessageBoxIcon.Question) != DialogResult.Yes) return;
 
             store.ClearBookCase(g);
-            if (SearchedBookGrid.Rows.Count > 0) SearchedBookGrid.Rows.Clear();
+            if (SearchedBookGrid.SelectedRows.Count != 0) SearchedBookGrid.Rows.Clear();
 
             MessageBox.Show("Очищено", "Готово", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            Refresh();
-            dataGridView1.Rows.Clear();
+            Refresh(); dataGridView1.Rows.Clear();
         }
 
         /// <summary>Ищет книгу по ID или названию.</summary>
@@ -163,32 +165,30 @@ namespace WinForms
             var q = FoundStringTB.Text.Trim();
             if (!Required(q, "Запрос")) return;
 
-            // Если запрос — число, ищем по ID, иначе по названию
             var book = int.TryParse(q, out var id) ? store.FindBookById(id) : store.FindBookByTitle(q);
+
             SearchBooks(book);
         }
 
-        // ==================== ВСПОМОГАТЕЛЬНЫЕ МЕТОДЫ ====================
+        //ВСПОМОГАТЕЛЬНЫЕ МЕТОДЫ
 
         private void ClearForm()
         {
             TitleTB.Clear(); AuthorTB.Clear(); GenreTB.Clear();
             PagesCountTB.Clear(); PriceTB.Clear();
-            ID_TB.Text = "Авто";
-            TitleTB.Focus();
+            ID_TB.Text = "Авто"; TitleTB.Focus();
         }
 
         private void Refresh()
         {
             BalanceL.Text = $"{store.Balance:F2} ₽";
-
             GenreSelectCB.Items.Clear();
-            foreach (var g in store.GetAllGenres())
+            foreach (var g in store.GetAllGenres()) 
                 GenreSelectCB.Items.Add(g);
 
-            if (GenreSelectCB.Items.Count == 0)
-                GenreSelectCB.Text = string.Empty;
-            else if (GenreSelectCB.Items.Count > 0 && GenreSelectCB.SelectedIndex == -1)
+            if (GenreSelectCB.Items.Count == 0) GenreSelectCB.Text = string.Empty;
+
+            if (GenreSelectCB.Items.Count > 0 && GenreSelectCB.SelectedIndex == -1)
                 GenreSelectCB.SelectedIndex = 0;
             else if (GenreSelectCB.Items.Count == 0)
                 dataGridView1.Rows.Clear();
@@ -210,32 +210,28 @@ namespace WinForms
             }
         }
 
-        /// <summary>Показывает результат поиска в отдельной таблице.</summary>
-        private void SearchBooks(Book? book)
+        private void SearchBooks(Book b)
         {
             SearchedBookGrid.Rows.Clear();
 
-            if (book != null)
+            if (b != null)
             {
                 var row = SearchedBookGrid.Rows.Add();
-                SearchedBookGrid.Rows[row].Cells["ID"].Value = book.id;
-                SearchedBookGrid.Rows[row].Cells["colTitleSearch"].Value = book.Title;
-                SearchedBookGrid.Rows[row].Cells["colAuthorSearch"].Value = book.Author;
-                SearchedBookGrid.Rows[row].Cells["colPriceSearch"].Value = $"{book.Price:F2} ₽";
-                SearchedBookGrid.Rows[row].Cells["colPagesCountSearch"].Value = book.Pages;
-                SearchedBookGrid.Rows[row].Cells["colGenreSearch"].Value = book.Genre;
 
-                // Переключаем на вкладку с результатом и выделяем найденную книгу
-                StoreTC.SelectedIndex = 1;
-                SearchedBookGrid.ClearSelection();
-                SearchedBookGrid.Rows[row].Selected = true;
+                SearchedBookGrid.Rows[row].Cells["ID"].Value = b.id;
+                SearchedBookGrid.Rows[row].Cells["colTitleSearch"].Value = b.Title;
+                SearchedBookGrid.Rows[row].Cells["colAuthorSearch"].Value = b.Author;
+                SearchedBookGrid.Rows[row].Cells["colPriceSearch"].Value = $"{b.Price:F2} ₽";
+                SearchedBookGrid.Rows[row].Cells["colPagesCountSearch"].Value = b.Pages;
+                SearchedBookGrid.Rows[row].Cells["colGenreSearch"].Value = b.Genre;
+
+                StoreTC.SelectedIndex = 1; //Переключаем tabControl на 2 страничку (по индексу 1)
+                SearchedBookGrid.ClearSelection(); //Отчищаем предыдущее выделение
+                SearchedBookGrid.Rows[row].Selected = true; //Выделяем найденную книгу
             }
 
-            MessageBox.Show(book != null ? $"Найдено: {book.Title}" : "Не найдено", "Результат",
-                MessageBoxButtons.OK, book != null ? MessageBoxIcon.Information : MessageBoxIcon.Warning);
+            MessageBox.Show(b != null ? $"Найдено: {b.Title}" : "Не найдено", "Результат",
+                MessageBoxButtons.OK, b != null ? MessageBoxIcon.Information : MessageBoxIcon.Warning);
         }
-
-        // Пустой обработчик для Designer
-        private void textBox1_TextChanged(object sender, EventArgs e) { }
     }
 }
