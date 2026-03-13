@@ -11,7 +11,8 @@
 - Unit-тестирование: 39 тестов с покрытием 95% бизнес-логики
 
 ### Пример использования
-
+[Screenshoot_1](https://github.com/kkornilov55-glitch/LibraryAPP/blob/main/1.png)
+[Screenshoot_2](https://github.com/kkornilov55-glitch/LibraryAPP/blob/main/2.png)
 
 ## Как запустить
 ### Через Visual Studio
