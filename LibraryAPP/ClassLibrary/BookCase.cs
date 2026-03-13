@@ -1,13 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Linq;
 
 namespace ClassLibrary
 {
-
     /// <summary>
-    /// Класс "BookCase" представляет собой книжный шкаф, который может содержать определенное количество книг.
+    /// Класс "BookCase" представляет книжный шкаф с книгами определённого жанра.
     /// </summary>
     public class BookCase
     {
@@ -15,116 +13,77 @@ namespace ClassLibrary
         public int capacity { get; private set; }
         public string genre { get; private set; }
 
-        //static string GetUniqueTitle(string title, string author)
-        //{
-        //    List<Book> books = BookStore.GetAllBooks();
-        //    string uniqueTitle = title;
-        //    int counter = 2;
-
-        //    for (int i = 0; i < books.Count; i++)
-        //    {
-
-        //        if (books.Any(b => b.Title == uniqueTitle && b.Author == author))
-        //        {
-        //            uniqueTitle = $"{title} {counter}";
-        //            counter++;
-        //        }
-        //        else break;
-        //    }
-
-        //    return uniqueTitle;
-        //}
-
         /// <summary>
-        /// Конструктор класса BookCase, инициализирует книжный шкаф с именем и вместимостью.
+        /// Конструктор: создаёт шкаф с указанным жанром и вместимостью.
         /// </summary>
         public BookCase(string Genre, int Capacity)
         {
             if (string.IsNullOrWhiteSpace(Genre))
-            {
                 throw new ArgumentException("Жанр шкафа должен быть указан");
-            }
+
+            if (Capacity <= 0)
+                throw new ArgumentException("Вместимость должна быть больше нуля");
 
             this.genre = Genre;
             this.capacity = Capacity;
-
             books = new List<Book>();
         }
 
         /// <summary>
-        /// Метод, который добавляет книгу в коллекцию books.
+        /// Добавляет книгу в шкаф.
         /// </summary>
         public void AddBook(Book book)
         {
-            if (books.Count >= capacity)
-            {
-                throw new InvalidOperationException("Книжный шкаф полон. Невозможно добавить новую книгу.");
-            }
-
             if (book == null)
-            {
-                throw new ArgumentNullException("Невозможно добавить пустую книгу в книжный шкаф.");
-            }
+                throw new ArgumentNullException(nameof(book), "Невозможно добавить пустую книгу");
+
+            if (books.Count >= capacity)
+                throw new InvalidOperationException("Книжный шкаф полон");
 
             if (genre != book.Genre)
-            {
-                throw new InvalidOperationException($"Невозможно добавить книгу жанра {book.Genre} в шкаф жанра {genre}.");
-            }
+                throw new InvalidOperationException($"Нельзя добавить книгу жанра '{book.Genre}' в шкаф жанра '{genre}'");
 
-            //book.Title = GetUniqueTitle(book.Title, book.Author);
+            // ✅ Убрали вызов GetUniqueTitle — уникальность теперь обеспечивает BookStore
             books.Add(book);
         }
+
         /// <summary>
-        /// Метод для поиска книги по её id.
+        /// Находит книгу по ID.
         /// </summary>
-        public Book FindById(int id)
+        public Book? FindById(int id)
         {
-            foreach (var i in books)
-            {
-                if (i.id == id)
-                    return i;
-            }
-
+            foreach (var book in books)
+                if (book.id == id)
+                    return book;
             return null;
         }
 
-        public Book FindbyTitle(string title)
-        {
-            foreach (var i in books)
-            {
-                if (i.Title == title)
-                    return i;
-            }
-            return null;
-        }
         /// <summary>
-        /// Метод для удаления книги.
+        /// Находит книгу по названию.
+        /// </summary>
+        public Book? FindbyTitle(string title)
+        {
+            foreach (var book in books)
+                if (book.Title == title)
+                    return book;
+            return null;
+        }
+
+        /// <summary>
+        /// Удаляет книгу по ID.
         /// </summary>
         public void RemoveBook(int id)
         {
-            Book bookToRemove = FindById(id);
-
-
+            var bookToRemove = FindById(id);
             if (bookToRemove != null)
-            {
                 books.Remove(bookToRemove);
-            }
-
             else
-            {
-                throw new InvalidOperationException($"Книга с id {id} не найдена в книжном шкафу.");
-            }
+                throw new InvalidOperationException($"Книга с id {id} не найдена");
         }
 
         /// <summary>
-        /// Возвращает все книги в шкафу по порядку их добавления.
+        /// Возвращает копию списка всех книг в шкафу.
         /// </summary>
-        public List<Book> GetAllBooks()
-        {
-            // Возвращаем копию списка, чтобы нельзя было его испортить
-            return new List<Book>(books);
-        }
-
-
+        public List<Book> GetAllBooks() => new List<Book>(books);
     }
 }

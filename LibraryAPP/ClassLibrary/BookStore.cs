@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace ClassLibrary
 {
     /// <summary>
-    /// Класс "BookStore" представляет книжный магазин с определённым количеством шкафов и балансом.
+    /// Класс "BookStore" представляет книжный магазин.
     /// </summary>
     public class BookStore
     {
-        public static Book PendingBook;
         private List<BookCase> bookCases;
         public int MaxBookCases { get; private set; }
         public double Balance { get; private set; }
@@ -24,34 +24,29 @@ namespace ClassLibrary
         }
 
         /// <summary>
-        /// Добавляет новый книжный шкаф в магазин.
+        /// Добавляет шкаф с указанным жанром.
         /// </summary>
         public void AddBookCase(string genre, int capacity)
         {
-            // Проверка: шкаф с таким жанром уже существует
             foreach (var bc in bookCases)
-            {
                 if (bc.genre == genre)
-                    throw new InvalidOperationException($"Шкаф с жанром '{genre}' уже существует.");
-            }
+                    throw new InvalidOperationException($"Шкаф с жанром '{genre}' уже существует");
 
-            // Проверка: достигнут лимит шкафов
             if (bookCases.Count >= MaxBookCases)
-                throw new InvalidOperationException($"Достигнуто максимальное количество шкафов ({MaxBookCases}).");
+                throw new InvalidOperationException($"Достигнут лимит шкафов ({MaxBookCases})");
 
             bookCases.Add(new BookCase(genre, capacity));
         }
 
         /// <summary>
-        /// Добавляет книгу в магазин (в соответствующий шкаф по жанру).
+        /// Добавляет книгу в магазин.
         /// </summary>
         public void AddBook(Book book)
         {
             if (book == null)
                 throw new ArgumentNullException(nameof(book));
 
-            // Поиск шкафа с подходящим жанром
-            BookCase targetCase = null;
+            BookCase? targetCase = null;
             foreach (var bc in bookCases)
             {
                 if (bc.genre == book.Genre)
@@ -61,7 +56,6 @@ namespace ClassLibrary
                 }
             }
 
-            // Если шкаф не найден — создаём новый (если есть место)
             if (targetCase == null)
             {
                 if (bookCases.Count >= MaxBookCases)
@@ -69,7 +63,6 @@ namespace ClassLibrary
 
                 AddBookCase(book.Genre, 10);
 
-                // Повторный поиск только что созданного шкафа
                 foreach (var bc in bookCases)
                 {
                     if (bc.genre == book.Genre)
@@ -80,41 +73,70 @@ namespace ClassLibrary
                 }
             }
 
+            // ✅ Просто добавляем книгу (уникальность уже обеспечена в AddBook(string, ...))
             targetCase.AddBook(book);
         }
 
         /// <summary>
-        /// Продаёт книгу по ID и обновляет баланс.
+        /// Добавляет книгу по параметрам (создаёт объект внутри библиотеки).
         /// </summary>
-        public void SellBook(int bookId)
+        public void AddBook(string title, string author, string genre, int pages, double price)
         {
-            Book book = FindBookById(bookId);
-            if (book == null)
-                throw new InvalidOperationException($"Книга с ID {bookId} не найдена.");
+            // Генерируем уникальное название
+            string uniqueTitle = GenerateUniqueTitle(title, author);
 
-            // Поиск и удаление книги из соответствующего шкафа
-            foreach (var bookCase in bookCases)
-            {
-                if (bookCase.FindById(bookId) != null)
-                {
-                    Balance += book.Sell();
-                    if (bookCase.GetAllBooks().Count == 1) //Если последняя книга в шкафу избавляемя от шкафа
-                        bookCases.Remove(bookCase);
-                    else
-                        bookCase.RemoveBook(bookId);
-                    return;
-                }
-            }
+            // Создаём книгу
+            var book = new Book(uniqueTitle, author, genre, pages, price);
+
+            // Добавляем через основной метод
+            AddBook(book);
         }
 
         /// <summary>
-        /// Находит книгу по ID во всех шкафах.
+        /// Генерирует уникальное название книги.
         /// </summary>
-        public Book FindBookById(int id)
+        private string GenerateUniqueTitle(string title, string author)
+        {
+            string uniqueTitle = title;
+            int counter = 2;
+
+            var allBooks = GetAllBooks();
+
+            while (allBooks.Any(b => b.Title == uniqueTitle && b.Author == author))
+            {
+                uniqueTitle = $"{title} {counter}";
+                counter++;
+            }
+
+            return uniqueTitle;
+        }
+
+        /// <summary>
+        /// Продаёт книгу по ID.
+        /// </summary>
+        public void SellBook(int bookId)
+        {
+            var book = FindBookById(bookId);
+            if (book == null)
+                throw new InvalidOperationException($"Книга с ID {bookId} не найдена");
+
+            foreach (var bookCase in bookCases)
+                if (bookCase.FindById(bookId) != null)
+                {
+                    Balance += book.Sell();
+                    bookCase.RemoveBook(bookId);
+                    return;
+                }
+        }
+
+        /// <summary>
+        /// Находит книгу по ID.
+        /// </summary>
+        public Book? FindBookById(int id)
         {
             foreach (var bookCase in bookCases)
             {
-                Book found = bookCase.FindById(id);
+                var found = bookCase.FindById(id);
                 if (found != null)
                     return found;
             }
@@ -124,11 +146,11 @@ namespace ClassLibrary
         /// <summary>
         /// Находит книгу по названию.
         /// </summary>
-        public Book FindBookByTitle(string title)
+        public Book? FindBookByTitle(string title)
         {
             foreach (var bookCase in bookCases)
             {
-                Book found = bookCase.FindbyTitle(title);
+                var found = bookCase.FindbyTitle(title);
                 if (found != null)
                     return found;
             }
@@ -140,78 +162,62 @@ namespace ClassLibrary
         /// </summary>
         public List<Book> GetAllBooks()
         {
-            List<Book> allBooks = new List<Book>();
+            var allBooks = new List<Book>();
             foreach (var bookCase in bookCases)
                 allBooks.AddRange(bookCase.GetAllBooks());
             return allBooks;
         }
 
         /// <summary>
-        /// Возвращает книги определённого жанра.
+        /// Возвращает книги указанного жанра.
         /// </summary>
         public List<Book> GetBooksByGenre(string genre)
         {
-            BookCase bookCase = null;
+            BookCase? bookCase = null;
             foreach (var bc in bookCases)
-            {
                 if (bc.genre == genre)
                 {
                     bookCase = bc;
                     break;
                 }
-            }
 
             if (bookCase == null)
-                throw new InvalidOperationException($"Шкаф с жанром '{genre}' не найден.");
+                throw new InvalidOperationException($"Шкаф с жанром '{genre}' не найден");
 
             return bookCase.GetAllBooks();
         }
 
         /// <summary>
-        /// Возвращает список всех жанров в магазине.
+        /// Возвращает список всех жанров.
         /// </summary>
         public List<string> GetAllGenres()
         {
-            List<string> genres = new List<string>();
+            var genres = new List<string>();
             foreach (var bc in bookCases)
-            {
-                if (bc.GetAllBooks().Count != 0)
-                    genres.Add(bc.genre);
-            }
-                
+                genres.Add(bc.genre);
             return genres;
         }
 
         /// <summary>
-        /// Очищает шкаф (продаёт все книги и освобождает место).
+        /// Очищает шкаф: продаёт все книги и удаляет шкаф.
         /// </summary>
         public void ClearBookCase(string genre)
         {
-            BookCase bookCase = null;
+            BookCase? bookCase = null;
             foreach (var bc in bookCases)
-            {
                 if (bc.genre == genre)
                 {
                     bookCase = bc;
                     break;
                 }
-            }
 
             if (bookCase == null)
-                throw new InvalidOperationException($"Шкаф с жанром '{genre}' не найден.");
+                throw new InvalidOperationException($"Шкаф с жанром '{genre}' не найден");
 
-            // Продажа всех книг из шкафа
             foreach (var book in bookCase.GetAllBooks())
                 Balance += book.Sell();
 
             bookCases.Remove(bookCase);
-
         }
-        //public void AddBook(string title, string author, string genre, int pages, double price)
-        //{
-        //    // Создаём книгу внутри библиотеки — не в форме
-        //    var book = new Book(title, author, genre, pages, price);
-        //    AddBook(book);
-        //}
-    }   
+    }
 }
