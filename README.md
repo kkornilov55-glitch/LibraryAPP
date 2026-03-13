@@ -11,8 +11,7 @@
 - Unit-тестирование: 39 тестов с покрытием 95% бизнес-логики
 
 ### Пример использования
-<img width="503" height="474" alt="image" src="https://github.com/user-attachments/assets/310d63b1-ad13-4f37-adb7-e256ad0e3f25" />
-<img width="451" height="476" alt="image" src="https://github.com/user-attachments/assets/a9aa4d78-fe62-4b36-9915-8fdb4b766907" />
+
 
 ## Как запустить
 ### Через Visual Studio
