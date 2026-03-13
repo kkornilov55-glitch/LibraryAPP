@@ -166,8 +166,8 @@ namespace ClassLibrary
                 }
             }
 
-            // Ищем первый свободный номер, начиная с 2
-            int newNumber = 2;
+            // Ищем первый свободный номер, начиная с 1
+            int newNumber = 1;
             while (usedNumbers.Contains(newNumber))
             {
                 newNumber++;
@@ -175,7 +175,7 @@ namespace ClassLibrary
 
             // Если номер 1 не занят — возвращаем базовое название без суффикса
             // Иначе возвращаем название с найденным свободным номером
-            return newNumber == 1 || (newNumber == 2 && !usedNumbers.Contains(0))
+            return newNumber == 0 || (newNumber == 1 && !usedNumbers.Contains(0))
                 ? title
                 : $"{title} {newNumber}";
         }
