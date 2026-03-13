@@ -11,6 +11,8 @@ namespace WinForms
     /// </summary>
     public partial class BookStoreF : Form
     {
+        Book book = null;
+
         private readonly BookStore store;
 
         public BookStoreF()
@@ -67,38 +69,21 @@ namespace WinForms
             // Проверка уникальности названия
             string uniqueTitle = Book.EnsureUniqueTitle(t, a, store.GetAllBooks());
 
-            //Книга изменена если какое-то поле не равно полю книги в ожидании
-            bool BookWasChanged = false;
-
-            if (BookStore.PendingBook != null)
-            {
-                BookWasChanged = BookStore.PendingBook.Title != uniqueTitle ||
-                                 BookStore.PendingBook.Title != t ||
-                                 BookStore.PendingBook.Author != a ||
-                                 BookStore.PendingBook.Genre != g ||
-                                 BookStore.PendingBook.Pages != p ||
-                                 BookStore.PendingBook.Price != pr;
-            }
-            // если PendingBook == null, то BookWasChanged остаётся false
-
-            if (BookWasChanged)
-                Book.counter -= 1; //Забываем о существовании той книги
-
-            if (BookStore.PendingBook == null || BookWasChanged)
-            {
-                BookStore.PendingBook = new Book(uniqueTitle, a, g, p, pr);
-            }
-
             try
             {
-                store.AddBook(BookStore.PendingBook);
+                if (book == null || book.Title != t || book.Author != a || book.Genre != g || book.Pages != p || book.Price != pr)
+                {
+                    book = new Book(t, a, g, p, pr);
+                }
             }
             catch (InvalidOperationException)
             {
                 MessageBox.Show("Нет места для нового жанра.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
-            BookStore.PendingBook = null;
+
+            store.AddBook(book);
+            book = null;
 
             MessageBox.Show("Добавлено!", "Готово", MessageBoxButtons.OK, MessageBoxIcon.Information);
             ClearForm(); Refresh();
@@ -107,18 +92,16 @@ namespace WinForms
         /// <summary>Генерирует книгу через библиотеку и заполняет форму.</summary>
         private void Generate()
         {
-            var g = GenreTB.Text.Trim();
+            book = Book.GenerateBook(store.GetAllBooks());
+            TitleTB.Text = book.Title;
+            AuthorTB.Text = book.Author;
+            GenreTB.Text = book.Genre;
+            PagesCountTB.Text = book.Pages.ToString();
+            PriceTB.Text = book.Price.ToString("F2");
+            ID_TB.Text = book.id.ToString();
 
 
-            Book.GenerateBook(store.GetAllBooks(), g);
-            TitleTB.Text = BookStore.PendingBook.Title;
-            AuthorTB.Text = BookStore.PendingBook.Author;
-            GenreTB.Text = BookStore.PendingBook.Genre;
-            PagesCountTB.Text = BookStore.PendingBook.Pages.ToString();
-            PriceTB.Text = BookStore.PendingBook.Price.ToString("F2");
-            ID_TB.Text = BookStore.PendingBook.id.ToString();
-
-            MessageBox.Show($"Сгенерировано: {BookStore.PendingBook.Title}", "Готово", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBox.Show($"Сгенерировано: {book.Title}", "Готово", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         /// <summary>Продаёт выделенную книгу через библиотеку.</summary>

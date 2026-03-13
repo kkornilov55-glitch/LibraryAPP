@@ -48,7 +48,7 @@ namespace ClassLibrary
         /// Статический метод, случайно генерирующий книгу.
         /// Принадлежит самому классу а не конкретной книге т.е. создает новую книгу без привязки к существующей
         /// </summary>
-        public static Book GenerateBook(List<Book> ExistingBooks, string genre) //список ExistingBooks должен содержать в себе все созданные книги.
+        public static Book GenerateBook(List<Book> ExistingBooks) //список ExistingBooks должен содержать в себе все созданные книги.
                                                                                 //он будет заполняться в классе реализующем логику книжного шкафа
 
         {
@@ -62,9 +62,7 @@ namespace ClassLibrary
             string RandomGenre = GetRandomGenre();
 
             // Вызов конструктора для создания книги, на основе случайных значений
-            var book = new Book(finalTitle, RandomAuthor, RandomGenre, RandomPages, RandomPrice);
-            BookStore.PendingBook = book;
-            return book;
+            return new Book(finalTitle, RandomAuthor, RandomGenre, RandomPages, RandomPrice);
         }
 
         /// <summary>

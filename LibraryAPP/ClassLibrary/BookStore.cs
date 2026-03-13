@@ -8,7 +8,6 @@ namespace ClassLibrary
     /// </summary>
     public class BookStore
     {
-        public static Book PendingBook;
         private List<BookCase> bookCases;
         public int MaxBookCases { get; private set; }
         public double Balance { get; private set; }
@@ -99,7 +98,10 @@ namespace ClassLibrary
                 {
                     Balance += book.Sell();
                     if (bookCase.GetAllBooks().Count == 1) //Если последняя книга в шкафу избавляемя от шкафа
+                    {
                         bookCases.Remove(bookCase);
+                        return;
+                    }
                     else
                         bookCase.RemoveBook(bookId);
                     return;
