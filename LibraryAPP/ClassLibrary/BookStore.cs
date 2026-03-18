@@ -13,14 +13,14 @@ namespace ClassLibrary
         public int MaxBookCases { get; private set; }
         public double Balance { get; private set; }
 
-        public BookStore(int maxBookCases)
+        public BookStore(int maxBookCases, double balance = 0.0)
         {
             if (maxBookCases <= 0)
                 throw new ArgumentException("Максимальное количество шкафов должно быть больше нуля");
 
             MaxBookCases = maxBookCases;
             bookCases = new List<BookCase>();
-            Balance = 0.0;
+            Balance = balance;
         }
 
         /// <summary>
