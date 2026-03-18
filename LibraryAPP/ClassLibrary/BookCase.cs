@@ -15,26 +15,6 @@ namespace ClassLibrary
         public int capacity { get; private set; }
         public string genre { get; private set; }
 
-        //static string GetUniqueTitle(string title, string author)
-        //{
-        //    List<Book> books = BookStore.GetAllBooks();
-        //    string uniqueTitle = title;
-        //    int counter = 2;
-
-        //    for (int i = 0; i < books.Count; i++)
-        //    {
-
-        //        if (books.Any(b => b.Title == uniqueTitle && b.Author == author))
-        //        {
-        //            uniqueTitle = $"{title} {counter}";
-        //            counter++;
-        //        }
-        //        else break;
-        //    }
-
-        //    return uniqueTitle;
-        //}
-
         /// <summary>
         /// Конструктор класса BookCase, инициализирует книжный шкаф с именем и вместимостью.
         /// </summary>
