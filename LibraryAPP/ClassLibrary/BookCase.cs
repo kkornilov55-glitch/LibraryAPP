@@ -105,6 +105,14 @@ namespace ClassLibrary
             return new List<Book>(books);
         }
 
-
+        // Меняет жанр пустого шкафа
+        public void ChangeGenre(string newGenre)
+        {
+            if (books.Count > 0)
+            {
+                throw new InvalidOperationException("Нельзя изменить жанр непустого шкафа.");
+            }
+            genre = newGenre;
+        }
     }
 }

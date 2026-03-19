@@ -60,7 +60,33 @@ namespace ClassLibrary
                     break;
                 }
             }
-            
+            // Если шкаф с таким жанром найден, пробуем добавить книгу
+            if (targetCase != null)
+            {
+                try
+                {
+                    targetCase.AddBook(book);
+                    return;
+                }
+                catch(InvalidOperationException)
+                {
+                    // Шкаф переполнен, продолжаем поиск пустого шкафа
+                    targetCase = null;
+                }
+            }
+
+            // Ищем пустой шкаф и меняем жанр
+            foreach (var bc in bookCases)
+            {
+                if (bc.GetAllBooks().Count == 0)
+                {
+                    bc.ChangeGenre(book.Genre);
+                    targetCase = bc;
+                    break;
+                }
+            }
+
+            // Добавляем книгу в пустой шкаф
             if (targetCase != null)
             {
                 targetCase.AddBook(book);
@@ -74,16 +100,7 @@ namespace ClassLibrary
                     throw new InvalidOperationException($"Нет места для нового жанра '{book.Genre}'.");
 
                 AddBookCase(book.Genre, 10);
-
-                // Повторный поиск только что созданного шкафа
-                foreach (var bc in bookCases)
-                {
-                    if (bc.genre == book.Genre)
-                    {
-                        targetCase = bc;
-                        break;
-                    }
-                }
+                targetCase = bookCases[bookCases.Count - 1];
             }
 
             targetCase.AddBook(book);
@@ -103,12 +120,6 @@ namespace ClassLibrary
                 {
                     Balance += book.Sell();
                     bookCases[i].RemoveBook(bookId);
-
-                    if (bookCases[i].GetAllBooks().Count == 0)
-                    {
-                        bookCases.RemoveAt(i);
-                    }
-
                     return;
                 }
         }
