@@ -44,14 +44,15 @@
             butGameStart.FlatAppearance.MouseDownBackColor = Color.Transparent;
             butGameStart.FlatAppearance.MouseOverBackColor = Color.Transparent;
             butGameStart.FlatStyle = FlatStyle.Flat;
-            butGameStart.Font = new Font("Arial Black", 12F, FontStyle.Bold);
+            butGameStart.Font = new Font("Kepler 296", 11.999999F, FontStyle.Bold, GraphicsUnit.Point, 0);
             butGameStart.ForeColor = Color.DarkGreen;
-            butGameStart.Location = new Point(136, 247);
+            butGameStart.Location = new Point(136, 241);
             butGameStart.Name = "butGameStart";
             butGameStart.Size = new Size(250, 60);
             butGameStart.TabIndex = 0;
             butGameStart.Text = "НАЧАТЬ ИГРУ";
             butGameStart.UseVisualStyleBackColor = false;
+            butGameStart.Click += butGameStart_Click;
             // 
             // btnAboutGame
             // 
@@ -63,9 +64,9 @@
             btnAboutGame.FlatAppearance.MouseDownBackColor = Color.Transparent;
             btnAboutGame.FlatAppearance.MouseOverBackColor = Color.Transparent;
             btnAboutGame.FlatStyle = FlatStyle.Flat;
-            btnAboutGame.Font = new Font("Arial Black", 12F, FontStyle.Bold);
+            btnAboutGame.Font = new Font("Kepler 296", 11.999999F, FontStyle.Bold);
             btnAboutGame.ForeColor = Color.SaddleBrown;
-            btnAboutGame.Location = new Point(136, 313);
+            btnAboutGame.Location = new Point(136, 307);
             btnAboutGame.Name = "btnAboutGame";
             btnAboutGame.Size = new Size(250, 60);
             btnAboutGame.TabIndex = 1;
@@ -82,9 +83,9 @@
             btnExit.FlatAppearance.MouseDownBackColor = Color.Transparent;
             btnExit.FlatAppearance.MouseOverBackColor = Color.Transparent;
             btnExit.FlatStyle = FlatStyle.Flat;
-            btnExit.Font = new Font("Arial Black", 10F, FontStyle.Bold);
-            btnExit.ForeColor = Color.WhiteSmoke;
-            btnExit.Location = new Point(202, 394);
+            btnExit.Font = new Font("Kepler 296", 11.999999F, FontStyle.Bold);
+            btnExit.ForeColor = Color.FromArgb(64, 0, 0);
+            btnExit.Location = new Point(208, 394);
             btnExit.Name = "btnExit";
             btnExit.Size = new Size(107, 41);
             btnExit.TabIndex = 2;
@@ -95,17 +96,20 @@
             // btnInfo
             // 
             btnInfo.BackColor = Color.Transparent;
-            btnInfo.BackgroundImage = Properties.Resources.info;
+            btnInfo.BackgroundImage = Properties.Resources.btn5;
             btnInfo.BackgroundImageLayout = ImageLayout.Stretch;
             btnInfo.Cursor = Cursors.Hand;
             btnInfo.FlatAppearance.BorderSize = 0;
             btnInfo.FlatAppearance.MouseDownBackColor = Color.Transparent;
             btnInfo.FlatAppearance.MouseOverBackColor = Color.Transparent;
             btnInfo.FlatStyle = FlatStyle.Flat;
+            btnInfo.Font = new Font("Kepler 296", 14F, FontStyle.Bold);
+            btnInfo.ForeColor = Color.Yellow;
             btnInfo.Location = new Point(457, 455);
             btnInfo.Name = "btnInfo";
             btnInfo.Size = new Size(40, 40);
             btnInfo.TabIndex = 3;
+            btnInfo.Text = "i";
             btnInfo.UseVisualStyleBackColor = false;
             // 
             // MainMenu
@@ -118,6 +122,8 @@
             Controls.Add(btnExit);
             Controls.Add(btnAboutGame);
             Controls.Add(butGameStart);
+            MaximumSize = new Size(525, 546);
+            MinimumSize = new Size(525, 546);
             Name = "MainMenu";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Книжный магазин";

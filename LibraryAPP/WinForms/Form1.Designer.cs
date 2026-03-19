@@ -1044,6 +1044,8 @@
             FormBorderStyle = FormBorderStyle.FixedSingle;
             Margin = new Padding(3, 2, 3, 2);
             MaximizeBox = false;
+            MaximumSize = new Size(525, 546);
+            MinimumSize = new Size(525, 546);
             Name = "BookStoreF";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Книжный магазин";

@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
+using ClassLibrary;
 
 namespace WinForms
 {
@@ -15,25 +16,12 @@ namespace WinForms
             InitializeComponent();
         }
 
-        //private void butGameStart_Click(object sender, EventArgs e)
-        //{
-        //    // Создаём и показываем диалог выбора сложности
-        //    DifficultySelectionDialog difficultyDialog = new DifficultySelectionDialog();
-
-        //    if (difficultyDialog.ShowDialog() == DialogResult.OK)
-        //    {
-        //        // Если пользователь выбрал режим и нажал "Да"
-        //        GameDifficulty selectedDifficulty = difficultyDialog.SelectedDifficulty;
-
-        //        // GameManager.StartGame(selectedDifficulty);
-
-        //        // ВРЕМЕННО
-        //        this.Hide();
-        //        BookStoreF mainForm = new BookStoreF(selectedDifficulty);
-        //        mainForm.FormClosed += (s, args) => this.Close();
-        //        mainForm.Show();
-        //    }
-        //}
+        private void butGameStart_Click(object sender, EventArgs e)
+        {
+            DifficultySelectionDialog difficultyDialog = new DifficultySelectionDialog();
+            difficultyDialog.ShowDialog();
+            this.Close();
+         }
 
         //private void btnAboutGame_Click(object sender, EventArgs e)
         //{
