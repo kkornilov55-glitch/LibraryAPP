@@ -99,13 +99,28 @@ namespace ClassLibrary
         }
         private static Customer GenerateRandomCustomer()
         {
+            Customer customer = new Customer();
 
+            //...
+
+            return customer;
         }
         private static Supply GenerateRandomSupply()
         {
+            Supply supply = new Supply();
+
+            //...
+
+            return supply;
+        }
+        public static void SellBookWithoutCustomer(Book book)
+        {
+            Store.SellBook(book.id);
+        }
+        public static void SellToCustomer(Customer customer, Book book, double price)
+        {
 
         }
-
 
 
     }
