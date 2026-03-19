@@ -22,6 +22,9 @@ namespace WinForms
             InitializeComponent();
             store = new BookStore(5);
             //store = GameManager.Store;
+           
+            // Скрываем вкладку "Поставки" при запуске
+            MainTC.TabPages.Remove(Supples);
 
             //Подписки на события — в конструкторе
             AddBookB.Click += (s, e) => AddBook();

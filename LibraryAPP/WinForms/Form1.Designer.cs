@@ -93,18 +93,23 @@
             panel24 = new Panel();
             panel25 = new Panel();
             label13 = new Label();
-            Supples = new TabPage();
-            panel20 = new Panel();
-            panel21 = new Panel();
-            panel23 = new Panel();
-            panel22 = new Panel();
-            label10 = new Label();
             Customers = new TabPage();
             panel26 = new Panel();
             panel27 = new Panel();
             panel28 = new Panel();
             panel29 = new Panel();
             label11 = new Label();
+            Supples = new TabPage();
+            label17 = new Label();
+            label16 = new Label();
+            label15 = new Label();
+            label14 = new Label();
+            label12 = new Label();
+            panel20 = new Panel();
+            panel21 = new Panel();
+            panel23 = new Panel();
+            panel22 = new Panel();
+            label10 = new Label();
             OrderBook.SuspendLayout();
             panel6.SuspendLayout();
             panel5.SuspendLayout();
@@ -121,8 +126,8 @@
             SearchResultTP.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)SearchedBookGrid).BeginInit();
             panel24.SuspendLayout();
-            Supples.SuspendLayout();
             Customers.SuspendLayout();
+            Supples.SuspendLayout();
             SuspendLayout();
             // 
             // OrderBook
@@ -499,15 +504,15 @@
             titleL.Name = "titleL";
             titleL.Size = new Size(495, 52);
             titleL.TabIndex = 0;
-            titleL.Text = "Новая книга";
+            titleL.Text = "Заказать книгу";
             titleL.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // MainTC
             // 
             MainTC.Controls.Add(OrderBook);
             MainTC.Controls.Add(StoreTP);
-            MainTC.Controls.Add(Supples);
             MainTC.Controls.Add(Customers);
+            MainTC.Controls.Add(Supples);
             MainTC.Dock = DockStyle.Fill;
             MainTC.Location = new Point(0, 0);
             MainTC.Margin = new Padding(3, 2, 3, 2);
@@ -515,7 +520,6 @@
             MainTC.SelectedIndex = 0;
             MainTC.Size = new Size(509, 507);
             MainTC.TabIndex = 0;
-            MainTC.Visible = false;
             // 
             // StoreTP
             // 
@@ -895,76 +899,6 @@
             label13.Text = "Магазин";
             label13.TextAlign = ContentAlignment.MiddleCenter;
             // 
-            // Supples
-            // 
-            Supples.BackColor = Color.FromArgb(226, 206, 177);
-            Supples.Controls.Add(panel20);
-            Supples.Controls.Add(panel21);
-            Supples.Controls.Add(panel23);
-            Supples.Controls.Add(panel22);
-            Supples.Controls.Add(label10);
-            Supples.Location = new Point(4, 24);
-            Supples.Name = "Supples";
-            Supples.Size = new Size(501, 479);
-            Supples.TabIndex = 3;
-            Supples.Text = "Поставки";
-            // 
-            // panel20
-            // 
-            panel20.BackColor = Color.Silver;
-            panel20.BorderStyle = BorderStyle.FixedSingle;
-            panel20.ForeColor = SystemColors.ActiveCaption;
-            panel20.Location = new Point(385, 0);
-            panel20.Margin = new Padding(3, 2, 3, 2);
-            panel20.Name = "panel20";
-            panel20.Size = new Size(9, 55);
-            panel20.TabIndex = 15;
-            // 
-            // panel21
-            // 
-            panel21.BackColor = Color.Silver;
-            panel21.BorderStyle = BorderStyle.FixedSingle;
-            panel21.ForeColor = SystemColors.ActiveCaption;
-            panel21.Location = new Point(95, 0);
-            panel21.Margin = new Padding(3, 2, 3, 2);
-            panel21.Name = "panel21";
-            panel21.Size = new Size(9, 55);
-            panel21.TabIndex = 14;
-            // 
-            // panel23
-            // 
-            panel23.BackColor = Color.Silver;
-            panel23.BorderStyle = BorderStyle.FixedSingle;
-            panel23.ForeColor = SystemColors.ActiveCaption;
-            panel23.Location = new Point(-1, 0);
-            panel23.Margin = new Padding(3, 2, 3, 2);
-            panel23.Name = "panel23";
-            panel23.Size = new Size(502, 8);
-            panel23.TabIndex = 17;
-            // 
-            // panel22
-            // 
-            panel22.BackColor = Color.Silver;
-            panel22.BorderStyle = BorderStyle.FixedSingle;
-            panel22.ForeColor = SystemColors.ActiveCaption;
-            panel22.Location = new Point(-1, 46);
-            panel22.Margin = new Padding(3, 2, 3, 2);
-            panel22.Name = "panel22";
-            panel22.Size = new Size(502, 8);
-            panel22.TabIndex = 16;
-            // 
-            // label10
-            // 
-            label10.BackColor = Color.FromArgb(57, 30, 16);
-            label10.Font = new Font("Cambria", 24F, FontStyle.Regular, GraphicsUnit.Point, 204);
-            label10.ForeColor = Color.FromArgb(253, 252, 232);
-            label10.Location = new Point(0, 1);
-            label10.Name = "label10";
-            label10.Size = new Size(501, 50);
-            label10.TabIndex = 13;
-            label10.Text = "Поставки";
-            label10.TextAlign = ContentAlignment.MiddleCenter;
-            // 
             // Customers
             // 
             Customers.BackColor = Color.FromArgb(226, 206, 177);
@@ -1035,6 +969,131 @@
             label11.Text = "Покупатели";
             label11.TextAlign = ContentAlignment.MiddleCenter;
             // 
+            // Supples
+            // 
+            Supples.BackColor = Color.FromArgb(226, 206, 177);
+            Supples.Controls.Add(label17);
+            Supples.Controls.Add(label16);
+            Supples.Controls.Add(label15);
+            Supples.Controls.Add(label14);
+            Supples.Controls.Add(label12);
+            Supples.Controls.Add(panel20);
+            Supples.Controls.Add(panel21);
+            Supples.Controls.Add(panel23);
+            Supples.Controls.Add(panel22);
+            Supples.Controls.Add(label10);
+            Supples.Location = new Point(4, 24);
+            Supples.Name = "Supples";
+            Supples.Size = new Size(501, 479);
+            Supples.TabIndex = 3;
+            Supples.Text = "Поставки";
+            // 
+            // label17
+            // 
+            label17.AutoSize = true;
+            label17.Font = new Font("Cambria", 18F);
+            label17.Location = new Point(39, 196);
+            label17.Name = "label17";
+            label17.Size = new Size(66, 28);
+            label17.TabIndex = 22;
+            label17.Text = "Цена";
+            // 
+            // label16
+            // 
+            label16.AutoSize = true;
+            label16.Font = new Font("Cambria", 18F);
+            label16.Location = new Point(43, 169);
+            label16.Name = "label16";
+            label16.Size = new Size(123, 28);
+            label16.TabIndex = 21;
+            label16.Text = "Страницы";
+            // 
+            // label15
+            // 
+            label15.AutoSize = true;
+            label15.Font = new Font("Cambria", 18F);
+            label15.Location = new Point(43, 136);
+            label15.Name = "label15";
+            label15.Size = new Size(73, 28);
+            label15.TabIndex = 20;
+            label15.Text = "Жанр";
+            // 
+            // label14
+            // 
+            label14.AutoSize = true;
+            label14.Font = new Font("Cambria", 18F);
+            label14.Location = new Point(40, 109);
+            label14.Name = "label14";
+            label14.Size = new Size(78, 28);
+            label14.TabIndex = 19;
+            label14.Text = "Автор";
+            // 
+            // label12
+            // 
+            label12.AutoSize = true;
+            label12.Font = new Font("Cambria", 18F);
+            label12.Location = new Point(42, 83);
+            label12.Name = "label12";
+            label12.Size = new Size(116, 28);
+            label12.TabIndex = 18;
+            label12.Text = "Название";
+            // 
+            // panel20
+            // 
+            panel20.BackColor = Color.Silver;
+            panel20.BorderStyle = BorderStyle.FixedSingle;
+            panel20.ForeColor = SystemColors.ActiveCaption;
+            panel20.Location = new Point(385, 0);
+            panel20.Margin = new Padding(3, 2, 3, 2);
+            panel20.Name = "panel20";
+            panel20.Size = new Size(9, 55);
+            panel20.TabIndex = 15;
+            // 
+            // panel21
+            // 
+            panel21.BackColor = Color.Silver;
+            panel21.BorderStyle = BorderStyle.FixedSingle;
+            panel21.ForeColor = SystemColors.ActiveCaption;
+            panel21.Location = new Point(95, 0);
+            panel21.Margin = new Padding(3, 2, 3, 2);
+            panel21.Name = "panel21";
+            panel21.Size = new Size(9, 55);
+            panel21.TabIndex = 14;
+            // 
+            // panel23
+            // 
+            panel23.BackColor = Color.Silver;
+            panel23.BorderStyle = BorderStyle.FixedSingle;
+            panel23.ForeColor = SystemColors.ActiveCaption;
+            panel23.Location = new Point(-1, 0);
+            panel23.Margin = new Padding(3, 2, 3, 2);
+            panel23.Name = "panel23";
+            panel23.Size = new Size(502, 8);
+            panel23.TabIndex = 17;
+            // 
+            // panel22
+            // 
+            panel22.BackColor = Color.Silver;
+            panel22.BorderStyle = BorderStyle.FixedSingle;
+            panel22.ForeColor = SystemColors.ActiveCaption;
+            panel22.Location = new Point(-1, 46);
+            panel22.Margin = new Padding(3, 2, 3, 2);
+            panel22.Name = "panel22";
+            panel22.Size = new Size(502, 8);
+            panel22.TabIndex = 16;
+            // 
+            // label10
+            // 
+            label10.BackColor = Color.FromArgb(57, 30, 16);
+            label10.Font = new Font("Cambria", 24F, FontStyle.Regular, GraphicsUnit.Point, 204);
+            label10.ForeColor = Color.FromArgb(253, 252, 232);
+            label10.Location = new Point(0, 1);
+            label10.Name = "label10";
+            label10.Size = new Size(501, 50);
+            label10.TabIndex = 13;
+            label10.Text = "Поставки";
+            label10.TextAlign = ContentAlignment.MiddleCenter;
+            // 
             // BookStoreF
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -1072,8 +1131,9 @@
             SearchResultTP.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)SearchedBookGrid).EndInit();
             panel24.ResumeLayout(false);
-            Supples.ResumeLayout(false);
             Customers.ResumeLayout(false);
+            Supples.ResumeLayout(false);
+            Supples.PerformLayout();
             ResumeLayout(false);
         }
 
@@ -1155,5 +1215,10 @@
         private Panel panel24;
         private Panel panel25;
         private Label label13;
+        private Label label17;
+        private Label label16;
+        private Label label15;
+        private Label label14;
+        private Label label12;
     }
 }
