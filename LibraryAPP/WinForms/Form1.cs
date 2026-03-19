@@ -21,7 +21,7 @@ namespace WinForms
         {
             InitializeComponent();
             store = new BookStore(5);
-            store = GameManager.Store;
+            //store = GameManager.Store;
 
             //Подписки на события — в конструкторе
             AddBookB.Click += (s, e) => AddBook();

@@ -143,6 +143,26 @@ namespace WinForms.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
+        public static System.Drawing.Bitmap CoverAbout {
+            get {
+                object obj = ResourceManager.GetObject("CoverAbout", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap CoverDevelopers {
+            get {
+                object obj = ResourceManager.GetObject("CoverDevelopers", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
         public static System.Drawing.Bitmap CoverDifficult {
             get {
                 object obj = ResourceManager.GetObject("CoverDifficult", resourceCulture);

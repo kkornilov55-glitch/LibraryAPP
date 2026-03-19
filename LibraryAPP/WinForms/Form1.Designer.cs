@@ -224,7 +224,6 @@
             AddBookB.TabIndex = 13;
             AddBookB.Text = "СОХРАНИТЬ";
             AddBookB.UseVisualStyleBackColor = false;
-
             // 
             // panel10
             // 
@@ -959,7 +958,7 @@
             label10.BackColor = Color.FromArgb(57, 30, 16);
             label10.Font = new Font("Cambria", 24F, FontStyle.Regular, GraphicsUnit.Point, 204);
             label10.ForeColor = Color.FromArgb(253, 252, 232);
-            label10.Location = new Point(0, 0);
+            label10.Location = new Point(0, 1);
             label10.Name = "label10";
             label10.Size = new Size(501, 50);
             label10.TabIndex = 13;

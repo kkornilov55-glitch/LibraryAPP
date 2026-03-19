@@ -20,14 +20,13 @@ namespace WinForms
         {
             DifficultySelectionDialog difficultyDialog = new DifficultySelectionDialog();
             difficultyDialog.ShowDialog();
-            this.Close();
          }
 
-        //private void btnAboutGame_Click(object sender, EventArgs e)
-        //{
-        //    AboutForm aboutForm = new AboutForm();
-        //    aboutForm.ShowDialog();
-        //}
+        private void btnAboutGame_Click(object sender, EventArgs e)
+        {
+            AboutForm aboutForm = new AboutForm();
+            aboutForm.ShowDialog();
+        }
 
         private void btnExit_Click(object sender, EventArgs e)
         {
@@ -43,10 +42,10 @@ namespace WinForms
             }
         }
 
-        //private void btnInfo_Click(object sender, EventArgs e)
-        //{
-        //    InfoForm infoForm = new InfoForm();
-        //    infoForm.ShowDialog();
-        //}
+        private void btnInfo_Click(object sender, EventArgs e)
+        {
+            Info infoForm = new Info();
+            infoForm.ShowDialog();
+        }
     }
 }

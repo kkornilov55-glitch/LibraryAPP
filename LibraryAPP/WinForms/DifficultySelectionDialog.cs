@@ -20,37 +20,37 @@ namespace WinForms
 
         private void btnEasy_Click(object sender, EventArgs e)
         {
-            StartGameWithDifficulty(0);
+            //StartGameWithDifficulty(0);
         }
 
         private void btnNormal_Click(object sender, EventArgs e)
         {
-            StartGameWithDifficulty(1);
+            //StartGameWithDifficulty(1);
         }
 
         private void bthHard_Click(object sender, EventArgs e)
         {
-            StartGameWithDifficulty(2);
+            //StartGameWithDifficulty(2);
         }
 
-        private void StartGameWithDifficulty(int difficulty)
-        {
-            try
-            {
-                GameManager.StartGame(difficulty);
-                this.Close();
-                BookStoreF gameForm = new BookStoreF();
-                gameForm.Show();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(
-                    $"Ошибка при запуске игры:\n{ex.Message}",
-                    "Ошибка",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error);
-            }
-        }
+        //private void StartGameWithDifficulty(int difficulty)
+        //{
+        //    try
+        //    {
+        //        GameManager.StartGame(difficulty);
+        //        this.Close();
+        //        BookStoreF gameForm = new BookStoreF();
+        //        gameForm.Show();
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        MessageBox.Show(
+        //            $"Ошибка при запуске игры:\n{ex.Message}",
+        //            "Ошибка",
+        //            MessageBoxButtons.OK,
+        //            MessageBoxIcon.Error);
+        //    }
+        //}
 
         private void btnClosr_Click(object sender, EventArgs e)
         {

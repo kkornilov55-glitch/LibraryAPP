@@ -72,6 +72,7 @@
             btnAboutGame.TabIndex = 1;
             btnAboutGame.Text = "ОБ ИГРЕ";
             btnAboutGame.UseVisualStyleBackColor = false;
+            btnAboutGame.Click += btnAboutGame_Click;
             // 
             // btnExit
             // 
@@ -111,6 +112,7 @@
             btnInfo.TabIndex = 3;
             btnInfo.Text = "i";
             btnInfo.UseVisualStyleBackColor = false;
+            btnInfo.Click += btnInfo_Click;
             // 
             // MainMenu
             // 
