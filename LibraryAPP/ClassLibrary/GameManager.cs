@@ -6,20 +6,29 @@ namespace ClassLibrary
 {
     internal class GameManager
     {
+        //Ссылка на магазин
         public static BookStore Store;
-        public static Queue<Customer> CustomersQueue;
-        public static Queue<Supply> SuppliesQueue;
-        public static int UnhappyCustomersCount = 0;
 
+        //Настройка сложности, установка ограничений
         public static int Difficulty;
         private static int maxCustomersQueue;
         private static int maxSuppliesQueue;
         private static int maxUnhappyCustomres;
+        //Очереди и счётчики
+        public static Queue<Customer> CustomersQueue;
+        public static Queue<Supply> SuppliesQueue;
+        public static int UnhappyCustomersCount = 0;
 
-        public static int CustomersTimer;
-        public static int SuppliesTimer;
-
+        //Флаги результатов игры, когда один из них true игра заканчивается
         public static bool Lose = false;
+        public static bool Win = false;
+
+        //Обработка появления поставки и покупателя
+        private const int CustomerTimeArrive = 10;
+        private const int SupplyTimeArrive = 15;
+        public static bool CustomerArrived = false;
+        public static bool SuppliesArrived = false;
+
 
         /// <summary>
         /// От сложности зависят пределы длинны очередей: покупателей, поставок и недовольных покупателей.
@@ -31,7 +40,7 @@ namespace ClassLibrary
 
             Difficulty = difficulty;
             DifficultySettings();
-            
+            //....
 
         }
         private static void DifficultySettings()
@@ -55,5 +64,64 @@ namespace ClassLibrary
                 maxUnhappyCustomres = 1;
             }
         }
+        public static void TimersUpdate(int newTime)
+        {
+            //Стираем сведения о предыдущих событиях
+            CustomerArrived = false;
+            SuppliesArrived = false;
+
+            if (newTime % CustomerTimeArrive == 0)
+            {
+                //Создаем покупателя
+                CustomerArrived = true;
+                var Customer = GenerateRandomCustomer();
+
+                CustomersQueue.Enqueue(Customer); //Добавляем покупателя в очередь
+                if (CustomersQueue.Count > maxCustomersQueue)
+                {
+                    Lose = true;
+                    return;
+                }
+            }
+
+            if (newTime % SupplyTimeArrive == 0)
+            {
+                SuppliesArrived = true;
+                var Supply = GenerateRandomSupply();
+
+                SuppliesQueue.Enqueue(Supply);
+                if (SuppliesQueue.Count > maxSuppliesQueue)
+                {
+                    Lose = true;
+                    return;
+                }
+            }
+        }
+        private static Customer GenerateRandomCustomer()
+        {
+            Customer customer = new Customer();
+
+            //...
+
+            return customer;
+        }
+        private static Supply GenerateRandomSupply()
+        {
+            Supply supply = new Supply();
+
+            //...
+
+            return supply;
+        }
+        public static void SellBookWithoutCustomer(Book book)
+        {
+            Store.SellBook(book.id);
+        }
+        public static void SellToCustomer(Customer customer, Book book, double price)
+        {
+
+        }
+
+
     }
 }
