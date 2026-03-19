@@ -290,9 +290,9 @@ var assemblies = [
   {
     "name": "ClassLibrary",
     "classes": [
-      { "name": "ClassLibrary.Book", "rp": "ClassLibrary_Book.html", "cl": 72, "ucl": 5, "cal": 77, "tl": 147, "cb": 16, "tb": 18, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
-      { "name": "ClassLibrary.BookCase", "rp": "ClassLibrary_BookCase.html", "cl": 49, "ucl": 2, "cal": 51, "tl": 108, "cb": 16, "tb": 18, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
-      { "name": "ClassLibrary.BookStore", "rp": "ClassLibrary_BookStore.html", "cl": 105, "ucl": 12, "cal": 117, "tl": 202, "cb": 45, "tb": 54, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
+      { "name": "ClassLibrary.Book", "rp": "ClassLibrary_Book.html", "cl": 92, "ucl": 9, "cal": 101, "tl": 185, "cb": 32, "tb": 36, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
+      { "name": "ClassLibrary.BookCase", "rp": "ClassLibrary_BookCase.html", "cl": 50, "ucl": 1, "cal": 51, "tl": 130, "cb": 17, "tb": 18, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
+      { "name": "ClassLibrary.BookStore", "rp": "ClassLibrary_BookStore.html", "cl": 112, "ucl": 14, "cal": 126, "tl": 223, "cb": 49, "tb": 60, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
     ]},
 ];
 
@@ -301,9 +301,23 @@ var metrics = [{ "name": "Crap Score", "abbreviation": "crp", "explanationUrl": 
 var historicCoverageExecutionTimes = [];
 
 var riskHotspotMetrics = [
+      { "name": "Crap Score", "explanationUrl": "https://googletesting.blogspot.de/2011/02/this-code-is-crap.html" },
+      { "name": "Cyclomatic complexity", "explanationUrl": "https://en.wikipedia.org/wiki/Cyclomatic_complexity" },
 ];
 
 var riskHotspots = [
+  {
+    "assembly": "ClassLibrary", "class": "ClassLibrary.Book", "reportPath": "ClassLibrary_Book.html", "methodName": "EnsureUniqueTitle(System.String,System.String,System.Collections.Generic.List`1<ClassLibrary.Book>)", "methodShortName": "EnsureUniqueTitle(...)", "fileIndex": 0, "line": 145,
+    "metrics": [
+      { "value": 18, "exceeded": false },
+      { "value": 18, "exceeded": true },
+    ]},
+  {
+    "assembly": "ClassLibrary", "class": "ClassLibrary.BookStore", "reportPath": "ClassLibrary_BookStore.html", "methodName": "AddBook(ClassLibrary.Book)", "methodShortName": "AddBook(...)", "fileIndex": 0, "line": 49,
+    "metrics": [
+      { "value": 16, "exceeded": false },
+      { "value": 16, "exceeded": true },
+    ]},
 ];
 
 var branchCoverageAvailable = true;
