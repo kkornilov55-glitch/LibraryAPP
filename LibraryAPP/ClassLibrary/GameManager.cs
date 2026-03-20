@@ -135,7 +135,7 @@ namespace ClassLibrary
         }
         private static Supply GenerateRandomSupply()
         {         
-            Book book = Book.GenerateBook(Store.GetAllBooks());
+            Book book = Book.GenerateBook(Store.GetAllBooks(), "");
 
             bool bookHasError;
             if (rnd.Next(2) == 0)
