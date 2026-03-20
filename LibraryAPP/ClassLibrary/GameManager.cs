@@ -29,6 +29,8 @@ namespace ClassLibrary
         public static bool CustomerArrived = false;
         public static bool SuppliesArrived = false;
 
+        private static Random rnd = new Random();
+
 
         /// <summary>
         /// От сложности зависят пределы длинны очередей: покупателей, поставок и недовольных покупателей.
@@ -112,15 +114,38 @@ namespace ClassLibrary
         }
         private static Customer GenerateRandomCustomer()
         {
-            Customer customer = new Customer();
-
             //...
+
+            Customer customer;
+            int wish = rnd.Next(2); //0 -> конкретная книга, 1 -> жанр
+
+            switch(wish)
+            {
+                case 0:
+                    customer = new Customer("Название книги", "Автор книги");
+                    break;
+                case 1:
+                    customer = new Customer("Жанр");
+                    break;
+                default:
+                    throw new InvalidOperationException("Ошибка: Не адекватный покупатель");
+            }
 
             return customer;
         }
         private static Supply GenerateRandomSupply()
-        {
-            Supply supply = new Supply();
+        {         
+            Book book = Book.GenerateBook(Store.GetAllBooks());
+
+            bool bookHasError;
+            if (rnd.Next(2) == 0)
+                bookHasError = false;
+            else
+                bookHasError = true;
+
+            //...
+
+            Supply supply = new Supply(book, false, book.Price, true, "Plagiarism");
 
             //...
 

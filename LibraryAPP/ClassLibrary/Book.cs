@@ -56,7 +56,7 @@ namespace ClassLibrary
         /// Статический метод, случайно генерирующий книгу.
         /// Принадлежит самому классу а не конкретной книге т.е. создает новую книгу без привязки к существующей
         /// </summary>
-        public static Book GenerateBook(List<Book> ExistingBooks, string genreHint) //список ExistingBooks должен содержать в себе все созданные книги.                                                                           //он будет заполняться в классе реализующем логику книжного шкаф
+        public static Book GenerateBook(List<Book> ExistingBooks) //список ExistingBooks должен содержать в себе все созданные книги.                                                                           //он будет заполняться в классе реализующем логику книжного шкаф
         {
             // Получаем случайную строку из файла
             string randomLine = GetRandomLineFromFile("BookAuthor.txt");
