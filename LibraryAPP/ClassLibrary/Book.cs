@@ -4,6 +4,7 @@ using System.Dynamic;
 using System.IO;
 using System.Reflection;
 using System.Runtime.CompilerServices;
+using System.Linq;
 
 
 namespace ClassLibrary
@@ -57,25 +58,58 @@ namespace ClassLibrary
         /// </summary>
         public static Book GenerateBook(List<Book> ExistingBooks, string genreHint) //список ExistingBooks должен содержать в себе все созданные книги.                                                                           //он будет заполняться в классе реализующем логику книжного шкаф
         {
-            string randomAuthor = GetrandomAuthor();
-            string rawTitle = GetRandomTitle();
+            // Получаем случайную строку из файла
+            string randomLine = GetRandomLineFromFile("BookAuthor.txt");
 
-            if (rawTitle.StartsWith("Ошибка") || rawTitle.StartsWith("Файл"))
-                rawTitle = "Без названия";
+            // Парсим строку на название и автора
+            string[] parts = randomLine.Split('|');
+            string title = parts[0].Trim();
+            string author = parts[1].Trim();
 
-            string finalTitle = EnsureUniqueTitle(rawTitle, randomAuthor, ExistingBooks);
+            // Проверяем уникальность названия для данного автора
+            string finalTitle = EnsureUniqueTitle(title, author, ExistingBooks);
 
+            // Генерируем остальные параметры
             int randomPages = rng.Next(50, 500);
             double randomPrice = Math.Round(rng.Next(300, 1500) + rng.NextDouble(), 2);
             string randomGenre = GetRandomGenre();
 
-            return new Book(finalTitle, randomAuthor, randomGenre, randomPages, randomPrice);
+            if (!string.IsNullOrEmpty(genreHint))
+                randomGenre = genreHint;
+
+            return new Book(finalTitle, author, randomGenre, randomPages, randomPrice);
+
+        }
+        private static string GetRandomLineFromFile(string filePath)
+        {
+            try
+            {
+                string[] lines = File.ReadAllLines(filePath);
+
+                var validLines = lines
+                    .Where(line => !string.IsNullOrWhiteSpace(line) && line.Contains('|'))
+                    .ToList();
+
+                if (validLines.Count == 0)
+                {
+                    throw new Exception("Файл не содержит корректных данных");
+                }
+
+                return validLines[rng.Next(validLines.Count)];
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Ошибка при чтении файла: {ex.Message}");
+                return "Неизвестная книга|Неизвестный автор";
+            }
         }
 
         /// <summary>
         /// Метод для получения случайного названия книги из заранее определенного списка
         /// </summary>
-        static private string GetRandomTitle()
+       
+        /*
+         * static private string GetRandomTitle()
         {
             string FilePath = "title.txt"; // Путь к файлу с названиями книг
             List<string> titles = new List<string>(); // Список для хранения названий книг
@@ -112,13 +146,14 @@ namespace ClassLibrary
                 return $"Ошибка при чтении файла: {ex.Message}";
             }
         }
-
-        private static string GetrandomAuthor()
+        */
+        
+        /*private static string GetrandomAuthor()
         {
             string[] authors = new string[] { "Стивен Кинг", "Михаил Булгаков", "Федор Достоевский", "Уильям Шекспир", "Лев Толстой", "Джордж Оруэлл", "Джоан Роулинг", "Николай Гоголь", "Александр Пушкин", "Эрих Мария Ремарк" };
             return authors[rng.Next(authors.Length)]; // Возвращаем случайного автора из массива
         }
-
+        */
         private static string GetRandomGenre()
         {
             string[] genres = new string[] { "Фэнтези", "Детектив", "Триллер", "Научная фантастика", "Роман", "Драма" };
