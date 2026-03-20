@@ -253,6 +253,8 @@ namespace WinForms
             MainMenu mainForm = new MainMenu();
             mainForm.ShowDialog();
         }
+        
+
 
         // ============= ПОКУПАТЕЛИ ================
         private Customer currentCustomer = null;
@@ -282,28 +284,6 @@ namespace WinForms
                 return;
             }
 
-            // Извлекаем ID книги из ComboBox
-            // Формат строки: "Название — 500.00 ₽ (ID: 42)"
-            string selected = cmbAvailableBooks.SelectedItem.ToString();
-            int bookId = int.Parse(selected.Split(':')[1].Trim().Split(' ')[0]);
-
-            // Находим книгу в магазине
-            Book bookToSell = GameManager.Store.FindBookById(bookId);
-            if (bookToSell == null)
-            {
-                MessageBox.Show("Книга не найдена!", "Ошибка",
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-
-            GameManager.Store.SellBook(bookId);
-            double profit = sellPrice - bookToSell.Price;
-            GameManager.Store.AddToBalance(profit);
-
-            MessageBox.Show(
-                $"Продано!\nКнига: «{bookToSell.Title}»\nЦена: {sellPrice:F2} ₽\nПрибыль: {profit:F2} ₽",
-                "Успех", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
             currentCustomer = null;
             UpdateCustomerView();
 
@@ -320,12 +300,11 @@ namespace WinForms
                 return;
             }
 
-            GameManager.UnhappyCustomersCount++;
+            //GameManager.RegisterUnhappyCustomer();
 
-            if (GameManager.UnhappyCustomersCount >= GameManager.maxUnhappyCustomres)
+            if (GameManager.Lose)
             {
                 GameOver("Слишком много недовольных клиентов!");
-                return;
             }
 
             // Переходим к следующему покупателю
