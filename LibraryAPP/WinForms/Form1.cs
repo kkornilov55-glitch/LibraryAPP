@@ -296,26 +296,6 @@ namespace WinForms
                 return;
             }
 
-            //// наценка
-            //double maxPrice = currentCustomer.BasePrice * 1.15;
-            //if (sellPrice > maxPrice)
-            //{
-            //    GameManager.UnhappyCustomersCount++;
-            //    MessageBox.Show(
-            //        $"Покупатель ушёл!\nЦена {sellPrice:F2} ₽ превышает максимум {maxPrice:F2} ₽",
-            //        "Отказ", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-
-            //    if (GameManager.UnhappyCustomersCount >= GameManager.maxUnhappyCustomres)
-            //    {
-            //        GameOver("Слишком много недовольных клиентов!");
-            //        return;
-            //    }
-
-            //    currentCustomer = null;
-            //    UpdateCustomerView();
-            //    return;
-            //}
-
             GameManager.Store.SellBook(bookId);
             double profit = sellPrice - bookToSell.Price;
             GameManager.Store.AddToBalance(profit);
