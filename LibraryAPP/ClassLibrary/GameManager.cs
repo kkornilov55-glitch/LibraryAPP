@@ -4,7 +4,7 @@ using System.Text;
 
 namespace ClassLibrary
 {
-    internal class GameManager
+    public class GameManager
     {
         //Ссылка на магазин
         public static BookStore Store;
