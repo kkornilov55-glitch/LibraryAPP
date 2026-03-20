@@ -26,7 +26,9 @@ namespace WinForms
             // Скрываем вкладку "Поставки" при запуске
             MainTC.TabPages.Remove(Supples);
 
+            UpdateCounters();
             timeCustomer.Start();
+
 
             // Скрываем вкладку панель с покупателями по умолчанию
             pnlCustomerArea.Visible = false;
@@ -308,7 +310,7 @@ namespace WinForms
         }
 
         // Таймер
-        private void TimeCustomer_Tick(object sender, EventArgs e)
+        private void timeCustomer_Tick(object sender, EventArgs e)
         {
             gameTimer++;
 
@@ -383,7 +385,14 @@ namespace WinForms
         // Обновление счётчиков на верхней панели
         private void UpdateCounters()
         {
-            lblQueueCount.Text = $"{GameManager.CustomersQueue.Count}/{GameManager.maxCustomersQueue}";
+            int totalInQueue = GameManager.CustomersQueue.Count;
+
+            if (currentCustomer != null)
+            {
+                totalInQueue++;
+            }
+
+            lblQueueCount.Text = $"{totalInQueue}/{GameManager.maxCustomersQueue}";
             lblUnhappyCount.Text = $"{GameManager.UnhappyCustomersCount}/{GameManager.maxUnhappyCustomres}";
         }
     }

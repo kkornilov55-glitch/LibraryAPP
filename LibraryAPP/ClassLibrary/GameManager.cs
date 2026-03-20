@@ -38,9 +38,13 @@ namespace ClassLibrary
         {
             Store = new BookStore(5, 1000);
 
+            // вот здесь вот добавила инициализацию очереди
+            CustomersQueue = new Queue<Customer>();
+            SuppliesQueue = new Queue<Supply>();
+            UnhappyCustomersCount = 0;
+
             Difficulty = difficulty;
             DifficultySettings();
-            //....
 
         }
         private static void DifficultySettings()

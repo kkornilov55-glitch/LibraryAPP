@@ -991,11 +991,11 @@
             lblQueueTitle.BackColor = Color.Transparent;
             lblQueueTitle.Font = new Font("Kepler 296", 16F);
             lblQueueTitle.ForeColor = Color.Maroon;
-            lblQueueTitle.Location = new Point(105, 30);
+            lblQueueTitle.Location = new Point(125, 30);
             lblQueueTitle.Name = "lblQueueTitle";
-            lblQueueTitle.Size = new Size(373, 31);
+            lblQueueTitle.Size = new Size(332, 31);
             lblQueueTitle.TabIndex = 0;
-            lblQueueTitle.Text = "📋 ОЧЕРЕДЬ ПОКУПАТЕЛЕЙ (0)";
+            lblQueueTitle.Text = "📋 ОЧЕРЕДЬ ПОКУПАТЕЛЕЙ";
             // 
             // label13
             // 
@@ -1204,7 +1204,8 @@
             // 
             // timeCustomer
             // 
-            timeCustomer.Interval = 20000;
+            timeCustomer.Interval = 2000;
+            timeCustomer.Tick += timeCustomer_Tick;
             // 
             // BookStoreF
             // 
