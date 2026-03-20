@@ -4,7 +4,7 @@ using System.Text;
 
 namespace ClassLibrary
 {
-    internal class Supply
+    public class Supply
     {
     }
 }
