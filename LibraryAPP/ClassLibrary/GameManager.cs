@@ -10,7 +10,7 @@ namespace ClassLibrary
         public static BookStore Store;
 
         //Настройка сложности, установка ограничений
-        public static int Difficulty;
+        private static int Difficulty;
         public static int maxCustomersQueue;
         public static int maxSuppliesQueue;
         public static int maxUnhappyCustomres;
@@ -24,8 +24,8 @@ namespace ClassLibrary
         public static bool Win = false;
 
         //Обработка появления поставки и покупателя
-        private const int CustomerTimeArrive = 10;
-        private const int SupplyTimeArrive = 15;
+        private static int CustomerTimeArrive;
+        private static int SupplyTimeArrive;
         public static bool CustomerArrived = false;
         public static bool SuppliesArrived = false;
 
@@ -51,18 +51,27 @@ namespace ClassLibrary
         {
             if (Difficulty == 0)
             {
+                CustomerTimeArrive = 20000;
+                SupplyTimeArrive = 30000;
+
                 maxCustomersQueue = 10;
                 maxSuppliesQueue = 15;
                 maxUnhappyCustomres = 5;
             }
             else if (Difficulty == 1)
             {
+                CustomerTimeArrive = 15000;
+                SupplyTimeArrive = 20000;
+
                 maxCustomersQueue = 8;
                 maxSuppliesQueue = 10;
                 maxUnhappyCustomres = 3;
             }
             else
             {
+                CustomerTimeArrive = 8000;
+                SupplyTimeArrive = 10000;
+
                 maxCustomersQueue = 6;
                 maxSuppliesQueue = 8;
                 maxUnhappyCustomres = 1;
