@@ -57,14 +57,12 @@ namespace ClassLibrary
 
             if (wishType)
             {
-                // Покупатель хочет конкретную книгу
-                // Проверяем название И автора
+                // Хочет конкретную книгу: проверяем название И автора
                 isHappy = (book.Title == wantedBookTitle && book.Author == wantedBookAuthor);
             }
             else
             {
-                // Покупатель хочет книгу определённого жанра
-                // Проверяем только жанр
+                // Хочет книгу жанра: проверяем только жанр
                 isHappy = (book.Genre == wantedGenre);
             }
 
