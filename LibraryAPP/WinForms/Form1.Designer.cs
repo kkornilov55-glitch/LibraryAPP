@@ -28,9 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             OrderBook = new TabPage();
-            panel7 = new Panel();
-            panel8 = new Panel();
             panel9 = new Panel();
             panel10 = new Panel();
             label18 = new Label();
@@ -56,11 +57,9 @@
             label1 = new Label();
             MainTC = new TabControl();
             StoreTP = new TabPage();
-            panel15 = new Panel();
-            panel16 = new Panel();
-            panel17 = new Panel();
-            panel24 = new Panel();
-            label13 = new Label();
+            panel8 = new Panel();
+            panel7 = new Panel();
+            label7 = new Label();
             StoreTC = new TabControl();
             MainTP = new TabPage();
             dataGridView1 = new DataGridView();
@@ -76,10 +75,6 @@
             colAuthorSearch = new DataGridViewTextBoxColumn();
             colPagesCountSearch = new DataGridViewTextBoxColumn();
             colPriceSearch = new DataGridViewTextBoxColumn();
-            panel19 = new Panel();
-            panel18 = new Panel();
-            panel14 = new Panel();
-            panel13 = new Panel();
             ClearCaseB = new Button();
             SellBookB = new Button();
             FoundB = new Button();
@@ -88,29 +83,39 @@
             label8 = new Label();
             GenreSelectCB = new ComboBox();
             Customers = new TabPage();
-            panel26 = new Panel();
-            panel27 = new Panel();
-            panel28 = new Panel();
-            panel29 = new Panel();
+            panel11 = new Panel();
+            panel12 = new Panel();
             label11 = new Label();
+            pnlCustomerArea = new Panel();
+            comboBox1 = new ComboBox();
+            lblCustomerRequest = new Label();
+            label19 = new Label();
+            lblCustomerRequest1 = new Label();
+            lblCurrentTitle = new Label();
+            lstCustomersQueue = new ListBox();
+            lblQueueTitle = new Label();
+            label13 = new Label();
             Supples = new TabPage();
+            panel15 = new Panel();
+            panel16 = new Panel();
+            label10 = new Label();
             label17 = new Label();
             label16 = new Label();
             label15 = new Label();
             label14 = new Label();
             label12 = new Label();
-            panel20 = new Panel();
-            panel21 = new Panel();
-            panel23 = new Panel();
-            panel22 = new Panel();
-            label10 = new Label();
             BalanceL = new Label();
             pictureBoxMoney = new PictureBox();
             pictureBoxGood = new PictureBox();
             pictureBoxBad = new PictureBox();
-            goodCounter = new Label();
-            badCounter = new Label();
+            lblUnhappyCount = new Label();
             btnHome = new Button();
+            timerCustomers = new System.Windows.Forms.Timer(components);
+            lblQueueCount = new Label();
+            label20 = new Label();
+            txtSellPrice = new TextBox();
+            btnSellToCustomer = new Button();
+            btnRejectCustomer = new Button();
             OrderBook.SuspendLayout();
             panel6.SuspendLayout();
             panel5.SuspendLayout();
@@ -126,6 +131,7 @@
             SearchResultTP.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)SearchedBookGrid).BeginInit();
             Customers.SuspendLayout();
+            pnlCustomerArea.SuspendLayout();
             Supples.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBoxMoney).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBoxGood).BeginInit();
@@ -137,8 +143,6 @@
             OrderBook.BackColor = Color.FromArgb(171, 136, 106);
             OrderBook.BackgroundImage = Properties.Resources.bgList;
             OrderBook.BackgroundImageLayout = ImageLayout.Stretch;
-            OrderBook.Controls.Add(panel7);
-            OrderBook.Controls.Add(panel8);
             OrderBook.Controls.Add(panel9);
             OrderBook.Controls.Add(panel10);
             OrderBook.Controls.Add(label18);
@@ -158,34 +162,12 @@
             OrderBook.TabIndex = 0;
             OrderBook.Text = "Заказать книгу";
             // 
-            // panel7
-            // 
-            panel7.BackColor = Color.Silver;
-            panel7.BorderStyle = BorderStyle.FixedSingle;
-            panel7.ForeColor = SystemColors.ActiveCaption;
-            panel7.Location = new Point(440, 0);
-            panel7.Margin = new Padding(3, 2, 3, 2);
-            panel7.Name = "panel7";
-            panel7.Size = new Size(10, 62);
-            panel7.TabIndex = 20;
-            // 
-            // panel8
-            // 
-            panel8.BackColor = Color.Silver;
-            panel8.BorderStyle = BorderStyle.FixedSingle;
-            panel8.ForeColor = SystemColors.ActiveCaption;
-            panel8.Location = new Point(109, 0);
-            panel8.Margin = new Padding(3, 2, 3, 2);
-            panel8.Name = "panel8";
-            panel8.Size = new Size(10, 62);
-            panel8.TabIndex = 19;
-            // 
             // panel9
             // 
-            panel9.BackColor = Color.Silver;
+            panel9.BackColor = Color.Orange;
             panel9.BorderStyle = BorderStyle.FixedSingle;
             panel9.ForeColor = SystemColors.ActiveCaption;
-            panel9.Location = new Point(-1, 0);
+            panel9.Location = new Point(0, 0);
             panel9.Margin = new Padding(3, 2, 3, 2);
             panel9.Name = "panel9";
             panel9.Size = new Size(589, 9);
@@ -193,10 +175,10 @@
             // 
             // panel10
             // 
-            panel10.BackColor = Color.Silver;
+            panel10.BackColor = Color.Orange;
             panel10.BorderStyle = BorderStyle.FixedSingle;
             panel10.ForeColor = SystemColors.ActiveCaption;
-            panel10.Location = new Point(-1, 52);
+            panel10.Location = new Point(0, 52);
             panel10.Margin = new Padding(3, 2, 3, 2);
             panel10.Name = "panel10";
             panel10.Size = new Size(589, 9);
@@ -207,7 +189,8 @@
             label18.BackColor = Color.FromArgb(57, 30, 16);
             label18.Font = new Font("Cambria", 24F, FontStyle.Regular, GraphicsUnit.Point, 204);
             label18.ForeColor = Color.FromArgb(253, 252, 232);
-            label18.Location = new Point(0, 1);
+            label18.Image = Properties.Resources.bookLabel;
+            label18.Location = new Point(0, 0);
             label18.Name = "label18";
             label18.Size = new Size(589, 57);
             label18.TabIndex = 18;
@@ -241,8 +224,9 @@
             AddBookB.Cursor = Cursors.Hand;
             AddBookB.FlatAppearance.BorderSize = 0;
             AddBookB.FlatAppearance.MouseDownBackColor = Color.Transparent;
+            AddBookB.FlatAppearance.MouseOverBackColor = Color.Transparent;
             AddBookB.FlatStyle = FlatStyle.Flat;
-            AddBookB.Font = new Font("Cambria", 9F, FontStyle.Bold, GraphicsUnit.Point, 204);
+            AddBookB.Font = new Font("Kepler 296", 13F);
             AddBookB.ForeColor = Color.WhiteSmoke;
             AddBookB.Location = new Point(45, 477);
             AddBookB.Margin = new Padding(3, 2, 3, 2);
@@ -498,17 +482,12 @@
             // 
             // StoreTP
             // 
-            StoreTP.BackColor = Color.FromArgb(226, 206, 177);
-            StoreTP.Controls.Add(panel15);
-            StoreTP.Controls.Add(panel16);
-            StoreTP.Controls.Add(panel17);
-            StoreTP.Controls.Add(panel24);
-            StoreTP.Controls.Add(label13);
+            StoreTP.BackColor = Color.FromArgb(171, 136, 106);
+            StoreTP.BackgroundImage = Properties.Resources.bgList;
+            StoreTP.Controls.Add(panel8);
+            StoreTP.Controls.Add(panel7);
+            StoreTP.Controls.Add(label7);
             StoreTP.Controls.Add(StoreTC);
-            StoreTP.Controls.Add(panel19);
-            StoreTP.Controls.Add(panel18);
-            StoreTP.Controls.Add(panel14);
-            StoreTP.Controls.Add(panel13);
             StoreTP.Controls.Add(ClearCaseB);
             StoreTP.Controls.Add(SellBookB);
             StoreTP.Controls.Add(FoundB);
@@ -524,61 +503,40 @@
             StoreTP.TabIndex = 2;
             StoreTP.Text = "Магазин";
             // 
-            // panel15
+            // panel8
             // 
-            panel15.BackColor = Color.Silver;
-            panel15.BorderStyle = BorderStyle.FixedSingle;
-            panel15.ForeColor = SystemColors.ActiveCaption;
-            panel15.Location = new Point(440, 0);
-            panel15.Margin = new Padding(3, 2, 3, 2);
-            panel15.Name = "panel15";
-            panel15.Size = new Size(10, 62);
-            panel15.TabIndex = 29;
+            panel8.BackColor = Color.Orange;
+            panel8.BorderStyle = BorderStyle.FixedSingle;
+            panel8.ForeColor = SystemColors.ActiveCaption;
+            panel8.Location = new Point(0, 50);
+            panel8.Margin = new Padding(3, 2, 3, 2);
+            panel8.Name = "panel8";
+            panel8.Size = new Size(589, 9);
+            panel8.TabIndex = 34;
             // 
-            // panel16
+            // panel7
             // 
-            panel16.BackColor = Color.Silver;
-            panel16.BorderStyle = BorderStyle.FixedSingle;
-            panel16.ForeColor = SystemColors.ActiveCaption;
-            panel16.Location = new Point(109, 0);
-            panel16.Margin = new Padding(3, 2, 3, 2);
-            panel16.Name = "panel16";
-            panel16.Size = new Size(10, 62);
-            panel16.TabIndex = 28;
+            panel7.BackColor = Color.Orange;
+            panel7.BorderStyle = BorderStyle.FixedSingle;
+            panel7.ForeColor = SystemColors.ActiveCaption;
+            panel7.Location = new Point(0, 0);
+            panel7.Margin = new Padding(3, 2, 3, 2);
+            panel7.Name = "panel7";
+            panel7.Size = new Size(589, 9);
+            panel7.TabIndex = 33;
             // 
-            // panel17
+            // label7
             // 
-            panel17.BackColor = Color.Silver;
-            panel17.BorderStyle = BorderStyle.FixedSingle;
-            panel17.ForeColor = SystemColors.ActiveCaption;
-            panel17.Location = new Point(-1, 0);
-            panel17.Margin = new Padding(3, 2, 3, 2);
-            panel17.Name = "panel17";
-            panel17.Size = new Size(589, 9);
-            panel17.TabIndex = 31;
-            // 
-            // panel24
-            // 
-            panel24.BackColor = Color.Silver;
-            panel24.BorderStyle = BorderStyle.FixedSingle;
-            panel24.ForeColor = SystemColors.ActiveCaption;
-            panel24.Location = new Point(-1, 52);
-            panel24.Margin = new Padding(3, 2, 3, 2);
-            panel24.Name = "panel24";
-            panel24.Size = new Size(589, 9);
-            panel24.TabIndex = 30;
-            // 
-            // label13
-            // 
-            label13.BackColor = Color.FromArgb(57, 30, 16);
-            label13.Font = new Font("Cambria", 24F, FontStyle.Regular, GraphicsUnit.Point, 204);
-            label13.ForeColor = Color.FromArgb(253, 252, 232);
-            label13.Location = new Point(0, 1);
-            label13.Name = "label13";
-            label13.Size = new Size(589, 57);
-            label13.TabIndex = 27;
-            label13.Text = "Магазин";
-            label13.TextAlign = ContentAlignment.MiddleCenter;
+            label7.BackColor = Color.FromArgb(57, 30, 16);
+            label7.Font = new Font("Cambria", 24F, FontStyle.Regular, GraphicsUnit.Point, 204);
+            label7.ForeColor = Color.FromArgb(253, 252, 232);
+            label7.Image = Properties.Resources.bookLabel;
+            label7.Location = new Point(0, 0);
+            label7.Name = "label7";
+            label7.Size = new Size(589, 57);
+            label7.TabIndex = 32;
+            label7.Text = "Магазин";
+            label7.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // StoreTC
             // 
@@ -605,6 +563,9 @@
             // 
             // dataGridView1
             // 
+            dataGridViewCellStyle1.BackColor = Color.Linen;
+            dataGridView1.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridView1.BackgroundColor = Color.FromArgb(57, 30, 16);
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridView1.Columns.AddRange(new DataGridViewColumn[] { colId, colTitle, colAuthor, colPrice });
             dataGridView1.Dock = DockStyle.Fill;
@@ -621,7 +582,7 @@
             colId.MinimumWidth = 6;
             colId.Name = "colId";
             colId.ReadOnly = true;
-            colId.Width = 125;
+            colId.Width = 50;
             // 
             // colTitle
             // 
@@ -650,17 +611,20 @@
             // SearchResultTP
             // 
             SearchResultTP.Controls.Add(SearchedBookGrid);
-            SearchResultTP.Location = new Point(4, 26);
+            SearchResultTP.Location = new Point(4, 24);
             SearchResultTP.Margin = new Padding(3, 2, 3, 2);
             SearchResultTP.Name = "SearchResultTP";
             SearchResultTP.Padding = new Padding(3, 2, 3, 2);
-            SearchResultTP.Size = new Size(417, 225);
+            SearchResultTP.Size = new Size(417, 227);
             SearchResultTP.TabIndex = 1;
             SearchResultTP.Text = "Результаты поиска";
             SearchResultTP.UseVisualStyleBackColor = true;
             // 
             // SearchedBookGrid
             // 
+            dataGridViewCellStyle2.BackColor = Color.Linen;
+            SearchedBookGrid.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle2;
+            SearchedBookGrid.BackgroundColor = Color.FromArgb(57, 30, 16);
             SearchedBookGrid.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             SearchedBookGrid.Columns.AddRange(new DataGridViewColumn[] { ID, colTitleSearch, colGenreSearch, colAuthorSearch, colPagesCountSearch, colPriceSearch });
             SearchedBookGrid.Dock = DockStyle.Fill;
@@ -668,7 +632,7 @@
             SearchedBookGrid.Margin = new Padding(3, 2, 3, 2);
             SearchedBookGrid.Name = "SearchedBookGrid";
             SearchedBookGrid.RowHeadersWidth = 51;
-            SearchedBookGrid.Size = new Size(411, 221);
+            SearchedBookGrid.Size = new Size(411, 223);
             SearchedBookGrid.TabIndex = 0;
             // 
             // ID
@@ -676,7 +640,7 @@
             ID.HeaderText = "ID";
             ID.MinimumWidth = 6;
             ID.Name = "ID";
-            ID.Width = 125;
+            ID.Width = 50;
             // 
             // colTitleSearch
             // 
@@ -718,53 +682,13 @@
             colPriceSearch.ReadOnly = true;
             colPriceSearch.Width = 125;
             // 
-            // panel19
-            // 
-            panel19.BackColor = Color.Silver;
-            panel19.BorderStyle = BorderStyle.FixedSingle;
-            panel19.Location = new Point(534, 436);
-            panel19.Margin = new Padding(3, 2, 3, 2);
-            panel19.Name = "panel19";
-            panel19.Size = new Size(10, 50);
-            panel19.TabIndex = 25;
-            // 
-            // panel18
-            // 
-            panel18.BackColor = Color.Silver;
-            panel18.BorderStyle = BorderStyle.FixedSingle;
-            panel18.Location = new Point(33, 436);
-            panel18.Margin = new Padding(3, 2, 3, 2);
-            panel18.Name = "panel18";
-            panel18.Size = new Size(10, 50);
-            panel18.TabIndex = 24;
-            // 
-            // panel14
-            // 
-            panel14.BackColor = Color.Silver;
-            panel14.BorderStyle = BorderStyle.FixedSingle;
-            panel14.Location = new Point(534, 102);
-            panel14.Margin = new Padding(3, 2, 3, 2);
-            panel14.Name = "panel14";
-            panel14.Size = new Size(10, 290);
-            panel14.TabIndex = 23;
-            // 
-            // panel13
-            // 
-            panel13.BackColor = Color.Silver;
-            panel13.BorderStyle = BorderStyle.FixedSingle;
-            panel13.Location = new Point(33, 102);
-            panel13.Margin = new Padding(3, 2, 3, 2);
-            panel13.Name = "panel13";
-            panel13.Size = new Size(10, 290);
-            panel13.TabIndex = 22;
-            // 
             // ClearCaseB
             // 
             ClearCaseB.BackColor = Color.FromArgb(199, 160, 122);
             ClearCaseB.FlatAppearance.BorderColor = Color.Black;
             ClearCaseB.FlatStyle = FlatStyle.Flat;
-            ClearCaseB.Font = new Font("Cambria", 11F);
-            ClearCaseB.Location = new Point(291, 491);
+            ClearCaseB.Font = new Font("Kepler 296", 11F);
+            ClearCaseB.Location = new Point(291, 495);
             ClearCaseB.Margin = new Padding(3, 2, 3, 2);
             ClearCaseB.Name = "ClearCaseB";
             ClearCaseB.Size = new Size(209, 29);
@@ -777,8 +701,8 @@
             SellBookB.BackColor = Color.FromArgb(199, 160, 122);
             SellBookB.FlatAppearance.BorderColor = Color.Black;
             SellBookB.FlatStyle = FlatStyle.Flat;
-            SellBookB.Font = new Font("Cambria", 11F);
-            SellBookB.Location = new Point(75, 491);
+            SellBookB.Font = new Font("Kepler 296", 11F);
+            SellBookB.Location = new Point(75, 495);
             SellBookB.Margin = new Padding(3, 2, 3, 2);
             SellBookB.Name = "SellBookB";
             SellBookB.Size = new Size(209, 29);
@@ -788,12 +712,17 @@
             // 
             // FoundB
             // 
-            FoundB.BackColor = Color.Brown;
-            FoundB.FlatAppearance.BorderColor = Color.Black;
+            FoundB.BackColor = Color.Transparent;
+            FoundB.BackgroundImage = Properties.Resources.btnGame;
+            FoundB.BackgroundImageLayout = ImageLayout.Stretch;
+            FoundB.Cursor = Cursors.Hand;
+            FoundB.FlatAppearance.BorderSize = 0;
+            FoundB.FlatAppearance.MouseDownBackColor = Color.Transparent;
+            FoundB.FlatAppearance.MouseOverBackColor = Color.Transparent;
             FoundB.FlatStyle = FlatStyle.Flat;
-            FoundB.Font = new Font("Cambria", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 204);
+            FoundB.Font = new Font("Kepler 296", 13F);
             FoundB.ForeColor = SystemColors.ButtonHighlight;
-            FoundB.Location = new Point(75, 444);
+            FoundB.Location = new Point(75, 446);
             FoundB.Margin = new Padding(3, 2, 3, 2);
             FoundB.Name = "FoundB";
             FoundB.Size = new Size(425, 42);
@@ -803,7 +732,9 @@
             // 
             // FoundStringTB
             // 
-            FoundStringTB.Location = new Point(160, 407);
+            FoundStringTB.BackColor = Color.Bisque;
+            FoundStringTB.BorderStyle = BorderStyle.FixedSingle;
+            FoundStringTB.Location = new Point(156, 409);
             FoundStringTB.Margin = new Padding(3, 2, 3, 2);
             FoundStringTB.Name = "FoundStringTB";
             FoundStringTB.Size = new Size(342, 24);
@@ -812,7 +743,8 @@
             // label9
             // 
             label9.BackColor = Color.Transparent;
-            label9.Font = new Font("Cambria", 13.8F, FontStyle.Bold);
+            label9.Font = new Font("Kepler 296", 13.8F, FontStyle.Bold);
+            label9.ForeColor = Color.FromArgb(57, 30, 16);
             label9.ImageAlign = ContentAlignment.MiddleLeft;
             label9.Location = new Point(75, 407);
             label9.Name = "label9";
@@ -824,9 +756,10 @@
             // label8
             // 
             label8.BackColor = Color.Transparent;
-            label8.Font = new Font("Cambria", 13.8F, FontStyle.Bold);
+            label8.Font = new Font("Kepler 296", 13.8F, FontStyle.Bold);
+            label8.ForeColor = Color.FromArgb(57, 30, 16);
             label8.ImageAlign = ContentAlignment.MiddleLeft;
-            label8.Location = new Point(349, 77);
+            label8.Location = new Point(342, 78);
             label8.Name = "label8";
             label8.Size = new Size(101, 25);
             label8.TabIndex = 15;
@@ -834,6 +767,10 @@
             // 
             // GenreSelectCB
             // 
+            GenreSelectCB.BackColor = Color.Bisque;
+            GenreSelectCB.Cursor = Cursors.Hand;
+            GenreSelectCB.FlatStyle = FlatStyle.Flat;
+            GenreSelectCB.ForeColor = Color.FromArgb(57, 30, 16);
             GenreSelectCB.FormattingEnabled = true;
             GenreSelectCB.Location = new Point(349, 108);
             GenreSelectCB.Margin = new Padding(3, 2, 3, 2);
@@ -843,96 +780,227 @@
             // 
             // Customers
             // 
-            Customers.BackColor = Color.FromArgb(226, 206, 177);
-            Customers.Controls.Add(panel26);
-            Customers.Controls.Add(panel27);
-            Customers.Controls.Add(panel28);
-            Customers.Controls.Add(panel29);
+            Customers.BackColor = Color.FromArgb(171, 136, 106);
+            Customers.BackgroundImage = Properties.Resources.bgList;
+            Customers.Controls.Add(panel11);
+            Customers.Controls.Add(panel12);
             Customers.Controls.Add(label11);
+            Customers.Controls.Add(pnlCustomerArea);
+            Customers.Controls.Add(label13);
             Customers.Location = new Point(4, 26);
             Customers.Name = "Customers";
             Customers.Size = new Size(585, 556);
             Customers.TabIndex = 4;
             Customers.Text = "Покупатели";
             // 
-            // panel26
+            // panel11
             // 
-            panel26.BackColor = Color.Silver;
-            panel26.BorderStyle = BorderStyle.FixedSingle;
-            panel26.ForeColor = SystemColors.ActiveCaption;
-            panel26.Location = new Point(440, 0);
-            panel26.Margin = new Padding(3, 2, 3, 2);
-            panel26.Name = "panel26";
-            panel26.Size = new Size(10, 61);
-            panel26.TabIndex = 15;
+            panel11.BackColor = Color.Orange;
+            panel11.BorderStyle = BorderStyle.FixedSingle;
+            panel11.ForeColor = SystemColors.ActiveCaption;
+            panel11.Location = new Point(0, 50);
+            panel11.Margin = new Padding(3, 2, 3, 2);
+            panel11.Name = "panel11";
+            panel11.Size = new Size(589, 9);
+            panel11.TabIndex = 37;
             // 
-            // panel27
+            // panel12
             // 
-            panel27.BackColor = Color.Silver;
-            panel27.BorderStyle = BorderStyle.FixedSingle;
-            panel27.ForeColor = SystemColors.ActiveCaption;
-            panel27.Location = new Point(109, 0);
-            panel27.Margin = new Padding(3, 2, 3, 2);
-            panel27.Name = "panel27";
-            panel27.Size = new Size(10, 61);
-            panel27.TabIndex = 14;
-            // 
-            // panel28
-            // 
-            panel28.BackColor = Color.Silver;
-            panel28.BorderStyle = BorderStyle.FixedSingle;
-            panel28.ForeColor = SystemColors.ActiveCaption;
-            panel28.Location = new Point(-2, 52);
-            panel28.Margin = new Padding(3, 2, 3, 2);
-            panel28.Name = "panel28";
-            panel28.Size = new Size(588, 9);
-            panel28.TabIndex = 16;
-            // 
-            // panel29
-            // 
-            panel29.BackColor = Color.Silver;
-            panel29.BorderStyle = BorderStyle.FixedSingle;
-            panel29.ForeColor = SystemColors.ActiveCaption;
-            panel29.Location = new Point(0, 0);
-            panel29.Margin = new Padding(3, 2, 3, 2);
-            panel29.Name = "panel29";
-            panel29.Size = new Size(588, 9);
-            panel29.TabIndex = 17;
+            panel12.BackColor = Color.Orange;
+            panel12.BorderStyle = BorderStyle.FixedSingle;
+            panel12.ForeColor = SystemColors.ActiveCaption;
+            panel12.Location = new Point(0, 0);
+            panel12.Margin = new Padding(3, 2, 3, 2);
+            panel12.Name = "panel12";
+            panel12.Size = new Size(589, 9);
+            panel12.TabIndex = 36;
             // 
             // label11
             // 
             label11.BackColor = Color.FromArgb(57, 30, 16);
             label11.Font = new Font("Cambria", 24F, FontStyle.Regular, GraphicsUnit.Point, 204);
             label11.ForeColor = Color.FromArgb(253, 252, 232);
-            label11.Location = new Point(1, 0);
+            label11.Image = Properties.Resources.bookLabel;
+            label11.Location = new Point(0, 0);
             label11.Name = "label11";
-            label11.Size = new Size(587, 59);
-            label11.TabIndex = 13;
+            label11.Size = new Size(589, 57);
+            label11.TabIndex = 35;
             label11.Text = "Покупатели";
             label11.TextAlign = ContentAlignment.MiddleCenter;
             // 
+            // pnlCustomerArea
+            // 
+            pnlCustomerArea.BackgroundImage = Properties.Resources.bgList;
+            pnlCustomerArea.Controls.Add(btnRejectCustomer);
+            pnlCustomerArea.Controls.Add(btnSellToCustomer);
+            pnlCustomerArea.Controls.Add(txtSellPrice);
+            pnlCustomerArea.Controls.Add(label20);
+            pnlCustomerArea.Controls.Add(comboBox1);
+            pnlCustomerArea.Controls.Add(lblCustomerRequest);
+            pnlCustomerArea.Controls.Add(label19);
+            pnlCustomerArea.Controls.Add(lblCustomerRequest1);
+            pnlCustomerArea.Controls.Add(lblCurrentTitle);
+            pnlCustomerArea.Controls.Add(lstCustomersQueue);
+            pnlCustomerArea.Controls.Add(lblQueueTitle);
+            pnlCustomerArea.Location = new Point(1, 50);
+            pnlCustomerArea.Name = "pnlCustomerArea";
+            pnlCustomerArea.Size = new Size(581, 503);
+            pnlCustomerArea.TabIndex = 40;
+            pnlCustomerArea.Visible = false;
+            // 
+            // comboBox1
+            // 
+            comboBox1.BackColor = Color.Bisque;
+            comboBox1.FlatStyle = FlatStyle.Flat;
+            comboBox1.ForeColor = Color.FromArgb(57, 30, 16);
+            comboBox1.FormattingEnabled = true;
+            comboBox1.Location = new Point(233, 296);
+            comboBox1.Name = "comboBox1";
+            comboBox1.Size = new Size(303, 25);
+            comboBox1.TabIndex = 6;
+            // 
+            // lblCustomerRequest
+            // 
+            lblCustomerRequest.AutoSize = true;
+            lblCustomerRequest.BackColor = Color.Transparent;
+            lblCustomerRequest.Font = new Font("Kepler 296", 14F);
+            lblCustomerRequest.ForeColor = Color.Green;
+            lblCustomerRequest.Location = new Point(127, 255);
+            lblCustomerRequest.Name = "lblCustomerRequest";
+            lblCustomerRequest.Size = new Size(82, 27);
+            lblCustomerRequest.TabIndex = 5;
+            lblCustomerRequest.Text = "запрос";
+            // 
+            // label19
+            // 
+            label19.AutoSize = true;
+            label19.BackColor = Color.Transparent;
+            label19.Font = new Font("Kepler 296", 14F);
+            label19.ForeColor = Color.Maroon;
+            label19.Location = new Point(47, 295);
+            label19.Name = "label19";
+            label19.Size = new Size(180, 27);
+            label19.TabIndex = 4;
+            label19.Text = "Выберите книгу:";
+            // 
+            // lblCustomerRequest1
+            // 
+            lblCustomerRequest1.AutoSize = true;
+            lblCustomerRequest1.BackColor = Color.Transparent;
+            lblCustomerRequest1.Font = new Font("Kepler 296", 14F);
+            lblCustomerRequest1.ForeColor = Color.Maroon;
+            lblCustomerRequest1.Location = new Point(47, 255);
+            lblCustomerRequest1.Name = "lblCustomerRequest1";
+            lblCustomerRequest1.Size = new Size(78, 27);
+            lblCustomerRequest1.TabIndex = 3;
+            lblCustomerRequest1.Text = "Хочет:";
+            // 
+            // lblCurrentTitle
+            // 
+            lblCurrentTitle.AutoSize = true;
+            lblCurrentTitle.BackColor = Color.Transparent;
+            lblCurrentTitle.Font = new Font("Kepler 296", 16F);
+            lblCurrentTitle.ForeColor = Color.Maroon;
+            lblCurrentTitle.Location = new Point(129, 212);
+            lblCurrentTitle.Name = "lblCurrentTitle";
+            lblCurrentTitle.Size = new Size(324, 31);
+            lblCurrentTitle.TabIndex = 2;
+            lblCurrentTitle.Text = "👤 ТЕКУЩИЙ ПОКУПАТЕЛЬ";
+            // 
+            // lstCustomersQueue
+            // 
+            lstCustomersQueue.BackColor = Color.Bisque;
+            lstCustomersQueue.BorderStyle = BorderStyle.None;
+            lstCustomersQueue.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold);
+            lstCustomersQueue.ForeColor = Color.FromArgb(57, 30, 16);
+            lstCustomersQueue.FormattingEnabled = true;
+            lstCustomersQueue.Location = new Point(47, 72);
+            lstCustomersQueue.Name = "lstCustomersQueue";
+            lstCustomersQueue.Size = new Size(489, 105);
+            lstCustomersQueue.TabIndex = 1;
+            // 
+            // lblQueueTitle
+            // 
+            lblQueueTitle.AutoSize = true;
+            lblQueueTitle.BackColor = Color.Transparent;
+            lblQueueTitle.Font = new Font("Kepler 296", 16F);
+            lblQueueTitle.ForeColor = Color.Maroon;
+            lblQueueTitle.Location = new Point(105, 30);
+            lblQueueTitle.Name = "lblQueueTitle";
+            lblQueueTitle.Size = new Size(373, 31);
+            lblQueueTitle.TabIndex = 0;
+            lblQueueTitle.Text = "📋 ОЧЕРЕДЬ ПОКУПАТЕЛЕЙ (0)";
+            // 
+            // label13
+            // 
+            label13.AutoSize = true;
+            label13.BackColor = Color.Transparent;
+            label13.Font = new Font("Kepler 296", 24F);
+            label13.ForeColor = Color.FromArgb(57, 30, 16);
+            label13.Location = new Point(79, 250);
+            label13.Name = "label13";
+            label13.Size = new Size(434, 90);
+            label13.TabIndex = 39;
+            label13.Text = "У Вас пока нет\r\nни одного покупателя =(";
+            label13.TextAlign = ContentAlignment.MiddleCenter;
+            // 
             // Supples
             // 
-            Supples.BackColor = Color.FromArgb(226, 206, 177);
+            Supples.BackColor = Color.FromArgb(171, 136, 106);
+            Supples.BackgroundImage = Properties.Resources.bgList;
+            Supples.Controls.Add(panel15);
+            Supples.Controls.Add(panel16);
+            Supples.Controls.Add(label10);
             Supples.Controls.Add(label17);
             Supples.Controls.Add(label16);
             Supples.Controls.Add(label15);
             Supples.Controls.Add(label14);
             Supples.Controls.Add(label12);
-            Supples.Controls.Add(panel20);
-            Supples.Controls.Add(panel21);
-            Supples.Controls.Add(panel23);
-            Supples.Controls.Add(panel22);
-            Supples.Controls.Add(label10);
             Supples.Location = new Point(4, 26);
             Supples.Name = "Supples";
             Supples.Size = new Size(585, 556);
             Supples.TabIndex = 3;
             Supples.Text = "Поставки";
             // 
+            // panel15
+            // 
+            panel15.BackColor = Color.Orange;
+            panel15.BorderStyle = BorderStyle.FixedSingle;
+            panel15.ForeColor = SystemColors.ActiveCaption;
+            panel15.Location = new Point(0, 50);
+            panel15.Margin = new Padding(3, 2, 3, 2);
+            panel15.Name = "panel15";
+            panel15.Size = new Size(589, 9);
+            panel15.TabIndex = 37;
+            // 
+            // panel16
+            // 
+            panel16.BackColor = Color.Orange;
+            panel16.BorderStyle = BorderStyle.FixedSingle;
+            panel16.ForeColor = SystemColors.ActiveCaption;
+            panel16.Location = new Point(0, 0);
+            panel16.Margin = new Padding(3, 2, 3, 2);
+            panel16.Name = "panel16";
+            panel16.Size = new Size(589, 9);
+            panel16.TabIndex = 36;
+            // 
+            // label10
+            // 
+            label10.BackColor = Color.FromArgb(57, 30, 16);
+            label10.Font = new Font("Cambria", 24F, FontStyle.Regular, GraphicsUnit.Point, 204);
+            label10.ForeColor = Color.FromArgb(253, 252, 232);
+            label10.Image = Properties.Resources.bookLabel;
+            label10.Location = new Point(0, 0);
+            label10.Name = "label10";
+            label10.Size = new Size(589, 57);
+            label10.TabIndex = 35;
+            label10.Text = "Поставки";
+            label10.TextAlign = ContentAlignment.MiddleCenter;
+            // 
             // label17
             // 
             label17.AutoSize = true;
+            label17.BackColor = Color.Transparent;
             label17.Font = new Font("Cambria", 18F);
             label17.Location = new Point(45, 222);
             label17.Name = "label17";
@@ -943,6 +1011,7 @@
             // label16
             // 
             label16.AutoSize = true;
+            label16.BackColor = Color.Transparent;
             label16.Font = new Font("Cambria", 18F);
             label16.Location = new Point(49, 192);
             label16.Name = "label16";
@@ -953,6 +1022,7 @@
             // label15
             // 
             label15.AutoSize = true;
+            label15.BackColor = Color.Transparent;
             label15.Font = new Font("Cambria", 18F);
             label15.Location = new Point(49, 154);
             label15.Name = "label15";
@@ -963,6 +1033,7 @@
             // label14
             // 
             label14.AutoSize = true;
+            label14.BackColor = Color.Transparent;
             label14.Font = new Font("Cambria", 18F);
             label14.Location = new Point(46, 124);
             label14.Name = "label14";
@@ -973,6 +1044,7 @@
             // label12
             // 
             label12.AutoSize = true;
+            label12.BackColor = Color.Transparent;
             label12.Font = new Font("Cambria", 18F);
             label12.Location = new Point(48, 94);
             label12.Name = "label12";
@@ -980,78 +1052,23 @@
             label12.TabIndex = 18;
             label12.Text = "Название";
             // 
-            // panel20
-            // 
-            panel20.BackColor = Color.Silver;
-            panel20.BorderStyle = BorderStyle.FixedSingle;
-            panel20.ForeColor = SystemColors.ActiveCaption;
-            panel20.Location = new Point(440, 0);
-            panel20.Margin = new Padding(3, 2, 3, 2);
-            panel20.Name = "panel20";
-            panel20.Size = new Size(10, 62);
-            panel20.TabIndex = 15;
-            // 
-            // panel21
-            // 
-            panel21.BackColor = Color.Silver;
-            panel21.BorderStyle = BorderStyle.FixedSingle;
-            panel21.ForeColor = SystemColors.ActiveCaption;
-            panel21.Location = new Point(109, 0);
-            panel21.Margin = new Padding(3, 2, 3, 2);
-            panel21.Name = "panel21";
-            panel21.Size = new Size(10, 62);
-            panel21.TabIndex = 14;
-            // 
-            // panel23
-            // 
-            panel23.BackColor = Color.Silver;
-            panel23.BorderStyle = BorderStyle.FixedSingle;
-            panel23.ForeColor = SystemColors.ActiveCaption;
-            panel23.Location = new Point(-1, 0);
-            panel23.Margin = new Padding(3, 2, 3, 2);
-            panel23.Name = "panel23";
-            panel23.Size = new Size(589, 9);
-            panel23.TabIndex = 17;
-            // 
-            // panel22
-            // 
-            panel22.BackColor = Color.Silver;
-            panel22.BorderStyle = BorderStyle.FixedSingle;
-            panel22.ForeColor = SystemColors.ActiveCaption;
-            panel22.Location = new Point(-1, 52);
-            panel22.Margin = new Padding(3, 2, 3, 2);
-            panel22.Name = "panel22";
-            panel22.Size = new Size(589, 9);
-            panel22.TabIndex = 16;
-            // 
-            // label10
-            // 
-            label10.BackColor = Color.FromArgb(57, 30, 16);
-            label10.Font = new Font("Cambria", 24F, FontStyle.Regular, GraphicsUnit.Point, 204);
-            label10.ForeColor = Color.FromArgb(253, 252, 232);
-            label10.Location = new Point(0, 1);
-            label10.Name = "label10";
-            label10.Size = new Size(589, 57);
-            label10.TabIndex = 13;
-            label10.Text = "Поставки";
-            label10.TextAlign = ContentAlignment.MiddleCenter;
-            // 
             // BalanceL
             // 
-            BalanceL.BackColor = Color.Transparent;
+            BalanceL.BackColor = Color.FromArgb(150, 54, 4);
             BalanceL.Font = new Font("Kepler 296", 10F);
             BalanceL.ForeColor = SystemColors.ControlLightLight;
-            BalanceL.Location = new Point(189, 34);
+            BalanceL.Location = new Point(185, 32);
             BalanceL.Name = "BalanceL";
-            BalanceL.Size = new Size(125, 17);
+            BalanceL.Size = new Size(131, 17);
             BalanceL.TabIndex = 12;
+            BalanceL.Text = "0";
             BalanceL.TextAlign = ContentAlignment.MiddleRight;
             // 
             // pictureBoxMoney
             // 
             pictureBoxMoney.BackColor = Color.Transparent;
             pictureBoxMoney.Image = Properties.Resources.money_1;
-            pictureBoxMoney.Location = new Point(153, 25);
+            pictureBoxMoney.Location = new Point(153, 24);
             pictureBoxMoney.Name = "pictureBoxMoney";
             pictureBoxMoney.Size = new Size(173, 35);
             pictureBoxMoney.TabIndex = 13;
@@ -1060,8 +1077,8 @@
             // pictureBoxGood
             // 
             pictureBoxGood.BackColor = Color.Transparent;
-            pictureBoxGood.Image = Properties.Resources.Good;
-            pictureBoxGood.Location = new Point(343, 24);
+            pictureBoxGood.Image = Properties.Resources.queue_3;
+            pictureBoxGood.Location = new Point(343, 21);
             pictureBoxGood.Name = "pictureBoxGood";
             pictureBoxGood.Size = new Size(101, 37);
             pictureBoxGood.TabIndex = 14;
@@ -1071,33 +1088,23 @@
             // 
             pictureBoxBad.BackColor = Color.Transparent;
             pictureBoxBad.Image = Properties.Resources.bad;
-            pictureBoxBad.Location = new Point(461, 24);
+            pictureBoxBad.Location = new Point(461, 21);
             pictureBoxBad.Name = "pictureBoxBad";
             pictureBoxBad.Size = new Size(101, 37);
             pictureBoxBad.TabIndex = 15;
             pictureBoxBad.TabStop = false;
             // 
-            // goodCounter
+            // lblUnhappyCount
             // 
-            goodCounter.BackColor = Color.Transparent;
-            goodCounter.Font = new Font("Kepler 296", 10F);
-            goodCounter.ForeColor = SystemColors.ControlLightLight;
-            goodCounter.Location = new Point(381, 36);
-            goodCounter.Name = "goodCounter";
-            goodCounter.Size = new Size(52, 17);
-            goodCounter.TabIndex = 16;
-            goodCounter.TextAlign = ContentAlignment.MiddleCenter;
-            // 
-            // badCounter
-            // 
-            badCounter.BackColor = Color.Transparent;
-            badCounter.Font = new Font("Kepler 296", 10F);
-            badCounter.ForeColor = SystemColors.ControlLightLight;
-            badCounter.Location = new Point(499, 36);
-            badCounter.Name = "badCounter";
-            badCounter.Size = new Size(52, 17);
-            badCounter.TabIndex = 17;
-            badCounter.TextAlign = ContentAlignment.MiddleCenter;
+            lblUnhappyCount.BackColor = Color.FromArgb(150, 54, 4);
+            lblUnhappyCount.Font = new Font("Kepler 296", 10F);
+            lblUnhappyCount.ForeColor = SystemColors.ControlLightLight;
+            lblUnhappyCount.Location = new Point(496, 32);
+            lblUnhappyCount.Name = "lblUnhappyCount";
+            lblUnhappyCount.Size = new Size(57, 17);
+            lblUnhappyCount.TabIndex = 17;
+            lblUnhappyCount.Text = "0 / 3";
+            lblUnhappyCount.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // btnHome
             // 
@@ -1109,12 +1116,89 @@
             btnHome.FlatAppearance.MouseDownBackColor = Color.Transparent;
             btnHome.FlatAppearance.MouseOverBackColor = Color.Transparent;
             btnHome.FlatStyle = FlatStyle.Flat;
-            btnHome.Location = new Point(20, 16);
+            btnHome.Location = new Point(20, 15);
             btnHome.Name = "btnHome";
             btnHome.Size = new Size(50, 50);
             btnHome.TabIndex = 18;
             btnHome.UseMnemonic = false;
             btnHome.UseVisualStyleBackColor = false;
+            btnHome.Click += btnHome_Click;
+            // 
+            // lblQueueCount
+            // 
+            lblQueueCount.BackColor = Color.FromArgb(150, 54, 4);
+            lblQueueCount.Font = new Font("Kepler 296", 10F);
+            lblQueueCount.ForeColor = SystemColors.ControlLightLight;
+            lblQueueCount.Location = new Point(380, 32);
+            lblQueueCount.Name = "lblQueueCount";
+            lblQueueCount.Size = new Size(56, 17);
+            lblQueueCount.TabIndex = 16;
+            lblQueueCount.Text = "0 / 0";
+            lblQueueCount.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // label20
+            // 
+            label20.AutoSize = true;
+            label20.BackColor = Color.Transparent;
+            label20.Font = new Font("Kepler 296", 14F);
+            label20.ForeColor = Color.Maroon;
+            label20.Location = new Point(47, 335);
+            label20.Name = "label20";
+            label20.Size = new Size(168, 27);
+            label20.TabIndex = 7;
+            label20.Text = "Цена продажи:";
+            // 
+            // txtSellPrice
+            // 
+            txtSellPrice.BackColor = Color.Bisque;
+            txtSellPrice.BorderStyle = BorderStyle.FixedSingle;
+            txtSellPrice.Cursor = Cursors.IBeam;
+            txtSellPrice.Font = new Font("Kepler 296", 12F);
+            txtSellPrice.ForeColor = Color.FromArgb(57, 30, 16);
+            txtSellPrice.Location = new Point(233, 333);
+            txtSellPrice.Name = "txtSellPrice";
+            txtSellPrice.Size = new Size(303, 30);
+            txtSellPrice.TabIndex = 8;
+            txtSellPrice.Text = "0";
+            txtSellPrice.TextAlign = HorizontalAlignment.Right;
+            // 
+            // btnSellToCustomer
+            // 
+            btnSellToCustomer.BackColor = Color.Transparent;
+            btnSellToCustomer.BackgroundImage = Properties.Resources.btn1_1;
+            btnSellToCustomer.BackgroundImageLayout = ImageLayout.Stretch;
+            btnSellToCustomer.Cursor = Cursors.Hand;
+            btnSellToCustomer.FlatAppearance.BorderSize = 0;
+            btnSellToCustomer.FlatAppearance.MouseDownBackColor = Color.Transparent;
+            btnSellToCustomer.FlatAppearance.MouseOverBackColor = Color.Transparent;
+            btnSellToCustomer.FlatStyle = FlatStyle.Flat;
+            btnSellToCustomer.Font = new Font("Kepler 296", 13F);
+            btnSellToCustomer.ForeColor = Color.DarkGreen;
+            btnSellToCustomer.Location = new Point(47, 397);
+            btnSellToCustomer.Name = "btnSellToCustomer";
+            btnSellToCustomer.Size = new Size(232, 61);
+            btnSellToCustomer.TabIndex = 9;
+            btnSellToCustomer.Text = "ПРОДАТЬ";
+            btnSellToCustomer.UseVisualStyleBackColor = false;
+            // 
+            // btnRejectCustomer
+            // 
+            btnRejectCustomer.BackColor = Color.Transparent;
+            btnRejectCustomer.BackgroundImage = Properties.Resources.btn5;
+            btnRejectCustomer.BackgroundImageLayout = ImageLayout.Stretch;
+            btnRejectCustomer.Cursor = Cursors.Hand;
+            btnRejectCustomer.FlatAppearance.BorderSize = 0;
+            btnRejectCustomer.FlatAppearance.MouseDownBackColor = Color.Transparent;
+            btnRejectCustomer.FlatAppearance.MouseOverBackColor = Color.Transparent;
+            btnRejectCustomer.FlatStyle = FlatStyle.Flat;
+            btnRejectCustomer.Font = new Font("Kepler 296", 13F);
+            btnRejectCustomer.ForeColor = Color.FromArgb(64, 0, 0);
+            btnRejectCustomer.Location = new Point(304, 397);
+            btnRejectCustomer.Name = "btnRejectCustomer";
+            btnRejectCustomer.Size = new Size(232, 61);
+            btnRejectCustomer.TabIndex = 10;
+            btnRejectCustomer.Text = "ОТКАЗАТЬ";
+            btnRejectCustomer.UseVisualStyleBackColor = false;
             // 
             // BookStoreF
             // 
@@ -1125,8 +1209,8 @@
             BackgroundImageLayout = ImageLayout.Stretch;
             ClientSize = new Size(582, 657);
             Controls.Add(btnHome);
-            Controls.Add(badCounter);
-            Controls.Add(goodCounter);
+            Controls.Add(lblUnhappyCount);
+            Controls.Add(lblQueueCount);
             Controls.Add(BalanceL);
             Controls.Add(pictureBoxBad);
             Controls.Add(pictureBoxGood);
@@ -1163,6 +1247,9 @@
             SearchResultTP.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)SearchedBookGrid).EndInit();
             Customers.ResumeLayout(false);
+            Customers.PerformLayout();
+            pnlCustomerArea.ResumeLayout(false);
+            pnlCustomerArea.PerformLayout();
             Supples.ResumeLayout(false);
             Supples.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBoxMoney).EndInit();
@@ -1195,37 +1282,13 @@
         private Label label1;
         private TabControl MainTC;
         private TabPage Supples;
-        private Panel panel20;
-        private Panel panel21;
-        private Panel panel22;
-        private Panel panel23;
-        private Label label10;
         private TabPage Customers;
-        private Panel panel26;
-        private Panel panel27;
-        private Panel panel28;
-        private Panel panel29;
-        private Label label11;
         private TabPage StoreTP;
         private TabControl StoreTC;
         private TabPage MainTP;
         private DataGridView dataGridView1;
-        private DataGridViewTextBoxColumn colId;
-        private DataGridViewTextBoxColumn colTitle;
-        private DataGridViewTextBoxColumn colAuthor;
-        private DataGridViewTextBoxColumn colPrice;
         private TabPage SearchResultTP;
         private DataGridView SearchedBookGrid;
-        private DataGridViewTextBoxColumn ID;
-        private DataGridViewTextBoxColumn colTitleSearch;
-        private DataGridViewTextBoxColumn colGenreSearch;
-        private DataGridViewTextBoxColumn colAuthorSearch;
-        private DataGridViewTextBoxColumn colPagesCountSearch;
-        private DataGridViewTextBoxColumn colPriceSearch;
-        private Panel panel19;
-        private Panel panel18;
-        private Panel panel14;
-        private Panel panel13;
         private Button ClearCaseB;
         private Button SellBookB;
         private Button FoundB;
@@ -1239,21 +1302,47 @@
         private Label label15;
         private Label label14;
         private Label label12;
-        private Panel panel15;
-        private Panel panel16;
-        private Panel panel17;
-        private Panel panel24;
-        private Label label13;
-        private Panel panel7;
-        private Panel panel8;
-        private Panel panel9;
-        private Panel panel10;
         private Label label18;
         private PictureBox pictureBoxMoney;
         private PictureBox pictureBoxGood;
         private PictureBox pictureBoxBad;
-        private Label goodCounter;
-        private Label badCounter;
+        private Label lblUnhappyCount;
         private Button btnHome;
+        private Panel panel9;
+        private Panel panel10;
+        private Panel panel8;
+        private Panel panel7;
+        private Label label7;
+        private Panel panel11;
+        private Panel panel12;
+        private Label label11;
+        private Panel panel15;
+        private Panel panel16;
+        private Label label10;
+        private DataGridViewTextBoxColumn colId;
+        private DataGridViewTextBoxColumn colTitle;
+        private DataGridViewTextBoxColumn colAuthor;
+        private DataGridViewTextBoxColumn colPrice;
+        private DataGridViewTextBoxColumn ID;
+        private DataGridViewTextBoxColumn colTitleSearch;
+        private DataGridViewTextBoxColumn colGenreSearch;
+        private DataGridViewTextBoxColumn colAuthorSearch;
+        private DataGridViewTextBoxColumn colPagesCountSearch;
+        private DataGridViewTextBoxColumn colPriceSearch;
+        private System.Windows.Forms.Timer timerCustomers;
+        private Label label13;
+        private Label lblQueueCount;
+        private Panel pnlCustomerArea;
+        private Label lblQueueTitle;
+        private Label lblCurrentTitle;
+        private ListBox lstCustomersQueue;
+        private ComboBox comboBox1;
+        private Label lblCustomerRequest;
+        private Label label19;
+        private Label lblCustomerRequest1;
+        private TextBox txtSellPrice;
+        private Label label20;
+        private Button btnRejectCustomer;
+        private Button btnSellToCustomer;
     }
 }

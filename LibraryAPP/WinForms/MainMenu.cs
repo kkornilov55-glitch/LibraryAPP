@@ -19,8 +19,20 @@ namespace WinForms
         private void butGameStart_Click(object sender, EventArgs e)
         {
             DifficultySelectionDialog difficultyDialog = new DifficultySelectionDialog();
-            difficultyDialog.ShowDialog();
-         }
+            if (difficultyDialog.ShowDialog() == DialogResult.OK)
+            {
+                this.Hide();
+                BookStoreF gameForm = new BookStoreF();
+                gameForm.FormClosed += (s, args) =>
+                {
+                    this.Close();
+                };
+
+                gameForm.Show();
+                gameForm.BringToFront();
+                gameForm.Activate();
+            }
+        }
 
         private void btnAboutGame_Click(object sender, EventArgs e)
         {

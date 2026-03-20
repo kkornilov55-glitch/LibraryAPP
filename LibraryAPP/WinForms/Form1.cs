@@ -21,8 +21,8 @@ namespace WinForms
         {
             InitializeComponent();
             store = new BookStore(5);
-            //store = GameManager.Store;
-           
+            store = GameManager.Store;
+
             // Скрываем вкладку "Поставки" при запуске
             MainTC.TabPages.Remove(Supples);
 
@@ -124,19 +124,19 @@ namespace WinForms
         private void Sell()
         {
             if (dataGridView1.SelectedRows.Count == 0 && SearchedBookGrid.SelectedRows.Count == 0)
-            { 
-                ShowWarning("Выберите книгу"); 
-                return; 
+            {
+                ShowWarning("Выберите книгу");
+                return;
             }
 
             var v = dataGridView1.SelectedRows.Count == 0 ? SearchedBookGrid.SelectedRows[0].Cells["ID"].Value : dataGridView1.SelectedRows[0].Cells["colId"].Value;
             if (v == null || !int.TryParse(v.ToString(), out var id))
-            { 
-                MessageBox.Show("Ошибка ID", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error); 
-                return; 
+            {
+                MessageBox.Show("Ошибка ID", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
             }
 
-            if (SearchedBookGrid.SelectedRows.Count != 0) SearchedBookGrid.Rows.Clear(); 
+            if (SearchedBookGrid.SelectedRows.Count != 0) SearchedBookGrid.Rows.Clear();
 
             store.SellBook(id);
             MessageBox.Show("Продано!", "Готово", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -183,7 +183,7 @@ namespace WinForms
         {
             BalanceL.Text = $"{store.Balance:F2} ₽";
             GenreSelectCB.Items.Clear();
-            foreach (var g in store.GetAllGenres()) 
+            foreach (var g in store.GetAllGenres())
                 GenreSelectCB.Items.Add(g);
 
             if (GenreSelectCB.Items.Count == 0) GenreSelectCB.Text = string.Empty;
@@ -233,5 +233,46 @@ namespace WinForms
             MessageBox.Show(b != null ? $"Найдено: {b.Title}" : "Не найдено", "Результат",
                 MessageBoxButtons.OK, b != null ? MessageBoxIcon.Information : MessageBoxIcon.Warning);
         }
+
+        private void btnHome_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            MainMenu mainForm = new MainMenu();
+            mainForm.ShowDialog();
+        }
+
+        // ============= ПОКУПАТЕЛИ ================
+        private Queue<Customer> customersQueue = new Queue<Customer>();
+        private int unhappyCustomersCount = 0;
+
+        //// Метод обновления всех счётчиков
+        //private void UpdateCounters()
+        //{
+        //    // Очередь: текущее / максимум
+        //    lblQueueCount.Text = $"{customersQueue.Count}/{GameManager.MaxCustomersQueue}";
+
+        //    // Недовольные: текущее / максимум
+        //    lblUnhappyCount.Text = $"{unhappyCustomersCount}/{GameManager.MaxUnhappyCustomers}";
+        //}
+
+        //// Проверка проигрыша
+        //private void CheckLoseCondition()
+        //{
+           
+        //    if (unhappyCustomersCount >= GameManager.MaxUnhappyCustomers)
+        //    {
+        //        GameOver($"Слишком много недовольных клиентов! ({unhappyCustomersCount}/{GameManager.MaxUnhappyCustomers})");
+        //    }
+
+        //    if (customersQueue.Count >= GameManager.MaxCustomersQueue)
+        //    {
+        //        GameOver($"Очередь переполнена! ({customersQueue.Count}/{GameManager.MaxCustomersQueue})");
+        //    }
+
+        //    if (store.Balance <= 0)
+        //    {
+        //        GameOver("Баланс магазина равен нулю!");
+        //    }
+        //}
     }
 }

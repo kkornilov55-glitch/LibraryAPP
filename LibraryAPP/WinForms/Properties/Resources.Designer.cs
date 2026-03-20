@@ -113,6 +113,16 @@ namespace WinForms.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
+        public static System.Drawing.Bitmap bookLabel {
+            get {
+                object obj = ResourceManager.GetObject("bookLabel", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
         public static System.Drawing.Bitmap btn1_1 {
             get {
                 object obj = ResourceManager.GetObject("btn1_1", resourceCulture);
@@ -176,16 +186,6 @@ namespace WinForms.Properties {
         public static System.Drawing.Bitmap btnSmall_1 {
             get {
                 object obj = ResourceManager.GetObject("btnSmall_1", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
-        /// </summary>
-        public static System.Drawing.Bitmap close {
-            get {
-                object obj = ResourceManager.GetObject("close", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -263,9 +263,9 @@ namespace WinForms.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
-        public static System.Drawing.Bitmap money {
+        public static System.Drawing.Bitmap money_1 {
             get {
-                object obj = ResourceManager.GetObject("money", resourceCulture);
+                object obj = ResourceManager.GetObject("money_1", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -273,9 +273,9 @@ namespace WinForms.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
-        public static System.Drawing.Bitmap money_1 {
+        public static System.Drawing.Bitmap queue_3 {
             get {
-                object obj = ResourceManager.GetObject("money_1", resourceCulture);
+                object obj = ResourceManager.GetObject("queue_3", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
