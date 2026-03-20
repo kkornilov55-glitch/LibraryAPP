@@ -51,8 +51,8 @@ namespace ClassLibrary
         {
             if (Difficulty == 0)
             {
-                CustomerTimeArrive = 20000;
-                SupplyTimeArrive = 30000;
+                CustomerTimeArrive = 20;
+                SupplyTimeArrive = 30;
 
                 maxCustomersQueue = 10;
                 maxSuppliesQueue = 15;
@@ -60,8 +60,8 @@ namespace ClassLibrary
             }
             else if (Difficulty == 1)
             {
-                CustomerTimeArrive = 15000;
-                SupplyTimeArrive = 20000;
+                CustomerTimeArrive = 15;
+                SupplyTimeArrive = 20;
 
                 maxCustomersQueue = 8;
                 maxSuppliesQueue = 10;
@@ -69,8 +69,8 @@ namespace ClassLibrary
             }
             else
             {
-                CustomerTimeArrive = 8000;
-                SupplyTimeArrive = 10000;
+                CustomerTimeArrive = 8;
+                SupplyTimeArrive = 10;
 
                 maxCustomersQueue = 6;
                 maxSuppliesQueue = 8;

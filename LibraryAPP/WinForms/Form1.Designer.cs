@@ -29,9 +29,11 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
-            DataGridViewCellStyle dataGridViewCellStyle7 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle8 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             OrderBook = new TabPage();
+            panel13 = new Panel();
+            panel18 = new Panel();
             panel9 = new Panel();
             panel10 = new Panel();
             RandomizeBookB = new Button();
@@ -54,10 +56,14 @@
             panel1 = new Panel();
             TitleTB = new TextBox();
             label1 = new Label();
+            label18 = new Label();
             MainTC = new TabControl();
             StoreTP = new TabPage();
+            panel14 = new Panel();
+            panel17 = new Panel();
             panel8 = new Panel();
             panel7 = new Panel();
+            label7 = new Label();
             StoreTC = new TabControl();
             MainTP = new TabPage();
             dataGridView1 = new DataGridView();
@@ -81,6 +87,8 @@
             label8 = new Label();
             GenreSelectCB = new ComboBox();
             Customers = new TabPage();
+            panel19 = new Panel();
+            panel20 = new Panel();
             panel11 = new Panel();
             panel12 = new Panel();
             label11 = new Label();
@@ -114,14 +122,6 @@
             btnHome = new Button();
             lblQueueCount = new Label();
             timeCustomer = new System.Windows.Forms.Timer(components);
-            label18 = new Label();
-            panel18 = new Panel();
-            panel13 = new Panel();
-            label7 = new Label();
-            panel14 = new Panel();
-            panel17 = new Panel();
-            panel19 = new Panel();
-            panel20 = new Panel();
             OrderBook.SuspendLayout();
             panel6.SuspendLayout();
             panel5.SuspendLayout();
@@ -169,6 +169,28 @@
             OrderBook.Size = new Size(585, 556);
             OrderBook.TabIndex = 0;
             OrderBook.Text = "Заказать книгу";
+            // 
+            // panel13
+            // 
+            panel13.BackColor = Color.Orange;
+            panel13.BorderStyle = BorderStyle.FixedSingle;
+            panel13.ForeColor = SystemColors.ActiveCaption;
+            panel13.Location = new Point(115, 4);
+            panel13.Margin = new Padding(3, 2, 3, 2);
+            panel13.Name = "panel13";
+            panel13.Size = new Size(10, 56);
+            panel13.TabIndex = 24;
+            // 
+            // panel18
+            // 
+            panel18.BackColor = Color.Orange;
+            panel18.BorderStyle = BorderStyle.FixedSingle;
+            panel18.ForeColor = SystemColors.ActiveCaption;
+            panel18.Location = new Point(457, 1);
+            panel18.Margin = new Padding(3, 2, 3, 2);
+            panel18.Name = "panel18";
+            panel18.Size = new Size(10, 56);
+            panel18.TabIndex = 23;
             // 
             // panel9
             // 
@@ -462,6 +484,18 @@
             label1.Text = "Название";
             label1.TextAlign = ContentAlignment.MiddleLeft;
             // 
+            // label18
+            // 
+            label18.BackColor = Color.FromArgb(57, 30, 16);
+            label18.Font = new Font("Cambria", 24F, FontStyle.Regular, GraphicsUnit.Point, 204);
+            label18.ForeColor = Color.FromArgb(253, 252, 232);
+            label18.Location = new Point(0, 0);
+            label18.Name = "label18";
+            label18.Size = new Size(589, 57);
+            label18.TabIndex = 18;
+            label18.Text = "Заказать книгу";
+            label18.TextAlign = ContentAlignment.MiddleCenter;
+            // 
             // MainTC
             // 
             MainTC.Controls.Add(OrderBook);
@@ -502,6 +536,28 @@
             StoreTP.TabIndex = 2;
             StoreTP.Text = "Магазин";
             // 
+            // panel14
+            // 
+            panel14.BackColor = Color.Orange;
+            panel14.BorderStyle = BorderStyle.FixedSingle;
+            panel14.ForeColor = SystemColors.ActiveCaption;
+            panel14.Location = new Point(115, 4);
+            panel14.Margin = new Padding(3, 2, 3, 2);
+            panel14.Name = "panel14";
+            panel14.Size = new Size(10, 56);
+            panel14.TabIndex = 36;
+            // 
+            // panel17
+            // 
+            panel17.BackColor = Color.Orange;
+            panel17.BorderStyle = BorderStyle.FixedSingle;
+            panel17.ForeColor = SystemColors.ActiveCaption;
+            panel17.Location = new Point(457, 1);
+            panel17.Margin = new Padding(3, 2, 3, 2);
+            panel17.Name = "panel17";
+            panel17.Size = new Size(10, 56);
+            panel17.TabIndex = 35;
+            // 
             // panel8
             // 
             panel8.BackColor = Color.Orange;
@@ -523,6 +579,18 @@
             panel7.Name = "panel7";
             panel7.Size = new Size(589, 9);
             panel7.TabIndex = 33;
+            // 
+            // label7
+            // 
+            label7.BackColor = Color.FromArgb(57, 30, 16);
+            label7.Font = new Font("Cambria", 24F, FontStyle.Regular, GraphicsUnit.Point, 204);
+            label7.ForeColor = Color.FromArgb(253, 252, 232);
+            label7.Location = new Point(0, 0);
+            label7.Name = "label7";
+            label7.Size = new Size(589, 57);
+            label7.TabIndex = 32;
+            label7.Text = "Магазин";
+            label7.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // StoreTC
             // 
@@ -549,8 +617,8 @@
             // 
             // dataGridView1
             // 
-            dataGridViewCellStyle7.BackColor = Color.Linen;
-            dataGridView1.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle7;
+            dataGridViewCellStyle1.BackColor = Color.Linen;
+            dataGridView1.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             dataGridView1.BackgroundColor = Color.FromArgb(57, 30, 16);
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridView1.Columns.AddRange(new DataGridViewColumn[] { colId, colTitle, colAuthor, colPrice });
@@ -608,8 +676,8 @@
             // 
             // SearchedBookGrid
             // 
-            dataGridViewCellStyle8.BackColor = Color.Linen;
-            SearchedBookGrid.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle8;
+            dataGridViewCellStyle2.BackColor = Color.Linen;
+            SearchedBookGrid.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle2;
             SearchedBookGrid.BackgroundColor = Color.FromArgb(57, 30, 16);
             SearchedBookGrid.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             SearchedBookGrid.Columns.AddRange(new DataGridViewColumn[] { ID, colTitleSearch, colGenreSearch, colAuthorSearch, colPagesCountSearch, colPriceSearch });
@@ -781,6 +849,28 @@
             Customers.Size = new Size(585, 556);
             Customers.TabIndex = 4;
             Customers.Text = "Покупатели";
+            // 
+            // panel19
+            // 
+            panel19.BackColor = Color.Orange;
+            panel19.BorderStyle = BorderStyle.FixedSingle;
+            panel19.ForeColor = SystemColors.ActiveCaption;
+            panel19.Location = new Point(115, 3);
+            panel19.Margin = new Padding(3, 2, 3, 2);
+            panel19.Name = "panel19";
+            panel19.Size = new Size(10, 56);
+            panel19.TabIndex = 42;
+            // 
+            // panel20
+            // 
+            panel20.BackColor = Color.Orange;
+            panel20.BorderStyle = BorderStyle.FixedSingle;
+            panel20.ForeColor = SystemColors.ActiveCaption;
+            panel20.Location = new Point(457, 0);
+            panel20.Margin = new Padding(3, 2, 3, 2);
+            panel20.Name = "panel20";
+            panel20.Size = new Size(10, 56);
+            panel20.TabIndex = 41;
             // 
             // panel11
             // 
@@ -1196,98 +1286,8 @@
             // 
             // timeCustomer
             // 
-            timeCustomer.Interval = 2000;
+            timeCustomer.Interval = 1000;
             timeCustomer.Tick += timeCustomer_Tick;
-            // 
-            // label18
-            // 
-            label18.BackColor = Color.FromArgb(57, 30, 16);
-            label18.Font = new Font("Cambria", 24F, FontStyle.Regular, GraphicsUnit.Point, 204);
-            label18.ForeColor = Color.FromArgb(253, 252, 232);
-            label18.Location = new Point(0, 0);
-            label18.Name = "label18";
-            label18.Size = new Size(589, 57);
-            label18.TabIndex = 18;
-            label18.Text = "Заказать книгу";
-            label18.TextAlign = ContentAlignment.MiddleCenter;
-            // 
-            // panel18
-            // 
-            panel18.BackColor = Color.Orange;
-            panel18.BorderStyle = BorderStyle.FixedSingle;
-            panel18.ForeColor = SystemColors.ActiveCaption;
-            panel18.Location = new Point(457, 1);
-            panel18.Margin = new Padding(3, 2, 3, 2);
-            panel18.Name = "panel18";
-            panel18.Size = new Size(10, 56);
-            panel18.TabIndex = 23;
-            // 
-            // panel13
-            // 
-            panel13.BackColor = Color.Orange;
-            panel13.BorderStyle = BorderStyle.FixedSingle;
-            panel13.ForeColor = SystemColors.ActiveCaption;
-            panel13.Location = new Point(115, 4);
-            panel13.Margin = new Padding(3, 2, 3, 2);
-            panel13.Name = "panel13";
-            panel13.Size = new Size(10, 56);
-            panel13.TabIndex = 24;
-            // 
-            // label7
-            // 
-            label7.BackColor = Color.FromArgb(57, 30, 16);
-            label7.Font = new Font("Cambria", 24F, FontStyle.Regular, GraphicsUnit.Point, 204);
-            label7.ForeColor = Color.FromArgb(253, 252, 232);
-            label7.Location = new Point(0, 0);
-            label7.Name = "label7";
-            label7.Size = new Size(589, 57);
-            label7.TabIndex = 32;
-            label7.Text = "Магазин";
-            label7.TextAlign = ContentAlignment.MiddleCenter;
-            // 
-            // panel14
-            // 
-            panel14.BackColor = Color.Orange;
-            panel14.BorderStyle = BorderStyle.FixedSingle;
-            panel14.ForeColor = SystemColors.ActiveCaption;
-            panel14.Location = new Point(115, 4);
-            panel14.Margin = new Padding(3, 2, 3, 2);
-            panel14.Name = "panel14";
-            panel14.Size = new Size(10, 56);
-            panel14.TabIndex = 36;
-            // 
-            // panel17
-            // 
-            panel17.BackColor = Color.Orange;
-            panel17.BorderStyle = BorderStyle.FixedSingle;
-            panel17.ForeColor = SystemColors.ActiveCaption;
-            panel17.Location = new Point(457, 1);
-            panel17.Margin = new Padding(3, 2, 3, 2);
-            panel17.Name = "panel17";
-            panel17.Size = new Size(10, 56);
-            panel17.TabIndex = 35;
-            // 
-            // panel19
-            // 
-            panel19.BackColor = Color.Orange;
-            panel19.BorderStyle = BorderStyle.FixedSingle;
-            panel19.ForeColor = SystemColors.ActiveCaption;
-            panel19.Location = new Point(115, 3);
-            panel19.Margin = new Padding(3, 2, 3, 2);
-            panel19.Name = "panel19";
-            panel19.Size = new Size(10, 56);
-            panel19.TabIndex = 42;
-            // 
-            // panel20
-            // 
-            panel20.BackColor = Color.Orange;
-            panel20.BorderStyle = BorderStyle.FixedSingle;
-            panel20.ForeColor = SystemColors.ActiveCaption;
-            panel20.Location = new Point(457, 0);
-            panel20.Margin = new Padding(3, 2, 3, 2);
-            panel20.Name = "panel20";
-            panel20.Size = new Size(10, 56);
-            panel20.TabIndex = 41;
             // 
             // BookStoreF
             // 
