@@ -29,8 +29,8 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
-            DataGridViewCellStyle dataGridViewCellStyle5 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle6 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle7 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle8 = new DataGridViewCellStyle();
             OrderBook = new TabPage();
             panel9 = new Panel();
             panel10 = new Panel();
@@ -549,8 +549,8 @@
             // 
             // dataGridView1
             // 
-            dataGridViewCellStyle5.BackColor = Color.Linen;
-            dataGridView1.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle7.BackColor = Color.Linen;
+            dataGridView1.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle7;
             dataGridView1.BackgroundColor = Color.FromArgb(57, 30, 16);
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridView1.Columns.AddRange(new DataGridViewColumn[] { colId, colTitle, colAuthor, colPrice });
@@ -608,8 +608,8 @@
             // 
             // SearchedBookGrid
             // 
-            dataGridViewCellStyle6.BackColor = Color.Linen;
-            SearchedBookGrid.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle8.BackColor = Color.Linen;
+            SearchedBookGrid.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle8;
             SearchedBookGrid.BackgroundColor = Color.FromArgb(57, 30, 16);
             SearchedBookGrid.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             SearchedBookGrid.Columns.AddRange(new DataGridViewColumn[] { ID, colTitleSearch, colGenreSearch, colAuthorSearch, colPagesCountSearch, colPriceSearch });
@@ -768,6 +768,7 @@
             // 
             Customers.BackColor = Color.FromArgb(171, 136, 106);
             Customers.BackgroundImage = Properties.Resources.bgList;
+            Customers.BackgroundImageLayout = ImageLayout.Stretch;
             Customers.Controls.Add(panel19);
             Customers.Controls.Add(panel20);
             Customers.Controls.Add(panel11);
@@ -830,7 +831,7 @@
             pnlCustomerArea.Controls.Add(lblCurrentTitle);
             pnlCustomerArea.Controls.Add(lstCustomersQueue);
             pnlCustomerArea.Controls.Add(lblQueueTitle);
-            pnlCustomerArea.Location = new Point(1, 50);
+            pnlCustomerArea.Location = new Point(0, 58);
             pnlCustomerArea.Name = "pnlCustomerArea";
             pnlCustomerArea.Size = new Size(581, 503);
             pnlCustomerArea.TabIndex = 40;
