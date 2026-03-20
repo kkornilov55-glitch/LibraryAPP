@@ -121,7 +121,7 @@ namespace WinForms
                 Book.DecrementCounter();
             }
 
-            _currentGeneratedBook = Book.GenerateBook(GameManager.Store.GetAllBooks(), "");
+            _currentGeneratedBook = Book.GenerateBook(GameManager.Store.GetAllBooks());
 
             TitleTB.Text = _currentGeneratedBook.Title;
             AuthorTB.Text = _currentGeneratedBook.Author;
