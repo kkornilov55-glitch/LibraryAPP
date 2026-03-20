@@ -35,6 +35,7 @@
             // 
             btnClose.BackColor = Color.Transparent;
             btnClose.BackgroundImage = Properties.Resources.close1;
+            btnClose.BackgroundImageLayout = ImageLayout.Stretch;
             btnClose.Cursor = Cursors.Hand;
             btnClose.FlatAppearance.BorderSize = 0;
             btnClose.FlatAppearance.MouseDownBackColor = Color.Transparent;
