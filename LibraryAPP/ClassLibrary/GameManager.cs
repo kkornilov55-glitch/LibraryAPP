@@ -11,9 +11,9 @@ namespace ClassLibrary
 
         //Настройка сложности, установка ограничений
         public static int Difficulty;
-        private static int maxCustomersQueue;
-        private static int maxSuppliesQueue;
-        private static int maxUnhappyCustomres;
+        public static int maxCustomersQueue;
+        public static int maxSuppliesQueue;
+        public static int maxUnhappyCustomres;
         //Очереди и счётчики
         public static Queue<Customer> CustomersQueue;
         public static Queue<Supply> SuppliesQueue;
