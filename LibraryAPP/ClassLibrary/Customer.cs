@@ -15,7 +15,7 @@ namespace ClassLibrary
         private string wantedBookAuthor;
         private string wantedGenre;
         private bool wishType;  // true = конкретная книга, false = жанр
-        private bool isHappy;   // доволен ли покупатель
+        public bool isHappy;   // доволен ли покупатель
 
 
         /// <summary>
