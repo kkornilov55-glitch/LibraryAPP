@@ -162,11 +162,11 @@
             OrderBook.Controls.Add(panel3);
             OrderBook.Controls.Add(panel1);
             OrderBook.Controls.Add(label18);
-            OrderBook.Location = new Point(4, 26);
+            OrderBook.Location = new Point(4, 29);
             OrderBook.Margin = new Padding(3, 2, 3, 2);
             OrderBook.Name = "OrderBook";
             OrderBook.Padding = new Padding(3, 2, 3, 2);
-            OrderBook.Size = new Size(585, 556);
+            OrderBook.Size = new Size(585, 553);
             OrderBook.TabIndex = 0;
             OrderBook.Text = "Заказать книгу";
             // 
@@ -498,6 +498,7 @@
             // 
             // MainTC
             // 
+            MainTC.Appearance = TabAppearance.Buttons;
             MainTC.Controls.Add(OrderBook);
             MainTC.Controls.Add(StoreTP);
             MainTC.Controls.Add(Customers);
@@ -528,11 +529,11 @@
             StoreTP.Controls.Add(label9);
             StoreTP.Controls.Add(label8);
             StoreTP.Controls.Add(GenreSelectCB);
-            StoreTP.Location = new Point(4, 26);
+            StoreTP.Location = new Point(4, 29);
             StoreTP.Margin = new Padding(3, 2, 3, 2);
             StoreTP.Name = "StoreTP";
             StoreTP.Padding = new Padding(3, 2, 3, 2);
-            StoreTP.Size = new Size(585, 556);
+            StoreTP.Size = new Size(585, 553);
             StoreTP.TabIndex = 2;
             StoreTP.Text = "Магазин";
             // 
@@ -594,6 +595,7 @@
             // 
             // StoreTC
             // 
+            StoreTC.Appearance = TabAppearance.Buttons;
             StoreTC.Controls.Add(MainTP);
             StoreTC.Controls.Add(SearchResultTP);
             StoreTC.Location = new Point(75, 137);
@@ -606,11 +608,11 @@
             // MainTP
             // 
             MainTP.Controls.Add(dataGridView1);
-            MainTP.Location = new Point(4, 26);
+            MainTP.Location = new Point(4, 29);
             MainTP.Margin = new Padding(3, 2, 3, 2);
             MainTP.Name = "MainTP";
             MainTP.Padding = new Padding(3, 2, 3, 2);
-            MainTP.Size = new Size(417, 225);
+            MainTP.Size = new Size(417, 222);
             MainTP.TabIndex = 0;
             MainTP.Text = "Главная";
             MainTP.UseVisualStyleBackColor = true;
@@ -627,7 +629,7 @@
             dataGridView1.Margin = new Padding(3, 2, 3, 2);
             dataGridView1.Name = "dataGridView1";
             dataGridView1.RowHeadersWidth = 51;
-            dataGridView1.Size = new Size(411, 221);
+            dataGridView1.Size = new Size(411, 218);
             dataGridView1.TabIndex = 16;
             // 
             // colId
@@ -665,11 +667,11 @@
             // SearchResultTP
             // 
             SearchResultTP.Controls.Add(SearchedBookGrid);
-            SearchResultTP.Location = new Point(4, 24);
+            SearchResultTP.Location = new Point(4, 29);
             SearchResultTP.Margin = new Padding(3, 2, 3, 2);
             SearchResultTP.Name = "SearchResultTP";
             SearchResultTP.Padding = new Padding(3, 2, 3, 2);
-            SearchResultTP.Size = new Size(417, 227);
+            SearchResultTP.Size = new Size(417, 222);
             SearchResultTP.TabIndex = 1;
             SearchResultTP.Text = "Результаты поиска";
             SearchResultTP.UseVisualStyleBackColor = true;
@@ -686,7 +688,7 @@
             SearchedBookGrid.Margin = new Padding(3, 2, 3, 2);
             SearchedBookGrid.Name = "SearchedBookGrid";
             SearchedBookGrid.RowHeadersWidth = 51;
-            SearchedBookGrid.Size = new Size(411, 223);
+            SearchedBookGrid.Size = new Size(411, 218);
             SearchedBookGrid.TabIndex = 0;
             // 
             // ID
@@ -844,9 +846,9 @@
             Customers.Controls.Add(label11);
             Customers.Controls.Add(pnlCustomerArea);
             Customers.Controls.Add(label13);
-            Customers.Location = new Point(4, 26);
+            Customers.Location = new Point(4, 29);
             Customers.Name = "Customers";
-            Customers.Size = new Size(585, 556);
+            Customers.Size = new Size(585, 553);
             Customers.TabIndex = 4;
             Customers.Text = "Покупатели";
             // 
@@ -1101,9 +1103,9 @@
             Supples.Controls.Add(label15);
             Supples.Controls.Add(label14);
             Supples.Controls.Add(label12);
-            Supples.Location = new Point(4, 26);
+            Supples.Location = new Point(4, 29);
             Supples.Name = "Supples";
-            Supples.Size = new Size(585, 556);
+            Supples.Size = new Size(585, 553);
             Supples.TabIndex = 3;
             Supples.Text = "Поставки";
             // 
