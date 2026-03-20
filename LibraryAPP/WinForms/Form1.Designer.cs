@@ -87,7 +87,11 @@
             panel12 = new Panel();
             label11 = new Label();
             pnlCustomerArea = new Panel();
-            comboBox1 = new ComboBox();
+            btnRejectCustomer = new Button();
+            btnSellToCustomer = new Button();
+            txtSellPrice = new TextBox();
+            label20 = new Label();
+            cmbAvailableBooks = new ComboBox();
             lblCustomerRequest = new Label();
             label19 = new Label();
             lblCustomerRequest1 = new Label();
@@ -110,12 +114,8 @@
             pictureBoxBad = new PictureBox();
             lblUnhappyCount = new Label();
             btnHome = new Button();
-            timerCustomers = new System.Windows.Forms.Timer(components);
             lblQueueCount = new Label();
-            label20 = new Label();
-            txtSellPrice = new TextBox();
-            btnSellToCustomer = new Button();
-            btnRejectCustomer = new Button();
+            timeCustomer = new System.Windows.Forms.Timer(components);
             OrderBook.SuspendLayout();
             panel6.SuspendLayout();
             panel5.SuspendLayout();
@@ -835,7 +835,7 @@
             pnlCustomerArea.Controls.Add(btnSellToCustomer);
             pnlCustomerArea.Controls.Add(txtSellPrice);
             pnlCustomerArea.Controls.Add(label20);
-            pnlCustomerArea.Controls.Add(comboBox1);
+            pnlCustomerArea.Controls.Add(cmbAvailableBooks);
             pnlCustomerArea.Controls.Add(lblCustomerRequest);
             pnlCustomerArea.Controls.Add(label19);
             pnlCustomerArea.Controls.Add(lblCustomerRequest1);
@@ -848,16 +848,82 @@
             pnlCustomerArea.TabIndex = 40;
             pnlCustomerArea.Visible = false;
             // 
-            // comboBox1
+            // btnRejectCustomer
             // 
-            comboBox1.BackColor = Color.Bisque;
-            comboBox1.FlatStyle = FlatStyle.Flat;
-            comboBox1.ForeColor = Color.FromArgb(57, 30, 16);
-            comboBox1.FormattingEnabled = true;
-            comboBox1.Location = new Point(233, 296);
-            comboBox1.Name = "comboBox1";
-            comboBox1.Size = new Size(303, 25);
-            comboBox1.TabIndex = 6;
+            btnRejectCustomer.BackColor = Color.Transparent;
+            btnRejectCustomer.BackgroundImage = Properties.Resources.btn5;
+            btnRejectCustomer.BackgroundImageLayout = ImageLayout.Stretch;
+            btnRejectCustomer.Cursor = Cursors.Hand;
+            btnRejectCustomer.FlatAppearance.BorderSize = 0;
+            btnRejectCustomer.FlatAppearance.MouseDownBackColor = Color.Transparent;
+            btnRejectCustomer.FlatAppearance.MouseOverBackColor = Color.Transparent;
+            btnRejectCustomer.FlatStyle = FlatStyle.Flat;
+            btnRejectCustomer.Font = new Font("Kepler 296", 13F);
+            btnRejectCustomer.ForeColor = Color.FromArgb(64, 0, 0);
+            btnRejectCustomer.Location = new Point(304, 397);
+            btnRejectCustomer.Name = "btnRejectCustomer";
+            btnRejectCustomer.Size = new Size(232, 61);
+            btnRejectCustomer.TabIndex = 10;
+            btnRejectCustomer.Text = "ОТКАЗАТЬ";
+            btnRejectCustomer.UseVisualStyleBackColor = false;
+            btnRejectCustomer.Click += btnRejectCustomer_Click;
+            // 
+            // btnSellToCustomer
+            // 
+            btnSellToCustomer.BackColor = Color.Transparent;
+            btnSellToCustomer.BackgroundImage = Properties.Resources.btn1_1;
+            btnSellToCustomer.BackgroundImageLayout = ImageLayout.Stretch;
+            btnSellToCustomer.Cursor = Cursors.Hand;
+            btnSellToCustomer.FlatAppearance.BorderSize = 0;
+            btnSellToCustomer.FlatAppearance.MouseDownBackColor = Color.Transparent;
+            btnSellToCustomer.FlatAppearance.MouseOverBackColor = Color.Transparent;
+            btnSellToCustomer.FlatStyle = FlatStyle.Flat;
+            btnSellToCustomer.Font = new Font("Kepler 296", 13F);
+            btnSellToCustomer.ForeColor = Color.DarkGreen;
+            btnSellToCustomer.Location = new Point(47, 397);
+            btnSellToCustomer.Name = "btnSellToCustomer";
+            btnSellToCustomer.Size = new Size(232, 61);
+            btnSellToCustomer.TabIndex = 9;
+            btnSellToCustomer.Text = "ПРОДАТЬ";
+            btnSellToCustomer.UseVisualStyleBackColor = false;
+            btnSellToCustomer.Click += btnSellToCustomer_Click;
+            // 
+            // txtSellPrice
+            // 
+            txtSellPrice.BackColor = Color.Bisque;
+            txtSellPrice.BorderStyle = BorderStyle.FixedSingle;
+            txtSellPrice.Cursor = Cursors.IBeam;
+            txtSellPrice.Font = new Font("Kepler 296", 12F);
+            txtSellPrice.ForeColor = Color.FromArgb(57, 30, 16);
+            txtSellPrice.Location = new Point(233, 333);
+            txtSellPrice.Name = "txtSellPrice";
+            txtSellPrice.Size = new Size(303, 30);
+            txtSellPrice.TabIndex = 8;
+            txtSellPrice.Text = "0";
+            txtSellPrice.TextAlign = HorizontalAlignment.Right;
+            // 
+            // label20
+            // 
+            label20.AutoSize = true;
+            label20.BackColor = Color.Transparent;
+            label20.Font = new Font("Kepler 296", 14F);
+            label20.ForeColor = Color.Maroon;
+            label20.Location = new Point(47, 335);
+            label20.Name = "label20";
+            label20.Size = new Size(168, 27);
+            label20.TabIndex = 7;
+            label20.Text = "Цена продажи:";
+            // 
+            // cmbAvailableBooks
+            // 
+            cmbAvailableBooks.BackColor = Color.Bisque;
+            cmbAvailableBooks.FlatStyle = FlatStyle.Flat;
+            cmbAvailableBooks.ForeColor = Color.FromArgb(57, 30, 16);
+            cmbAvailableBooks.FormattingEnabled = true;
+            cmbAvailableBooks.Location = new Point(233, 296);
+            cmbAvailableBooks.Name = "cmbAvailableBooks";
+            cmbAvailableBooks.Size = new Size(303, 25);
+            cmbAvailableBooks.TabIndex = 6;
             // 
             // lblCustomerRequest
             // 
@@ -1136,69 +1202,9 @@
             lblQueueCount.Text = "0 / 0";
             lblQueueCount.TextAlign = ContentAlignment.MiddleCenter;
             // 
-            // label20
+            // timeCustomer
             // 
-            label20.AutoSize = true;
-            label20.BackColor = Color.Transparent;
-            label20.Font = new Font("Kepler 296", 14F);
-            label20.ForeColor = Color.Maroon;
-            label20.Location = new Point(47, 335);
-            label20.Name = "label20";
-            label20.Size = new Size(168, 27);
-            label20.TabIndex = 7;
-            label20.Text = "Цена продажи:";
-            // 
-            // txtSellPrice
-            // 
-            txtSellPrice.BackColor = Color.Bisque;
-            txtSellPrice.BorderStyle = BorderStyle.FixedSingle;
-            txtSellPrice.Cursor = Cursors.IBeam;
-            txtSellPrice.Font = new Font("Kepler 296", 12F);
-            txtSellPrice.ForeColor = Color.FromArgb(57, 30, 16);
-            txtSellPrice.Location = new Point(233, 333);
-            txtSellPrice.Name = "txtSellPrice";
-            txtSellPrice.Size = new Size(303, 30);
-            txtSellPrice.TabIndex = 8;
-            txtSellPrice.Text = "0";
-            txtSellPrice.TextAlign = HorizontalAlignment.Right;
-            // 
-            // btnSellToCustomer
-            // 
-            btnSellToCustomer.BackColor = Color.Transparent;
-            btnSellToCustomer.BackgroundImage = Properties.Resources.btn1_1;
-            btnSellToCustomer.BackgroundImageLayout = ImageLayout.Stretch;
-            btnSellToCustomer.Cursor = Cursors.Hand;
-            btnSellToCustomer.FlatAppearance.BorderSize = 0;
-            btnSellToCustomer.FlatAppearance.MouseDownBackColor = Color.Transparent;
-            btnSellToCustomer.FlatAppearance.MouseOverBackColor = Color.Transparent;
-            btnSellToCustomer.FlatStyle = FlatStyle.Flat;
-            btnSellToCustomer.Font = new Font("Kepler 296", 13F);
-            btnSellToCustomer.ForeColor = Color.DarkGreen;
-            btnSellToCustomer.Location = new Point(47, 397);
-            btnSellToCustomer.Name = "btnSellToCustomer";
-            btnSellToCustomer.Size = new Size(232, 61);
-            btnSellToCustomer.TabIndex = 9;
-            btnSellToCustomer.Text = "ПРОДАТЬ";
-            btnSellToCustomer.UseVisualStyleBackColor = false;
-            // 
-            // btnRejectCustomer
-            // 
-            btnRejectCustomer.BackColor = Color.Transparent;
-            btnRejectCustomer.BackgroundImage = Properties.Resources.btn5;
-            btnRejectCustomer.BackgroundImageLayout = ImageLayout.Stretch;
-            btnRejectCustomer.Cursor = Cursors.Hand;
-            btnRejectCustomer.FlatAppearance.BorderSize = 0;
-            btnRejectCustomer.FlatAppearance.MouseDownBackColor = Color.Transparent;
-            btnRejectCustomer.FlatAppearance.MouseOverBackColor = Color.Transparent;
-            btnRejectCustomer.FlatStyle = FlatStyle.Flat;
-            btnRejectCustomer.Font = new Font("Kepler 296", 13F);
-            btnRejectCustomer.ForeColor = Color.FromArgb(64, 0, 0);
-            btnRejectCustomer.Location = new Point(304, 397);
-            btnRejectCustomer.Name = "btnRejectCustomer";
-            btnRejectCustomer.Size = new Size(232, 61);
-            btnRejectCustomer.TabIndex = 10;
-            btnRejectCustomer.Text = "ОТКАЗАТЬ";
-            btnRejectCustomer.UseVisualStyleBackColor = false;
+            timeCustomer.Interval = 20000;
             // 
             // BookStoreF
             // 
@@ -1336,7 +1342,7 @@
         private Label lblQueueTitle;
         private Label lblCurrentTitle;
         private ListBox lstCustomersQueue;
-        private ComboBox comboBox1;
+        private ComboBox cmbAvailableBooks;
         private Label lblCustomerRequest;
         private Label label19;
         private Label lblCustomerRequest1;
@@ -1344,5 +1350,7 @@
         private Label label20;
         private Button btnRejectCustomer;
         private Button btnSellToCustomer;
+        private System.Windows.Forms.Timer timerCustomer;
+        private System.Windows.Forms.Timer timeCustomer;
     }
 }

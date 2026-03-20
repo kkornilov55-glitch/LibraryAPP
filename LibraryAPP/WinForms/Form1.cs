@@ -26,6 +26,11 @@ namespace WinForms
             // Скрываем вкладку "Поставки" при запуске
             MainTC.TabPages.Remove(Supples);
 
+            timeCustomer.Start();
+
+            // Скрываем вкладку панель с покупателями по умолчанию
+            pnlCustomerArea.Visible = false;
+
             //Подписки на события — в конструкторе
             AddBookB.Click += (s, e) => AddBook();
             RandomizeBookB.Click += (s, e) => Generate();
@@ -242,37 +247,144 @@ namespace WinForms
         }
 
         // ============= ПОКУПАТЕЛИ ================
-        private Queue<Customer> customersQueue = new Queue<Customer>();
-        private int unhappyCustomersCount = 0;
+        private Customer currentCustomer = null;
+        private int gameTimer = 0;
 
-        //// Метод обновления всех счётчиков
-        //private void UpdateCounters()
-        //{
-        //    // Очередь: текущее / максимум
-        //    lblQueueCount.Text = $"{customersQueue.Count}/{GameManager.MaxCustomersQueue}";
+        // Кнопка продать
+        private void btnSellToCustomer_Click(object sender, EventArgs e)
+        {
+            if (currentCustomer == null)
+            {
+                MessageBox.Show("Нет покупателя!", "Ошибка",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
 
-        //    // Недовольные: текущее / максимум
-        //    lblUnhappyCount.Text = $"{unhappyCustomersCount}/{GameManager.MaxUnhappyCustomers}";
-        //}
+            // без проверки цены пока что
+            MessageBox.Show("Книга продана!", "Успех",
+                MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-        //// Проверка проигрыша
-        //private void CheckLoseCondition()
-        //{
-           
-        //    if (unhappyCustomersCount >= GameManager.MaxUnhappyCustomers)
-        //    {
-        //        GameOver($"Слишком много недовольных клиентов! ({unhappyCustomersCount}/{GameManager.MaxUnhappyCustomers})");
-        //    }
+            currentCustomer = null;
+            UpdateCustomerView();
+        }
 
-        //    if (customersQueue.Count >= GameManager.MaxCustomersQueue)
-        //    {
-        //        GameOver($"Очередь переполнена! ({customersQueue.Count}/{GameManager.MaxCustomersQueue})");
-        //    }
+        // Кнопка отказать
+        private void btnRejectCustomer_Click(object sender, EventArgs e)
+        {
+            if (currentCustomer == null)
+            {
+                MessageBox.Show("Нет покупателя!", "Ошибка",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
 
-        //    if (store.Balance <= 0)
-        //    {
-        //        GameOver("Баланс магазина равен нулю!");
-        //    }
-        //}
+            GameManager.UnhappyCustomersCount++;
+
+            if (GameManager.UnhappyCustomersCount >= GameManager.maxUnhappyCustomres)
+            {
+                GameOver("Слишком много недовольных клиентов!");
+                return;
+            }
+
+            // Переходим к следующему покупателю
+            currentCustomer = null;
+            UpdateCustomerView();
+        }
+
+        // Экран проигрыша
+        private void GameOver(string reason)
+        {
+            GameManager.Lose = true;
+            timeCustomer.Stop();
+
+            MessageBox.Show($"ИГРА ОКОНЧЕНА!\n\n{reason}", "Проигрыш",
+                MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+            // Возврат в главное меню
+            this.DialogResult = DialogResult.Cancel;
+            this.Close();
+            MainMenu mainMenu = new MainMenu();
+            mainMenu.Show();
+        }
+
+        // Таймер
+        private void TimeCustomer_Tick(object sender, EventArgs e)
+        {
+            gameTimer++;
+
+            if (GameManager.Lose || GameManager.Win)
+            {
+                timeCustomer.Stop();
+                return;
+            }
+
+            GameManager.TimersUpdate(gameTimer);
+
+            if (GameManager.CustomerArrived && GameManager.CustomersQueue.Count > 0)
+            {
+                UpdateCustomerView();
+            }
+
+            UpdateCounters();
+        }
+
+        // Обновление отображения очереди и текущего покупателя
+        private void UpdateCustomerView()
+        {
+
+            lstCustomersQueue.Items.Clear();
+            foreach (var customer in GameManager.CustomersQueue)
+            {
+                string displayText = GetCustomerDisplayText(customer);
+                lstCustomersQueue.Items.Add(displayText);
+            }
+
+            // Показываем/скрываем панель
+            if (GameManager.CustomersQueue.Count == 0 && currentCustomer == null)
+            {
+
+                pnlCustomerArea.Visible = false;
+                currentCustomer = null;
+            }
+            else
+            {
+
+                pnlCustomerArea.Visible = true;
+
+                if (currentCustomer == null && GameManager.CustomersQueue.Count > 0)
+                {
+                    currentCustomer = GameManager.CustomersQueue.Dequeue();
+                    ShowCurrentCustomer(currentCustomer);
+                }
+            }
+
+            UpdateCounters();
+        }
+
+        // Получение текста для отображения покупателя (заглушка)
+        private string GetCustomerDisplayText(Customer customer)
+        {
+            return "Покупатель (ожидание)";
+        }
+
+        // Показать текущего покупателя (заглушка)
+        private void ShowCurrentCustomer(Customer customer)
+        {
+            lblCustomerRequest.Text = "книга/жанр";
+
+            cmbAvailableBooks.Items.Clear();
+            cmbAvailableBooks.Items.Add("Нет книг в наличии");
+            cmbAvailableBooks.SelectedIndex = 0;
+            cmbAvailableBooks.Enabled = false;
+
+            txtSellPrice.Clear();
+        }
+
+        // Обновление счётчиков на верхней панели
+        private void UpdateCounters()
+        {
+            lblQueueCount.Text = $"{GameManager.CustomersQueue.Count}/{GameManager.maxCustomersQueue}";
+            lblUnhappyCount.Text = $"{GameManager.UnhappyCustomersCount}/{GameManager.maxUnhappyCustomres}";
+        }
     }
 }
