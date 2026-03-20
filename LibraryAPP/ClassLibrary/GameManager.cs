@@ -4,7 +4,7 @@ using System.Text;
 
 namespace ClassLibrary
 {
-    internal class GameManager
+    public class GameManager
     {
         //Ссылка на магазин
         public static BookStore Store;
@@ -15,9 +15,9 @@ namespace ClassLibrary
         private static int maxSuppliesQueue;
         private static int maxUnhappyCustomres;
         //Очереди и счётчики
-        public static Queue<Customer> CustomersQueue;
-        public static Queue<Supply> SuppliesQueue;
-        public static int UnhappyCustomersCount = 0;
+        private static Queue<Customer> CustomersQueue;
+        private static Queue<Supply> SuppliesQueue;
+        private static int UnhappyCustomersCount = 0;
 
         //Флаги результатов игры, когда один из них true игра заканчивается
         public static bool Lose = false;
