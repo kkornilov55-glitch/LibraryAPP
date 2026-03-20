@@ -12,7 +12,6 @@ namespace WinForms
     public partial class BookStoreF : Form
     {
 
-        private readonly BookStore store;
 
         // Храним ссылку на последнюю сгенерированную, но не сохраненную книгу
         private Book _currentGeneratedBook = null;
@@ -20,8 +19,6 @@ namespace WinForms
         public BookStoreF()
         {
             InitializeComponent();
-            store = new BookStore(5);
-            store = GameManager.Store;
 
             // Скрываем вкладку "Поставки" при запуске
             MainTC.TabPages.Remove(Supples);
@@ -87,13 +84,22 @@ namespace WinForms
                 _currentGeneratedBook = null;
             }
 
-            string uniqueTitle = Book.EnsureUniqueTitle(t, a, store.GetAllBooks());
+            string uniqueTitle = Book.EnsureUniqueTitle(t, a, GameManager.Store.GetAllBooks());
 
             var newBook = new Book(uniqueTitle, a, g, p, pr);
 
             try
             {
-                store.AddBook(newBook);
+                if (GameManager.Store.Balance < pr)
+                {
+                    MessageBox.Show($"Недостаточно средств!", "Ошибка",
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+               
+                GameManager.Store.SubtractFromBalance(pr);
+                GameManager.Store.AddBook(newBook);
+
                 MessageBox.Show($"Добавлено!", "Готово", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 ClearForm();
                 Refresh();
@@ -115,7 +121,7 @@ namespace WinForms
                 Book.DecrementCounter();
             }
 
-            _currentGeneratedBook = Book.GenerateBook(store.GetAllBooks(), "");
+            _currentGeneratedBook = Book.GenerateBook(GameManager.Store.GetAllBooks(), "");
 
             TitleTB.Text = _currentGeneratedBook.Title;
             AuthorTB.Text = _currentGeneratedBook.Author;
@@ -145,7 +151,7 @@ namespace WinForms
 
             if (SearchedBookGrid.SelectedRows.Count != 0) SearchedBookGrid.Rows.Clear();
 
-            store.SellBook(id);
+            GameManager.Store.SellBook(id);
             MessageBox.Show("Продано!", "Готово", MessageBoxButtons.OK, MessageBoxIcon.Information);
             Refresh(); ShowBooks();
         }
@@ -158,7 +164,7 @@ namespace WinForms
             if (MessageBox.Show($"Распродать \"{g}\"?", "Подтверждение",
                     MessageBoxButtons.YesNo, MessageBoxIcon.Question) != DialogResult.Yes) return;
 
-            store.ClearBookCase(g);
+            GameManager.Store.ClearBookCase(g);
             if (SearchedBookGrid.SelectedRows.Count != 0) SearchedBookGrid.Rows.Clear();
 
             MessageBox.Show("Очищено", "Готово", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -171,7 +177,7 @@ namespace WinForms
             var q = FoundStringTB.Text.Trim();
             if (!Required(q, "Запрос")) return;
 
-            var book = int.TryParse(q, out var id) ? store.FindBookById(id) : store.FindBookByTitle(q);
+            var book = int.TryParse(q, out var id) ? GameManager.Store.FindBookById(id) : GameManager.Store.FindBookByTitle(q);
 
             SearchBooks(book);
         }
@@ -188,9 +194,9 @@ namespace WinForms
 
         private void Refresh()
         {
-            BalanceL.Text = $"{store.Balance:F2} ₽";
+            BalanceL.Text = $"{GameManager.Store.Balance:F2} ₽";
             GenreSelectCB.Items.Clear();
-            foreach (var g in store.GetAllGenres())
+            foreach (var g in GameManager.Store.GetAllGenres())
                 GenreSelectCB.Items.Add(g);
 
             if (GenreSelectCB.Items.Count == 0) GenreSelectCB.Text = string.Empty;
@@ -207,7 +213,7 @@ namespace WinForms
             if (string.IsNullOrEmpty(g)) return;
 
             dataGridView1.Rows.Clear();
-            foreach (var b in store.GetBooksByGenre(g))
+            foreach (var b in GameManager.Store.GetBooksByGenre(g))
             {
                 var i = dataGridView1.Rows.Add();
                 dataGridView1.Rows[i].Cells["colId"].Value = b.id;
@@ -262,12 +268,66 @@ namespace WinForms
                 return;
             }
 
-            // без проверки цены пока что
-            MessageBox.Show("Книга продана!", "Успех",
-                MessageBoxButtons.OK, MessageBoxIcon.Information);
+            if (!double.TryParse(txtSellPrice.Text, out double sellPrice))
+            {
+                MessageBox.Show("Введите корректную цену!", "Ошибка",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            if (cmbAvailableBooks.SelectedItem == null || !cmbAvailableBooks.Enabled)
+            {
+                MessageBox.Show("Выберите книгу для продажи!", "Ошибка",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            // Извлекаем ID книги из ComboBox
+            // Формат строки: "Название — 500.00 ₽ (ID: 42)"
+            string selected = cmbAvailableBooks.SelectedItem.ToString();
+            int bookId = int.Parse(selected.Split(':')[1].Trim().Split(' ')[0]);
+
+            // Находим книгу в магазине
+            Book bookToSell = GameManager.Store.FindBookById(bookId);
+            if (bookToSell == null)
+            {
+                MessageBox.Show("Книга не найдена!", "Ошибка",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            //// наценка
+            //double maxPrice = currentCustomer.BasePrice * 1.15;
+            //if (sellPrice > maxPrice)
+            //{
+            //    GameManager.UnhappyCustomersCount++;
+            //    MessageBox.Show(
+            //        $"Покупатель ушёл!\nЦена {sellPrice:F2} ₽ превышает максимум {maxPrice:F2} ₽",
+            //        "Отказ", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+
+            //    if (GameManager.UnhappyCustomersCount >= GameManager.maxUnhappyCustomres)
+            //    {
+            //        GameOver("Слишком много недовольных клиентов!");
+            //        return;
+            //    }
+
+            //    currentCustomer = null;
+            //    UpdateCustomerView();
+            //    return;
+            //}
+
+            GameManager.Store.SellBook(bookId);
+            double profit = sellPrice - bookToSell.Price;
+            GameManager.Store.AddToBalance(profit);
+
+            MessageBox.Show(
+                $"Продано!\nКнига: «{bookToSell.Title}»\nЦена: {sellPrice:F2} ₽\nПрибыль: {profit:F2} ₽",
+                "Успех", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
             currentCustomer = null;
             UpdateCustomerView();
+
+            Refresh();
         }
 
         // Кнопка отказать
@@ -372,14 +432,36 @@ namespace WinForms
         // Показать текущего покупателя (заглушка)
         private void ShowCurrentCustomer(Customer customer)
         {
-            lblCustomerRequest.Text = "книга/жанр";
+            lblCustomerRequest.Text = "Покупатель ожидает книгу...";
 
-            cmbAvailableBooks.Items.Clear();
-            cmbAvailableBooks.Items.Add("Нет книг в наличии");
-            cmbAvailableBooks.SelectedIndex = 0;
-            cmbAvailableBooks.Enabled = false;
+            FillAvailableBooksComboBox(customer);
 
             txtSellPrice.Clear();
+        }
+
+        // Заполнить ComboBox книгами
+        private void FillAvailableBooksComboBox(Customer customer)
+        {
+            cmbAvailableBooks.Items.Clear();
+
+            var allBooks = GameManager.Store.GetAllBooks();
+
+            if (allBooks.Count > 0)
+            {
+                foreach (var book in allBooks)
+                {
+                    cmbAvailableBooks.Items.Add(
+                        $"«{book.Title}» ({book.Genre}) — {book.Price:F2} ₽ (ID: {book.id})");
+                }
+                cmbAvailableBooks.Enabled = true;
+            }
+            else
+            {
+                cmbAvailableBooks.Items.Add("В магазине нет книг!");
+                cmbAvailableBooks.Enabled = false;
+            }
+
+            cmbAvailableBooks.SelectedIndex = 0;
         }
 
         // Обновление счётчиков на верхней панели

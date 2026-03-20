@@ -96,6 +96,7 @@
             // 
             // btnInfo
             // 
+            btnInfo.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             btnInfo.BackColor = Color.Transparent;
             btnInfo.BackgroundImage = Properties.Resources.btn5;
             btnInfo.BackgroundImageLayout = ImageLayout.Stretch;
@@ -107,6 +108,8 @@
             btnInfo.Font = new Font("Kepler 296", 14F, FontStyle.Bold);
             btnInfo.ForeColor = Color.Yellow;
             btnInfo.Location = new Point(457, 455);
+            btnInfo.MaximumSize = new Size(40, 40);
+            btnInfo.MinimumSize = new Size(40, 40);
             btnInfo.Name = "btnInfo";
             btnInfo.Size = new Size(40, 40);
             btnInfo.TabIndex = 3;

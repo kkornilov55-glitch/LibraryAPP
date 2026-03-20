@@ -224,5 +224,17 @@ namespace ClassLibrary
             bookCases.Remove(bookCase);
 
         }
+        public void AddToBalance(double amount)
+        {
+            Balance += amount;
+        }
+
+        public void SubtractFromBalance(double amount)
+        {
+            if (Balance < amount)
+                throw new InvalidOperationException("Недостаточно средств");
+
+            Balance -= amount;
+        }
     }   
 }
