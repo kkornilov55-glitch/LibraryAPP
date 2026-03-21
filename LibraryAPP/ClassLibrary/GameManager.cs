@@ -20,6 +20,7 @@ namespace ClassLibrary
         public static int UnhappyCustomersCount = 0;
 
         //Флаги результатов игры, когда один из них true игра заканчивается
+        public static int DayLength = 300; //5 минут
         public static bool Lose = false;
         public static bool Win = false;
 
@@ -84,7 +85,15 @@ namespace ClassLibrary
             //Стираем сведения о предыдущих событиях
             CustomerArrived = false;
             SuppliesArrived = false;
+            
+            //День пережит!
+            if (DayLength == newTime)
+            {
+                Win = true;
+                return;
+            }
 
+            //Проверяем пора ли приходить покупателям
             if (newTime % CustomerTimeArrive == 0)
             {
                 //Создаем покупателя
@@ -99,6 +108,7 @@ namespace ClassLibrary
                 }
             }
 
+            //Аналогично проверяем поставки
             if (newTime % SupplyTimeArrive == 0)
             {
                 SuppliesArrived = true;
@@ -114,21 +124,20 @@ namespace ClassLibrary
         }
         private static Customer GenerateRandomCustomer()
         {
-            //...
-
             Customer customer;
+            Book wishBook = Book.GenerateBook(Store.GetAllBooks(), "");
             int wish = rnd.Next(2); //0 -> конкретная книга, 1 -> жанр
 
             switch(wish)
             {
                 case 0:
-                    customer = new Customer("Название книги", "Автор книги");
+                    customer = new Customer(wishBook.Title, wishBook.Author);
                     break;
                 case 1:
-                    customer = new Customer("Жанр");
+                    customer = new Customer(wishBook.Genre);
                     break;
                 default:
-                    throw new InvalidOperationException("Ошибка: Не адекватный покупатель");
+                    throw new InvalidOperationException("Ошибка: Неадекватный покупатель");
             }
 
             return customer;
@@ -137,19 +146,56 @@ namespace ClassLibrary
         {         
             Book book = Book.GenerateBook(Store.GetAllBooks(), "");
 
+            //Будет ли ошибка?
             bool bookHasError;
+            //Тип ошибки
+            string errorType = string.Empty;
             if (rnd.Next(2) == 0)
+            {
                 bookHasError = false;
+                
+            }    
             else
+            {
+                book = GenerateRandomError(book, out errorType);
                 bookHasError = true;
+            }
 
-            //...
-
-            Supply supply = new Supply(book, false, book.Price, true, "Plagiarism");
-
-            //...
+            Supply supply = new Supply(book, false, book.Price, bookHasError, errorType);
 
             return supply;
+        }
+        private static Book GenerateRandomError(Book book, out string errorType)
+        {
+            if (rnd.Next(2) == 0) //Опечатка
+            {
+                errorType = "ОПЕЧАТКА";
+                if (rnd.Next(2) == 0) //В названии
+                {
+                    int chr = rnd.Next(0, book.Title.Length); //Индекс буквы
+                    char[] chrs = book.Title.ToCharArray(); //Название книги -> массив символов
+                    chrs[chr] = Convert.ToChar(rnd.Next(1, 50)); //Замена случайного символа
+                    book.Title = new string(chrs); //Подменяем название
+                }
+                else //В авторе
+                {
+                    int chr = rnd.Next(0, book.Author.Length);
+                    char[] chrs = book.Author.ToCharArray();
+                    chrs[chr] = Convert.ToChar(rnd.Next(1, 50));
+                    book.Author = new string(chrs);
+                }
+            }
+            else //Плагиат
+            {
+                errorType = "ПЛАГИАТ";
+                string newAuthor = book.Author;
+                while (newAuthor == book.Author)
+                {
+                    newAuthor = Book.GenerateBook(Store.GetAllBooks(), "").Author;
+                }
+                book.Author = newAuthor;
+            }
+            return book;
         }
         public static void SellBookWithoutCustomer(Book book)
         {

@@ -11,9 +11,8 @@ namespace ClassLibrary
 {
     public class Book
     {
-
         public string Title { get; set; }
-        public string Author { get; private set; }
+        public string Author { get; set; }
         public int id { get; private set; }
         public string Genre { get; private set; }
         public int Pages { get; private set; }
