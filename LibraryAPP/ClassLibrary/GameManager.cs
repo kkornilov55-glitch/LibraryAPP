@@ -5,70 +5,75 @@ using System.Text;
 
 namespace ClassLibrary
 {
+    /// <summary>
+    /// Класс, описывающий логику управления событиями игры. 
+    /// </summary>
     public class GameManager
     {
         //Ссылка на магазин
-        private static BookStore Store;
+        private BookStore Store;
         private static Random rnd = new Random();
 
 
         //Настройка сложности, установка ограничений
-        private static int Difficulty;
+        private int Difficulty;
         /// <summary>Максимальное число покупателей в очереди</summary>
-        public static int maxCustomersQueue;
+        public int maxCustomersQueue;
         /// <summary>Максимальное число поставок в очереди</summary>
-        public static int maxSuppliesQueue;
+        public int maxSuppliesQueue;
         /// <summary>Максимальное число недовольных покупателей</summary>
-        public static int maxUnhappyCustomres;
+        public int maxUnhappyCustomres;
 
 
         //Очереди и счётчики
         /// <summary>Очередь покупателей</summary>
-        public static Queue<Customer> CustomersQueue;
+        public Queue<Customer> CustomersQueue;
         /// <summary>Очередь необработанных поставок</summary>
-        public static Queue<Supply> SuppliesQueue;
+        public Queue<Supply> SuppliesQueue;
         /// <summary>Счётчик недовольных покупателей</summary>
-        public static int UnhappyCustomersCount = 0;
+        public int UnhappyCustomersCount = 0;
 
 
         //Флаги результатов игры, когда один из них true игра заканчивается
         /// <summary>Длинна дня (5 минут)</summary>
-        public const int DayLength = 300;
+        public int DayLength = 300;
         /// <summary>Флаг поражения</summary>
-        public static bool Lose = false;
+        public bool Lose = false;
         /// <summary>Причина поражения</summary>
-        public static string LoseReason = string.Empty;
+        public string LoseReason = string.Empty;
         /// <summary>Флаг победы</summary>
-        public static bool Win = false;
+        public bool Win = false;
 
 
         //Обработка появления поставки и покупателя
-        private static int CustomerTimeArrive;
-        private static int SupplyTimeArrive;
+        private int CustomerTimeArrive;
+        private int SupplyTimeArrive;
         /// <summary>Флаг спавна покупателя</summary>
-        public static bool CustomerArrived = false;
+        public bool CustomerArrived = false;
         /// <summary>Флаг спавна поставки</summary>
-        public static bool SuppliesArrived = false;
+        public bool SuppliesArrived = false;
 
 
         /// <summary>
         /// От сложности зависят пределы длинны очередей: покупателей, поставок и недовольных покупателей, а также частота прихода поставок и покупателей.
         /// </summary>
         /// <param name="Difficulty">Сложность: 0 - легкая, 1 - средняя, 2 - высокая.</param>
-        public static void StartGame(int difficulty)
+        /// <param name="DayLength">Длинна дня (В секундах).</param>
+        public void StartGame(int difficulty, int dayLength)
         {
             Store = new BookStore(5, 1000);
 
             // вот здесь вот добавила инициализацию очереди
             CustomersQueue = new Queue<Customer>();
             SuppliesQueue = new Queue<Supply>();
-            UnhappyCustomersCount = 0;
 
             Difficulty = difficulty;
             DifficultySettings();
 
+            DayLength = dayLength;
+
         }
-        private static void DifficultySettings()
+        private void DifficultySettings()
         {
             if (Difficulty == 0)
             {
@@ -102,7 +107,7 @@ namespace ClassLibrary
         /// Основной метод для проверки событий, при вызове обновляет флаги спавна покупателей/поставок, добавляет их в очерерь, либо сообщает о завершении игры через флаги Win/Lose + LoseReason
         /// </summary>
         /// <param name="newTime">Текущее время по таймеру</param>
-        public static void TimersUpdate(int newTime)
+        public void TimersUpdate(int newTime)
         {
             //Стираем сведения о предыдущих событиях
             CustomerArrived = false;
@@ -154,9 +159,10 @@ namespace ClassLibrary
                 SuppliesQueue.Enqueue(Supply);
             }
         }
-        private static Customer GenerateRandomCustomer()
+        private Customer GenerateRandomCustomer()
         {
             Customer customer;
+
             Book wishBook = Book.GenerateBook(Store.GetAllBooks(), "");
             int wish = rnd.Next(2); //0 -> конкретная книга, 1 -> жанр
 
@@ -174,7 +180,7 @@ namespace ClassLibrary
 
             return customer;
         }
-        private static Supply GenerateRandomSupply()
+        private Supply GenerateRandomSupply()
         {         
             Book book = Book.GenerateBook(Store.GetAllBooks(), "");
 
@@ -197,7 +203,7 @@ namespace ClassLibrary
 
             return supply;
         }
-        private static Book GenerateRandomError(Book book, out string errorType)
+        private Book GenerateRandomError(Book book, out string errorType)
         {
             if (rnd.Next(2) == 0) //Опечатка
             {
@@ -230,7 +236,7 @@ namespace ClassLibrary
             return book;
         }
         /// <summary>Продаёт книгу по цене покупки</summary>
-        public static void SellBookWithoutCustomer(Book book)
+        public void SellBookWithoutCustomer(Book book)
         {
             Store.SellBook(book.id);
         }
@@ -240,7 +246,7 @@ namespace ClassLibrary
         /// <param name="customer">Покупатель, которому продаётся книга</param>
         /// <param name="book">Продаваемая книга</param>
         /// <param name="price">Цена, по которой игрок желает продать книгу</param>
-        public static void SellToCustomer(Customer customer, Book book, double price)
+        public void SellToCustomer(Customer customer, Book book, double price)
         {
             Customer targetCustomer = CustomersQueue.Dequeue();
 
@@ -261,7 +267,7 @@ namespace ClassLibrary
         /// </summary>
         /// <param name="supply">Обрабатываемая поставка</param>
         /// <param name="playerChoice">Выбор принять/не принять поставку</param>
-        public static void AcceptSupply(Supply supply, bool playerChoice)
+        public void AcceptSupply(Supply supply, bool playerChoice)
         {
 
         }
