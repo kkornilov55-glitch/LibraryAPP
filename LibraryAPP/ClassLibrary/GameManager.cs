@@ -8,35 +8,51 @@ namespace ClassLibrary
     public class GameManager
     {
         //Ссылка на магазин
-        public static BookStore Store;
+        private static BookStore Store;
+        private static Random rnd = new Random();
+
 
         //Настройка сложности, установка ограничений
         private static int Difficulty;
+        /// <summary>Максимальное число покупателей в очереди</summary>
         public static int maxCustomersQueue;
+        /// <summary>Максимальное число поставок в очереди</summary>
         public static int maxSuppliesQueue;
+        /// <summary>Максимальное число недовольных покупателей</summary>
         public static int maxUnhappyCustomres;
+
+
         //Очереди и счётчики
+        /// <summary>Очередь покупателей</summary>
         public static Queue<Customer> CustomersQueue;
+        /// <summary>Очередь необработанных поставок</summary>
         public static Queue<Supply> SuppliesQueue;
+        /// <summary>Счётчик недовольных покупателей</summary>
         public static int UnhappyCustomersCount = 0;
 
+
         //Флаги результатов игры, когда один из них true игра заканчивается
-        public const int DayLength = 300; //5 минут
+        /// <summary>Длинна дня (5 минут)</summary>
+        public const int DayLength = 300;
+        /// <summary>Флаг поражения</summary>
         public static bool Lose = false;
+        /// <summary>Причина поражения</summary>
         public static string LoseReason = string.Empty;
+        /// <summary>Флаг победы</summary>
         public static bool Win = false;
+
 
         //Обработка появления поставки и покупателя
         private static int CustomerTimeArrive;
         private static int SupplyTimeArrive;
+        /// <summary>Флаг спавна покупателя</summary>
         public static bool CustomerArrived = false;
+        /// <summary>Флаг спавна поставки</summary>
         public static bool SuppliesArrived = false;
-
-        private static Random rnd = new Random();
 
 
         /// <summary>
-        /// От сложности зависят пределы длинны очередей: покупателей, поставок и недовольных покупателей.
+        /// От сложности зависят пределы длинны очередей: покупателей, поставок и недовольных покупателей, а также частота прихода поставок и покупателей.
         /// </summary>
         /// <param name="Difficulty">Сложность: 0 - легкая, 1 - средняя, 2 - высокая.</param>
         public static void StartGame(int difficulty)
@@ -82,6 +98,10 @@ namespace ClassLibrary
                 maxUnhappyCustomres = 1;
             }
         }
+        /// <summary>
+        /// Основной метод для проверки событий, при вызове обновляет флаги спавна покупателей/поставок, добавляет их в очерерь, либо сообщает о завершении игры через флаги Win/Lose + LoseReason
+        /// </summary>
+        /// <param name="newTime">Текущее время по таймеру</param>
         public static void TimersUpdate(int newTime)
         {
             //Стираем сведения о предыдущих событиях
@@ -209,10 +229,17 @@ namespace ClassLibrary
             }
             return book;
         }
+        /// <summary>Продаёт книгу по цене покупки</summary>
         public static void SellBookWithoutCustomer(Book book)
         {
             Store.SellBook(book.id);
         }
+        /// <summary>
+        /// Метод для продажи книги покупателю, убирает покупателя из очереди и продаёт книгу ему если она его устраивает, иначе не принимает и счётчик недовольных покупателей инкрементируется
+        /// </summary>
+        /// <param name="customer">Покупатель, которому продаётся книга</param>
+        /// <param name="book">Продаваемая книга</param>
+        /// <param name="price">Цена, по которой игрок желает продать книгу</param>
         public static void SellToCustomer(Customer customer, Book book, double price)
         {
             Customer targetCustomer = CustomersQueue.Dequeue();
