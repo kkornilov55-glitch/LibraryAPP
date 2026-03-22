@@ -11,7 +11,8 @@ namespace ClassLibrary
     public class GameManager
     {
         //Ссылка на магазин
-        private BookStore Store;
+        /// <summary>Ссылка на магазин с которым работает менеджер</summary>
+        public BookStore Store;
         private static Random rnd = new Random();
 
 
@@ -56,10 +57,11 @@ namespace ClassLibrary
 
         /// <summary>
         /// От сложности зависят пределы длинны очередей: покупателей, поставок и недовольных покупателей, а также частота прихода поставок и покупателей.
+        /// По умолчанию, день длится 5 минут
         /// </summary>
         /// <param name="Difficulty">Сложность: 0 - легкая, 1 - средняя, 2 - высокая.</param>
         /// <param name="DayLength">Длинна дня (В секундах).</param>
-        public void StartGame(int difficulty, int dayLength)
+        public void StartGame(int difficulty, int dayLength = 300)
         {
             Store = new BookStore(5, 1000);
 
