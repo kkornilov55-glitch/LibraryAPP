@@ -256,5 +256,14 @@ namespace ClassLibrary
                 UnhappyCustomersCount++;
             }
         }
+        /// <summary>
+        /// Метод для обработки поставки, согласно выбору пользователя --НЕ РЕАЛИЗОВАНО--
+        /// </summary>
+        /// <param name="supply">Обрабатываемая поставка</param>
+        /// <param name="playerChoice">Выбор принять/не принять поставку</param>
+        public static void AcceptSupply(Supply supply, bool playerChoice)
+        {
+
+        }
     }
 }
