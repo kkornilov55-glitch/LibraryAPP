@@ -23,6 +23,7 @@ namespace ClassLibrary
         //Флаги результатов игры, когда один из них true игра заканчивается
         public static int DayLength = 300; //5 минут
         public static bool Lose = false;
+        public static string LoseReason = string.Empty;
         public static bool Win = false;
 
         //Обработка появления поставки и покупателя
@@ -94,6 +95,26 @@ namespace ClassLibrary
                 return;
             }
 
+            //Поражения и причины
+            if (CustomersQueue.Count > maxCustomersQueue)
+            {
+                Lose = true;
+                LoseReason = "В очереди слишком много покупателей!";
+                return;
+            }
+            else if (SuppliesQueue.Count > maxSuppliesQueue)
+            {
+                Lose = true;
+                LoseReason = "В очереди слишком много поставок!";
+                return;
+            }
+            else if (UnhappyCustomersCount >= maxUnhappyCustomres)
+            {
+                Lose = true;
+                LoseReason = "Слишком много недовольных покупателей";
+                return;
+            }
+
             //Проверяем пора ли приходить покупателям
             if (newTime % CustomerTimeArrive == 0)
             {
@@ -102,11 +123,6 @@ namespace ClassLibrary
                 var Customer = GenerateRandomCustomer();
 
                 CustomersQueue.Enqueue(Customer); //Добавляем покупателя в очередь
-                if (CustomersQueue.Count > maxCustomersQueue)
-                {
-                    Lose = true;
-                    return;
-                }
             }
 
             //Аналогично проверяем поставки
@@ -116,11 +132,6 @@ namespace ClassLibrary
                 var Supply = GenerateRandomSupply();
 
                 SuppliesQueue.Enqueue(Supply);
-                if (SuppliesQueue.Count > maxSuppliesQueue)
-                {
-                    Lose = true;
-                    return;
-                }
             }
         }
         private static Customer GenerateRandomCustomer()
@@ -218,7 +229,5 @@ namespace ClassLibrary
                 UnhappyCustomersCount++;
             }
         }
-
-
     }
 }
