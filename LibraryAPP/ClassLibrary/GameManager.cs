@@ -21,7 +21,7 @@ namespace ClassLibrary
         public static int UnhappyCustomersCount = 0;
 
         //Флаги результатов игры, когда один из них true игра заканчивается
-        public static int DayLength = 300; //5 минут
+        public const int DayLength = 300; //5 минут
         public static bool Lose = false;
         public static string LoseReason = string.Empty;
         public static bool Win = false;
