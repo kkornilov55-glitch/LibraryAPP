@@ -46,12 +46,11 @@ namespace ClassLibrary
         /// Проверяет, подходит ли книга покупателю
         /// Устанавливает IsHappy = true, если книга подходит
         /// </summary>
-        public void MatchedBook(Book book, out bool isHappy)
+        public void MatchedBook(Book book,double price)
         {
             if (book == null)
             {
                 isHappy = false;
-                this.isHappy = false;
                 return;
             }
 
@@ -65,8 +64,6 @@ namespace ClassLibrary
                 // Хочет книгу жанра: проверяем только жанр
                 isHappy = (book.Genre == wantedGenre);
             }
-
-            this.isHappy = isHappy;
         }
     }
 }

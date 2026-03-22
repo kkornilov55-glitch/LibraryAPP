@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Net;
 using System.Text;
 
 namespace ClassLibrary
@@ -203,7 +204,19 @@ namespace ClassLibrary
         }
         public static void SellToCustomer(Customer customer, Book book, double price)
         {
+            Customer targetCustomer = CustomersQueue.Dequeue();
 
+            //Пробуем продать
+            targetCustomer.MatchedBook(book, price);
+            if (targetCustomer.isHappy) //Понравилась, принял
+            {
+                Store.Balance += price - book.Price; //Зачисляем наценку
+                Store.SellBook(book.id); //Зачисляем цену книги
+            }
+            else //Не понравилась, не принял
+            {
+                UnhappyCustomersCount++;
+            }
         }
 
 

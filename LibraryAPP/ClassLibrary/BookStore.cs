@@ -11,7 +11,7 @@ namespace ClassLibrary
         //public static Book PendingBook;
         private List<BookCase> bookCases;
         public int MaxBookCases { get; private set; }
-        public double Balance { get; private set; }
+        public double Balance { get; set; }
 
         public BookStore(int maxBookCases, double balance = 0.0)
         {
@@ -224,10 +224,10 @@ namespace ClassLibrary
             bookCases.Remove(bookCase);
 
         }
-        public void AddToBalance(double amount)
-        {
-            Balance += amount;
-        }
+        //public void AddToBalance(double amount)
+        //{
+        //    Balance += amount;
+        //}
 
         public void SubtractFromBalance(double amount)
         {
