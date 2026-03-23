@@ -7,24 +7,51 @@ namespace ClassLibrary
     public class DataBase
     {
 
-        string DataPath = "DataBase.txt";
+        public List<(string Title, string Author)> LibraryBooks = new List<(string Title, string Author)>();
+        public string DataPath = "DataBase.txt";
+        public string PrePath = "BookAuthor.txt";
 
         public void ReadFile()
         {
-            string PrePath = "BookAuthor.txt";
 
-            List<(string Title, string Author)> LibraryBooks = new List<(string Title, string Author)> ();
+            if (!File.Exists(DataPath))
+            {
+                if (File.Exists(PrePath))
+                {
+                    File.Copy(PrePath, DataPath);
+                }
 
-            string[] lines = File.ReadAllLines(PrePath);
+                else
+                {
+                    throw new Exception("Файл с исходными книгами не найден");
+                }
+            }
+
+            string[] lines = File.ReadAllLines(DataPath);
+            LibraryBooks.Clear();
 
             foreach (string line in lines)
             {
+
+                if (string.IsNullOrWhiteSpace(line)) 
+                    continue;
+
                 var word = line.Split('|');
 
-                LibraryBooks.Add((word[0].Trim(), word[1].Trim()));                       
+                if (word.Length == 2)
+                {
+                    LibraryBooks.Add((word[0].Trim(), word[1].Trim()));
+                }                         
             }
 
         }
+
+        public void AddBook()
+        {
+
+        }
+
+        
 
     }
 }
