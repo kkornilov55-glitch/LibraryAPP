@@ -2,37 +2,34 @@
 using System.Collections.Generic;
 using System.Text;
 
+
 namespace ClassLibrary
 {
-    /// <summary>
-    /// Класс "Customer" представляет покупателя в книжном магазине.
-    /// Покупатель может хотеть конкретную книгу или книгу определённого жанра.
-    /// </summary>
+
+    //Класс "Customer" представляет покупателя в книжном магазине.
+    //Покупатель может хотеть конкретную книгу или книгу определённого жанра.
+
     public class Customer
     {
-        // Поля
+        //Поля
         private string wantedBookTitle;
         private string wantedBookAuthor;
         private string wantedGenre;
-        private bool wishType;  // true = конкретная книга, false = жанр
-        public bool isHappy;   // доволен ли покупатель
+        private bool wishType;  //true = конкретная книга, false = жанр
+        public bool isHappy;
 
-
-        /// <summary>
-        /// Конструктор: покупатель хочет конкретную книгу (по названию и автору)
-        /// </summary>
+        //Конструктор: покупатель хочет конкретную книгу (по названию и автору).
         public Customer(string wantedBookTitle, string wantedBookAuthor)
         {
             this.wantedBookTitle = wantedBookTitle;
             this.wantedBookAuthor = wantedBookAuthor;
             this.wantedGenre = string.Empty;
-            this.wishType = true;  // true = хочет конкретную книгу
+            this.wishType = true;   //true = хочет конкретную книгу
             this.isHappy = false;
         }
 
-        /// <summary>
-        /// Конструктор: покупатель хочет книгу определённого жанра
-        /// </summary>
+
+        //Конструктор: покупатель хочет книгу определённого жанра.
         public Customer(string wantedGenre)
         {
             this.wantedBookTitle = string.Empty;
@@ -42,11 +39,11 @@ namespace ClassLibrary
             this.isHappy = false;
         }
 
-        /// <summary>
-        /// Проверяет, подходит ли книга покупателю
-        /// Устанавливает IsHappy = true, если книга подходит
-        /// </summary>
-        public void MatchedBook(Book book,double price)
+
+        //Проверяет, подходит ли книга покупателю и устраивает ли цена.
+        //Устанавливает isHappy = true, если книга соответствует желанию И цена не превышает базовую (book.Price) более чем на 15%.
+
+        public void MatchedBook(Book book, double price)
         {
             if (book == null)
             {
@@ -54,16 +51,32 @@ namespace ClassLibrary
                 return;
             }
 
+            //Проверяем соответствие книги желанию покупателя
+            bool matchesWish;
             if (wishType)
             {
-                // Хочет конкретную книгу: проверяем название И автора
-                isHappy = (book.Title == wantedBookTitle && book.Author == wantedBookAuthor);
+                //Хочет конкретную книгу: проверяем название И автора
+                matchesWish = (book.Title == wantedBookTitle && book.Author == wantedBookAuthor);
             }
             else
             {
-                // Хочет книгу жанра: проверяем только жанр
-                isHappy = (book.Genre == wantedGenre);
+                //Хочет книгу жанра: проверяем только жанр
+                matchesWish = (book.Genre == wantedGenre);
             }
+
+            if (!matchesWish)
+            {
+                isHappy = false;
+                return;
+            }
+
+            //Проверяем цену: наценка не должна превышать 15%
+            //Базовая цена = book.Price (цена закупки книги)
+            double maxAcceptablePrice = book.Price * 1.15;
+            bool priceAcceptable = (price <= maxAcceptablePrice);
+
+            //Покупатель доволен, если книга подходит И цена устраивает
+            isHappy = priceAcceptable;
         }
     }
 }
