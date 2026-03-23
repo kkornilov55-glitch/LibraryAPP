@@ -8,8 +8,8 @@ namespace ClassLibrary
     {
 
         public List<(string Title, string Author)> LibraryBooks = new List<(string Title, string Author)>();
-        public string DataPath = "DataBase.txt";
-        public string PrePath = "BookAuthor.txt";
+        private string DataPath = "DataBase.txt";
+        private string PrePath = "BookAuthor.txt";
 
         public void ReadFile()
         {
@@ -46,9 +46,30 @@ namespace ClassLibrary
 
         }
 
-        public void AddBook()
+        public void AddBook(in Book book)
         {
+            bool AlreadyExist = false; //флаг, указывающий существует ли уже такая книга
 
+
+             foreach(var ExistingBook in LibraryBooks)
+            {
+                if(ExistingBook.Title == book.Title && ExistingBook.Author == book.Author)
+                {
+                    AlreadyExist = true;
+                    break;
+                }
+            }
+
+            if (!AlreadyExist)
+            {
+                LibraryBooks.Add((book.Title, book.Author));
+
+                string line = $"\n{book.Title}|{book.Author}";
+
+                File.AppendAllText(DataPath, line);
+            }
+
+             
         }
 
         
