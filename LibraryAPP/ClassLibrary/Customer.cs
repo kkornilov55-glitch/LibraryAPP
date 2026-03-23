@@ -78,5 +78,11 @@ namespace ClassLibrary
             //Покупатель доволен, если книга подходит И цена устраивает
             isHappy = priceAcceptable;
         }
+
+        //Методы для доступа тестов
+        public string GetWantedTitle() => wantedBookTitle;
+        public string GetWantedAuthor() => wantedBookAuthor;
+        public string GetWantedGenre() => wantedGenre;
+        public bool WantsSpecificBook() => wishType;
     }
 }
