@@ -10,6 +10,7 @@ namespace ClassLibrary
         public List<(string Title, string Author)> LibraryBooks = new List<(string Title, string Author)>();
         private string DataPath = "DataBase.txt";
         private string PrePath = "BookAuthor.txt";
+        private Random rng = new Random();
 
         public void ReadFile()
         {
@@ -68,8 +69,13 @@ namespace ClassLibrary
 
                 File.AppendAllText(DataPath, line);
             }
+        }
 
-             
+        public string[] GetRandomBook()
+        {
+            var RandomBook = LibraryBooks[rng.Next(LibraryBooks.Count)];
+
+            return new string[] { RandomBook.Title, RandomBook.Author };
         }
 
         
