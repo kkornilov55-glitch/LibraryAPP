@@ -78,15 +78,24 @@ namespace ClassLibrary
             return new string[] { RandomBook.Title, RandomBook.Author };
         }
 
-        public bool IsPlagirism(in Book book)
+        public bool IsPlagiarism(in Book book)
         {
+            
             foreach(var ExistingTitle in LibraryBooks)
             {
                 if (ExistingTitle.Title == book.Title)
                 {
+                    if (ExistingTitle.Author != book.Author)
+                    {
+                        return true;
+                    }
 
+                    return false;
                 }
+                
             }
+
+            return false;
         }
 
     }
