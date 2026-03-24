@@ -98,22 +98,27 @@ namespace ClassLibrary
             return false;
         }
 
-        public bool IsMispell(Book book)
+        public bool IsMispell(in Book book)
         {
+
+            bool AuthorExists = false; //Создаем переменную указывающую существует ли уже такой автор
+
             foreach (var ExistingBook in LibraryBooks)
             {
-                if (ExistingBook.Author.Equals(book.Author, StringComparison.OrdinalIgnoreCase))
+                if (ExistingBook.Author.Equals(book.Author, StringComparison.OrdinalIgnoreCase)) //Если автор существует укаазываем это
                 {
-                    if (!ExistingBook.Title.Equals(book.Title, StringComparison.OrdinalIgnoreCase))
+                    AuthorExists = true;
+
+                    if (ExistingBook.Title.Equals(book.Title, StringComparison.OrdinalIgnoreCase)) //Если название совпало, то это не опечатка
                     {
-                        return true;
-                    }
-                    return false;
-                }
-                
+                        return false;
+                    }  
+                }  
             }
 
-            return false;
+            return AuthorExists; //если автор существует (true), но название не совпало (опечатка), предыдущий цикл не вернет ничего, и метод в итоге вернет true
+                                 
+
         }
     }
 }
