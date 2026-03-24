@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.IO;
 
 namespace ClassLibrary
 {
@@ -85,7 +86,7 @@ namespace ClassLibrary
             {
                 if (ExistingTitle.Title.Equals(book.Title, StringComparison.OrdinalIgnoreCase))
                 {
-                    if (ExistingTitle.Author.Equals(book.Author, StringComparison.OrdinalIgnoreCase))
+                    if (!ExistingTitle.Author.Equals(book.Author, StringComparison.OrdinalIgnoreCase))
                     {
                         return true;
                     }
