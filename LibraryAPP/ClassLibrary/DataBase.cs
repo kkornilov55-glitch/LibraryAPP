@@ -94,9 +94,27 @@ namespace ClassLibrary
                 }
                 
             }
+
             return false;
         }
 
+        public bool IsMispell(Book book)
+        {
+            foreach (var ExistingBook in LibraryBooks)
+            {
+                if (ExistingBook.Author.Equals(book.Author, StringComparison.OrdinalIgnoreCase))
+                {
+                    if (!ExistingBook.Title.Equals(book.Title, StringComparison.OrdinalIgnoreCase))
+                    {
+                        return true;
+                    }
+                    return false;
+                }
+                
+            }
+
+            return false;
+        }
     }
 }
  
