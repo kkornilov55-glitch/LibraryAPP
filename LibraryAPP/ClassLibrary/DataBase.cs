@@ -74,6 +74,11 @@ namespace ClassLibrary
 
         public string[] GetRandomBook()
         {
+            if (LibraryBooks.Count == 0)
+            {
+                throw new Exception("База данных книг пуста");
+            }
+
             var RandomBook = LibraryBooks[rng.Next(LibraryBooks.Count)];
 
             return new string[] { RandomBook.Title, RandomBook.Author };
