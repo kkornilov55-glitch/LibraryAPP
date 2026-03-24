@@ -10,12 +10,16 @@
 
   <ItemGroup>
     <None Remove="BookAuthor.txt" />
+    <None Remove="DataBase.txt" />
     <None Remove="title.txt" />
   </ItemGroup>
 
   <ItemGroup>
     <Content Include="BookAuthor.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DataBase.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="title.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
