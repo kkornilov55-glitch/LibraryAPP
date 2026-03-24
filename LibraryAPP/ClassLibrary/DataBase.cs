@@ -83,9 +83,9 @@ namespace ClassLibrary
             
             foreach(var ExistingTitle in LibraryBooks)
             {
-                if (ExistingTitle.Title == book.Title)
+                if (ExistingTitle.Title.Equals(book.Title, StringComparison.OrdinalIgnoreCase))
                 {
-                    if (ExistingTitle.Author != book.Author)
+                    if (ExistingTitle.Author.Equals(book.Author, StringComparison.OrdinalIgnoreCase))
                     {
                         return true;
                     }
@@ -94,7 +94,6 @@ namespace ClassLibrary
                 }
                 
             }
-
             return false;
         }
 
