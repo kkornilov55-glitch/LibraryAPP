@@ -54,7 +54,7 @@ namespace ClassLibrary
 
              foreach(var ExistingBook in LibraryBooks)
             {
-                if(ExistingBook.Title == book.Title && ExistingBook.Author == book.Author)
+                if(ExistingBook.Title.Equals(book.Title, StringComparison.OrdinalIgnoreCase) && ExistingBook.Author.Equals(book.Author, StringComparison.OrdinalIgnoreCase))
                 {
                     AlreadyExist = true;
                     break;
