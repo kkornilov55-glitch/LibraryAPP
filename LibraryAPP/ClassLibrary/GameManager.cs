@@ -194,22 +194,15 @@ namespace ClassLibrary
             Book book = Book.GenerateBook(Store.GetAllBooks(), "");
 
             //Будет ли ошибка?
-            bool bookHasError;
-            //Тип ошибки
+            bool bookHasError = rnd.Next(2) == 0 ? false : true;
             string errorType = string.Empty;
-            if (rnd.Next(2) == 0)
-            {
-                bookHasError = false;
-                
-            }    
-            else
+            if (bookHasError)
             {
                 book = GenerateRandomError(book, out errorType);
-                bookHasError = true;
+
             }
 
-            Supply supply = new Supply(book, false, book.Price, bookHasError, errorType);
-
+            Supply supply = new Supply(book, false, book.Price, bookHasError,errorType);
             return supply;
         }
         private Book GenerateRandomError(Book book, out string errorType)
