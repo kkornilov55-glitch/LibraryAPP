@@ -18,7 +18,8 @@ namespace ClassLibrary
         {
             Book = book;
             IsOrdered = isOrdered;
-            Price = price;
+            //Price = price;
+            Price = Book.Price;
             HasError = hasError;
             ErrorType = errorType;
         }

@@ -50,6 +50,9 @@ namespace ClassLibrary
             if (book == null)
                 throw new ArgumentNullException(nameof(book));
 
+            if (book.Price > Balance)
+                throw new InvalidOperationException("Недостаточно средств для принятия поставки!");
+
             // Поиск шкафа с подходящим жанром
             BookCase targetCase = null;
             foreach (var bc in bookCases)

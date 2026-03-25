@@ -62,7 +62,8 @@ namespace ClassLibrary
                 }
             }
 
-            if (!AlreadyExist)
+             //Если в книге нет проблем и её нет в бд, добавляем
+            if (!AlreadyExist && !IsPlagiarism(book) && !IsMispell(book))
             {
                 LibraryBooks.Add((book.Title, book.Author));
 

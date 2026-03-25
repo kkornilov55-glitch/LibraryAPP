@@ -13,6 +13,7 @@ namespace ClassLibrary
         //Ссылка на магазин
         /// <summary>Ссылка на магазин с которым работает менеджер</summary>
         public BookStore Store;
+        private DataBase DB;
         private static Random rnd = new Random();
 
 
@@ -49,6 +50,12 @@ namespace ClassLibrary
         //Обработка появления поставки и покупателя
         private int CustomerTimeArrive;
         private int SupplyTimeArrive;
+        private const int Bonus = 100;
+        /// <summary>Флаг бонуса</summary>
+        public bool BonusArrived = false;
+        private const int Fine = 150;
+        /// <summary>Флаг штрафа</summary>
+        public bool FineArrived = false;
         /// <summary>Флаг спавна покупателя</summary>
         public bool CustomerArrived = false;
         /// <summary>Флаг спавна поставки</summary>
@@ -269,9 +276,38 @@ namespace ClassLibrary
         /// </summary>
         /// <param name="supply">Обрабатываемая поставка</param>
         /// <param name="playerChoice">Выбор принять/не принять поставку</param>
-        public void AcceptSupply(Supply supply, bool playerChoice)
+        public void SupplyProcessing(Supply supply, bool playerChoice)
         {
+            FineArrived = false;
+            BonusArrived = false;
 
+            //Принимает поставку
+            if (playerChoice)
+            {
+                Store.AddBook(supply.Book); //Добавляем книгу
+            }
+
+            //Проверка случайной поставки
+            if (!supply.IsOrdered)
+            {
+                //Какая-то проблема с книгой
+                if (DB.IsMispell(supply.Book) || DB.IsPlagiarism(supply.Book))
+                {
+                    if (playerChoice)
+                    {
+                        Store.Balance -= Fine;
+                        FineArrived = true;
+                    }
+                    else
+                    {
+                        Store.Balance += Bonus;
+                        BonusArrived = true;
+                    }
+                }    
+            }
+
+            DB.AddBook(supply.Book); //Добавляем книгу в БД
+            SuppliesQueue.Dequeue(); //В результате обработки поставка выходит из очереди
         }
     }
 }
