@@ -85,20 +85,25 @@ namespace ClassLibrary
             {
                 string[] lines = File.ReadAllLines(filePath);
 
-                var validLines = lines
-                    .Where(line => !string.IsNullOrWhiteSpace(line) && line.Contains('|'))
-                    .ToList();
-
+                List<string> validLines = new List<string>();
+                foreach (string line in lines)
+                {
+                    if (!string.IsNullOrWhiteSpace(line) && line.Contains("|"))
+                    {
+                        validLines.Add(line);
+                    }
+                }
+                
                 if (validLines.Count == 0)
                 {
                     throw new Exception("Файл не содержит корректных данных");
                 }
-
+                
                 return validLines[rng.Next(validLines.Count)];
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Ошибка при чтении файла: {ex.Message}");
+                Console.WriteLine($"Ошибка: {ex.Message}");
                 return "Неизвестная книга|Неизвестный автор";
             }
         }
