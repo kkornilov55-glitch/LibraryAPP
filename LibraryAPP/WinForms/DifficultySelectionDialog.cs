@@ -53,7 +53,8 @@ namespace WinForms
 
                 if (confirmResult == DialogResult.Yes)
                 {
-                    GameManager.StartGame(difficulty);
+                    GameManager gameManager = new GameManager();
+                    gameManager.StartGame(difficulty);
                     this.DialogResult = DialogResult.OK;
                     this.Close();
                 }

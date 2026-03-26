@@ -84,21 +84,21 @@ namespace WinForms
                 _currentGeneratedBook = null;
             }
 
-            string uniqueTitle = Book.EnsureUniqueTitle(t, a, GameManager.Store.GetAllBooks());
+            string uniqueTitle = Book.EnsureUniqueTitle(t, a, GameManager.Instance.Store.GetAllBooks());
 
             var newBook = new Book(uniqueTitle, a, g, p, pr);
 
             try
             {
-                if (GameManager.Store.Balance < pr)
+                if (GameManager.Instance.Store.Balance < pr)
                 {
                     MessageBox.Show($"Недостаточно средств!", "Ошибка",
                         MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
-               
-                GameManager.Store.SubtractFromBalance(pr);
-                GameManager.Store.AddBook(newBook);
+
+                GameManager.Instance.Store.SubtractFromBalance(pr);
+                GameManager.Instance.Store.AddBook(newBook);
 
                 MessageBox.Show($"Добавлено!", "Готово", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 ClearForm();
@@ -121,7 +121,7 @@ namespace WinForms
                 Book.DecrementCounter();
             }
 
-            _currentGeneratedBook = Book.GenerateBook(GameManager.Store.GetAllBooks(), "");
+            _currentGeneratedBook = Book.GenerateBook(GameManager.Instance.Store.GetAllBooks(), "");
 
             TitleTB.Text = _currentGeneratedBook.Title;
             AuthorTB.Text = _currentGeneratedBook.Author;
@@ -151,7 +151,7 @@ namespace WinForms
 
             if (SearchedBookGrid.SelectedRows.Count != 0) SearchedBookGrid.Rows.Clear();
 
-            GameManager.Store.SellBook(id);
+            GameManager.Instance.Store.SellBook(id);
             MessageBox.Show("Продано!", "Готово", MessageBoxButtons.OK, MessageBoxIcon.Information);
             Refresh(); ShowBooks();
         }
@@ -164,7 +164,7 @@ namespace WinForms
             if (MessageBox.Show($"Распродать \"{g}\"?", "Подтверждение",
                     MessageBoxButtons.YesNo, MessageBoxIcon.Question) != DialogResult.Yes) return;
 
-            GameManager.Store.ClearBookCase(g);
+            GameManager.Instance.Store.ClearBookCase(g);
             if (SearchedBookGrid.SelectedRows.Count != 0) SearchedBookGrid.Rows.Clear();
 
             MessageBox.Show("Очищено", "Готово", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -177,7 +177,7 @@ namespace WinForms
             var q = FoundStringTB.Text.Trim();
             if (!Required(q, "Запрос")) return;
 
-            var book = int.TryParse(q, out var id) ? GameManager.Store.FindBookById(id) : GameManager.Store.FindBookByTitle(q);
+            var book = int.TryParse(q, out var id) ? GameManager.Instance.Store.FindBookById(id) : GameManager.Instance.Store.FindBookByTitle(q);
 
             SearchBooks(book);
         }
@@ -194,9 +194,9 @@ namespace WinForms
 
         private void Refresh()
         {
-            BalanceL.Text = $"{GameManager.Store.Balance:F2} ₽";
+            BalanceL.Text = $"{GameManager.Instance.Store.Balance:F2} ₽";
             GenreSelectCB.Items.Clear();
-            foreach (var g in GameManager.Store.GetAllGenres())
+            foreach (var g in GameManager.Instance.Store.GetAllGenres())
                 GenreSelectCB.Items.Add(g);
 
             if (GenreSelectCB.Items.Count == 0) GenreSelectCB.Text = string.Empty;
@@ -213,7 +213,7 @@ namespace WinForms
             if (string.IsNullOrEmpty(g)) return;
 
             dataGridView1.Rows.Clear();
-            foreach (var b in GameManager.Store.GetBooksByGenre(g))
+            foreach (var b in GameManager.Instance.Store.GetBooksByGenre(g))
             {
                 var i = dataGridView1.Rows.Add();
                 dataGridView1.Rows[i].Cells["colId"].Value = b.id;
@@ -302,7 +302,7 @@ namespace WinForms
 
             //GameManager.RegisterUnhappyCustomer();
 
-            if (GameManager.Lose)
+            if (GameManager.Instance.Lose)
             {
                 GameOver("Слишком много недовольных клиентов!");
             }
@@ -315,7 +315,7 @@ namespace WinForms
         // Экран проигрыша
         private void GameOver(string reason)
         {
-            GameManager.Lose = true;
+            GameManager.Instance.Lose = true;
             timeCustomer.Stop();
 
             MessageBox.Show($"ИГРА ОКОНЧЕНА!\n\n{reason}", "Проигрыш",
@@ -333,15 +333,15 @@ namespace WinForms
         {
             gameTimer++;
 
-            if (GameManager.Lose || GameManager.Win)
+            if (GameManager.Instance.Lose || GameManager.Instance.Win)
             {
                 timeCustomer.Stop();
                 return;
             }
 
-            GameManager.TimersUpdate(gameTimer);
+            GameManager.Instance.TimersUpdate(gameTimer);
 
-            if (GameManager.CustomerArrived && GameManager.CustomersQueue.Count > 0)
+            if (GameManager.Instance.CustomerArrived && GameManager.Instance.CustomersQueue.Count > 0)
             {
                 UpdateCustomerView();
             }
@@ -354,14 +354,14 @@ namespace WinForms
         {
 
             lstCustomersQueue.Items.Clear();
-            foreach (var customer in GameManager.CustomersQueue)
+            foreach (var customer in GameManager.Instance.CustomersQueue)
             {
                 string displayText = GetCustomerDisplayText(customer);
                 lstCustomersQueue.Items.Add(displayText);
             }
 
             // Показываем/скрываем панель
-            if (GameManager.CustomersQueue.Count == 0 && currentCustomer == null)
+            if (GameManager.Instance.CustomersQueue.Count == 0 && currentCustomer == null)
             {
 
                 pnlCustomerArea.Visible = false;
@@ -372,9 +372,9 @@ namespace WinForms
 
                 pnlCustomerArea.Visible = true;
 
-                if (currentCustomer == null && GameManager.CustomersQueue.Count > 0)
+                if (currentCustomer == null && GameManager.Instance.CustomersQueue.Count > 0)
                 {
-                    currentCustomer = GameManager.CustomersQueue.Dequeue();
+                    currentCustomer = GameManager.Instance.CustomersQueue.Dequeue();
                     ShowCurrentCustomer(currentCustomer);
                 }
             }
@@ -382,19 +382,23 @@ namespace WinForms
             UpdateCounters();
         }
 
-        // Получение текста для отображения покупателя (заглушка)
+        // Получение текста для отображения покупателя
         private string GetCustomerDisplayText(Customer customer)
         {
-            return "Покупатель (ожидание)";
+            // if (customer.WantsSpecificBook) return $"{customer.WantedBookTitle}";
+            // else return $"Жанр: {customer.WantedGenre}";
+            return "Покупатель в очереди";
         }
 
-        // Показать текущего покупателя (заглушка)
+        // Показать текущего покупателя
         private void ShowCurrentCustomer(Customer customer)
         {
             lblCustomerRequest.Text = "Покупатель ожидает книгу...";
 
+            // Заполняем ComboBox всеми книгами магазина
             FillAvailableBooksComboBox(customer);
 
+            // Очищаем поле цены
             txtSellPrice.Clear();
         }
 
@@ -403,7 +407,7 @@ namespace WinForms
         {
             cmbAvailableBooks.Items.Clear();
 
-            var allBooks = GameManager.Store.GetAllBooks();
+            var allBooks = GameManager.Instance.Store.GetAllBooks();
 
             if (allBooks.Count > 0)
             {
@@ -426,15 +430,15 @@ namespace WinForms
         // Обновление счётчиков на верхней панели
         private void UpdateCounters()
         {
-            int totalInQueue = GameManager.CustomersQueue.Count;
+            int totalInQueue = GameManager.Instance.CustomersQueue.Count;
 
             if (currentCustomer != null)
             {
                 totalInQueue++;
             }
 
-            lblQueueCount.Text = $"{totalInQueue}/{GameManager.maxCustomersQueue}";
-            lblUnhappyCount.Text = $"{GameManager.UnhappyCustomersCount}/{GameManager.maxUnhappyCustomres}";
+            lblQueueCount.Text = $"{totalInQueue}/{GameManager.Instance.maxCustomersQueue}";
+            lblUnhappyCount.Text = $"{GameManager.Instance.UnhappyCustomersCount}/{GameManager.Instance.maxUnhappyCustomres}";
         }
     }
 }

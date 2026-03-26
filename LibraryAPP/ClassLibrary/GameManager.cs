@@ -10,6 +10,8 @@ namespace ClassLibrary
     /// </summary>
     public class GameManager
     {
+        public static GameManager Instance { get; private set; }
+
         //Ссылка на магазин
         /// <summary>Ссылка на магазин с которым работает менеджер</summary>
         public BookStore Store;
@@ -70,6 +72,7 @@ namespace ClassLibrary
         /// <param name="DayLength">Длинна дня (В секундах).</param>
         public void StartGame(int difficulty, int dayLength = 300)
         {
+            Instance = this;
             Store = new BookStore(5, 1000);
 
             // вот здесь вот добавила инициализацию очереди
