@@ -284,9 +284,57 @@ namespace WinForms
                 return;
             }
 
+            string selected = cmbAvailableBooks.SelectedItem.ToString();
+            int bookId = int.Parse(selected.Split(':')[1].Trim().Split(' ')[0]);
+
+            Book bookToSell = GameManager.Instance.Store.FindBookById(bookId);
+            if (bookToSell == null)
+            {
+                MessageBox.Show("Книга не найдена!", "Ошибка",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            currentCustomer.MatchedBook(bookToSell, sellPrice);
+
+            if (!currentCustomer.isHappy)
+            {
+                GameManager.Instance.UnhappyCustomersCount++;
+
+                string reason = "Неподходящая книга или цена";
+                double maxPrice = bookToSell.Price * 1.15;
+                if (sellPrice > maxPrice)
+                    reason = $"Цена {sellPrice:F2} ₽ > макс. {maxPrice:F2} ₽";
+                else
+                    reason = "Книга не соответствует запросу";
+
+                MessageBox.Show(
+                    $"Покупатель ушёл!\nПричина: {reason}",
+                    "Отказ", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+
+                if (GameManager.Instance.UnhappyCustomersCount >= GameManager.Instance.maxUnhappyCustomres)
+                {
+                    GameOver(GameManager.Instance.LoseReason);
+                    return;
+                }
+
+                currentCustomer = null;
+                UpdateCustomerView();
+                return;
+            }
+
+            GameManager.Instance.Store.SellBook(bookId);
+            double profit = sellPrice - bookToSell.Price;
+            GameManager.Instance.Store.Balance += profit;
+
+            MessageBox.Show(
+                $"Продано!\n" +
+                $"Книга: «{bookToSell.Title}»\n" +
+                $"Цена: {sellPrice:F2} ₽ | Прибыль: {profit:F2} ₽",
+                "Успех!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
             currentCustomer = null;
             UpdateCustomerView();
-
             Refresh();
         }
 
@@ -299,12 +347,13 @@ namespace WinForms
                     MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
+            
+            GameManager.Instance.UnhappyCustomersCount++;
 
-            //GameManager.RegisterUnhappyCustomer();
-
-            if (GameManager.Instance.Lose)
+            if (GameManager.Instance.UnhappyCustomersCount >= GameManager.Instance.maxUnhappyCustomres)
             {
                 GameOver("Слишком много недовольных клиентов!");
+                return;
             }
 
             // Переходим к следующему покупателю
@@ -318,8 +367,25 @@ namespace WinForms
             GameManager.Instance.Lose = true;
             timeCustomer.Stop();
 
-            MessageBox.Show($"ИГРА ОКОНЧЕНА!\n\n{reason}", "Проигрыш",
-                MessageBoxButtons.OK, MessageBoxIcon.Error);
+            if (GameManager.Instance.Win)
+            {
+                // ПОБЕДА
+                MessageBox.Show(
+                    $"ПОБЕДА!\n" +
+                    $"Вы пережили день!\n" +
+                    $"Финальный баланс: {GameManager.Instance.Store.Balance:F2} ₽\n" +
+                    $"Недовольных: {GameManager.Instance.UnhappyCustomersCount}",
+                    "Победа!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            else
+            {
+                // ПРОИГРЫШ
+                MessageBox.Show(
+                    $"ИГРА ОКОНЧЕНА!\n" +
+                    $"Причина: {reason}\n",
+                    "Проигрыш", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
 
             // Возврат в главное меню
             this.DialogResult = DialogResult.Cancel;
@@ -385,20 +451,14 @@ namespace WinForms
         // Получение текста для отображения покупателя
         private string GetCustomerDisplayText(Customer customer)
         {
-            // if (customer.WantsSpecificBook) return $"{customer.WantedBookTitle}";
-            // else return $"Жанр: {customer.WantedGenre}";
-            return "Покупатель в очереди";
+            return $"{customer.RequestDisplayText}";
         }
 
         // Показать текущего покупателя
         private void ShowCurrentCustomer(Customer customer)
         {
-            lblCustomerRequest.Text = "Покупатель ожидает книгу...";
-
-            // Заполняем ComboBox всеми книгами магазина
+            lblCustomerRequest.Text = customer.RequestDisplayText;
             FillAvailableBooksComboBox(customer);
-
-            // Очищаем поле цены
             txtSellPrice.Clear();
         }
 

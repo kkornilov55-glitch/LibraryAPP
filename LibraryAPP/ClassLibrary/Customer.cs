@@ -84,5 +84,17 @@ namespace ClassLibrary
         public string GetWantedAuthor() => wantedBookAuthor;
         public string GetWantedGenre() => wantedGenre;
         public bool WantsSpecificBook() => wishType;
+        
+        /// <summary>Вспомогательное свойство: текст запроса покупателя для отображения</summary>
+        public string RequestDisplayText
+        {
+            get
+            {
+                if (wishType) // конкретная книга
+                    return $"«{wantedBookTitle}» ({wantedBookAuthor})";
+                else // жанр
+                    return $"Жанр: «{wantedGenre}»";
+            }
+        }
     }
 }
