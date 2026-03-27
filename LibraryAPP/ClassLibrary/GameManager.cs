@@ -245,32 +245,40 @@ namespace ClassLibrary
             if (rnd.Next(2) == 0) //Опечатка
             {
                 errorType = "ОПЕЧАТКА";
+
                 if (rnd.Next(2) == 0) //В названии
                 {
-                    int chr = rnd.Next(0, book.Title.Length); //Индекс буквы
+                    //В пробелы не ставим букв
+                    int chr;
+                    do
+                    {
+                        chr = rnd.Next(1, book.Title.Length); //Индекс буквы
+                    } while (book.Title[chr] == ' ');
+
                     char[] chrs = book.Title.ToCharArray(); //Название книги -> массив символов
-                    chrs[chr] = Convert.ToChar(rnd.Next(1, 50)); //Замена случайного символа
+                    chrs[chr] = Convert.ToChar(rnd.Next('а', 'я')); //Замена случайного символа
                     book.Title = new string(chrs); //Подменяем название
                 }
                 else //В авторе
                 {
-                    int chr = rnd.Next(0, book.Author.Length);
+                    int chr;
+                    do
+                    {
+                        chr = rnd.Next(1, book.Author.Length);
+                    } while (book.Author[chr] == ' ');
+
                     char[] chrs = book.Author.ToCharArray();
-                    chrs[chr] = Convert.ToChar(rnd.Next(1, 50));
+                    chrs[chr] = Convert.ToChar(rnd.Next('а', 'я'));
                     book.Author = new string(chrs);
                 }
             }
             else //Плагиат
             {
                 errorType = "ПЛАГИАТ";
+
                 string newAuthor = book.Author;
-                //while (newAuthor == book.Author)
-                //{
-                //    newAuthor = Book.GenerateBook(Store.GetAllBooks(), "").Author; Book.counter--;
-                //}
                 while (newAuthor == book.Author)
                     newAuthor = DB.GetRandomBook()[1];
-
                 book.Author = newAuthor;
             }
             return book;
@@ -370,28 +378,6 @@ namespace ClassLibrary
                 SuppliesQueue.Dequeue();
                 return; //Книга отклонена и удалена из очереди
             }
-
-            ////Проверка случайной поставки
-            //if (!supply.IsOrdered)
-            //{
-            //    //Какая-то проблема с книгой
-            //    if (DB.IsMispell(supply.Book) || DB.IsPlagiarism(supply.Book))
-            //    {
-            //        if (playerChoice)
-            //        {
-            //            Store.Balance -= Fine;
-            //            FineArrived = true;
-            //        }
-            //        else
-            //        {
-            //            Store.Balance += Bonus;
-            //            BonusArrived = true;
-            //        }
-            //    }    
-            //}
-
-            //DB.AddBook(supply.Book); //Добавляем книгу в БД
-            //SuppliesQueue.Dequeue(); //В результате обработки поставка выходит из очереди
         }
 
         public void BuyBook(Book book)
