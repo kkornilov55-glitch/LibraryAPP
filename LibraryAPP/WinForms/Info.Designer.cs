@@ -54,11 +54,11 @@
             // 
             labelTeam.AutoSize = true;
             labelTeam.BackColor = Color.Transparent;
-            labelTeam.Font = new Font("Kepler 296", 10F);
+            labelTeam.Font = new Font("Segoe UI Semibold", 11F, FontStyle.Bold);
             labelTeam.ForeColor = Color.FromArgb(57, 30, 16);
-            labelTeam.Location = new Point(102, 148);
+            labelTeam.Location = new Point(108, 147);
             labelTeam.Name = "labelTeam";
-            labelTeam.Size = new Size(303, 260);
+            labelTeam.Size = new Size(293, 260);
             labelTeam.TabIndex = 1;
             labelTeam.Text = resources.GetString("labelTeam.Text");
             labelTeam.TextAlign = ContentAlignment.MiddleCenter;
