@@ -103,6 +103,27 @@ namespace WinForms
                 MessageBox.Show($"Добавлено!", "Готово", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 ClearForm();
                 Refresh();
+                // Обновляем список книг для текущего жанра
+                if (GenreSelectCB.SelectedItem != null)
+                    ShowBooks();
+
+                    // Если есть текущий покупатель — обновляем для него
+                    if (currentCustomer != null)
+                    {
+                        FillAvailableBooksComboBox(currentCustomer);
+                    }
+                    // Если текущего нет, но есть очередь — берём первого из очереди
+                    else if (GameManager.Instance.CustomersQueue.Count > 0)
+                    {
+                        FillAvailableBooksComboBox(GameManager.Instance.CustomersQueue.Peek());
+                    }
+                    // Если очередь пуста — просто очищаем ComboBox
+                    else
+                    {
+                        cmbAvailableBooks.Items.Clear();
+                        cmbAvailableBooks.Items.Add("Нет покупателей в очереди");
+                        cmbAvailableBooks.Enabled = false;
+                    }
             }
             catch (InvalidOperationException ex)
             {
@@ -210,16 +231,29 @@ namespace WinForms
         private void ShowBooks()
         {
             var g = GenreSelectCB.SelectedItem?.ToString();
-            if (string.IsNullOrEmpty(g)) return;
 
-            dataGridView1.Rows.Clear();
-            foreach (var b in GameManager.Instance.Store.GetBooksByGenre(g))
+            if (string.IsNullOrEmpty(g))
             {
-                var i = dataGridView1.Rows.Add();
-                dataGridView1.Rows[i].Cells["colId"].Value = b.id;
-                dataGridView1.Rows[i].Cells["colTitle"].Value = b.Title;
-                dataGridView1.Rows[i].Cells["colAuthor"].Value = b.Author;
-                dataGridView1.Rows[i].Cells["colPrice"].Value = $"{b.Price:F2} ₽";
+                dataGridView1.Rows.Clear();
+                return;
+            }
+
+            try
+            {
+                dataGridView1.Rows.Clear();
+                foreach (var b in GameManager.Instance.Store.GetBooksByGenre(g))
+                {
+                    var i = dataGridView1.Rows.Add();
+                    dataGridView1.Rows[i].Cells["colId"].Value = b.id;
+                    dataGridView1.Rows[i].Cells["colTitle"].Value = b.Title;
+                    dataGridView1.Rows[i].Cells["colAuthor"].Value = b.Author;
+                    dataGridView1.Rows[i].Cells["colPrice"].Value = $"{b.Price:F2} ₽";
+                }
+            }
+            catch (InvalidOperationException)
+            {
+                // Жанр не найден — просто очищаем таблицу
+                dataGridView1.Rows.Clear();
             }
         }
 
@@ -284,10 +318,8 @@ namespace WinForms
                 return;
             }
 
-            string selected = cmbAvailableBooks.SelectedItem.ToString();
-            int bookId = int.Parse(selected.Split(':')[1].Trim().Split(' ')[0]);
+            Book bookToSell = cmbAvailableBooks.SelectedItem as Book;
 
-            Book bookToSell = GameManager.Instance.Store.FindBookById(bookId);
             if (bookToSell == null)
             {
                 MessageBox.Show("Книга не найдена!", "Ошибка",
@@ -323,7 +355,7 @@ namespace WinForms
                 return;
             }
 
-            GameManager.Instance.Store.SellBook(bookId);
+            GameManager.Instance.Store.SellBook(bookToSell.id);
             double profit = sellPrice - bookToSell.Price;
             GameManager.Instance.Store.Balance += profit;
 
@@ -445,6 +477,17 @@ namespace WinForms
                 }
             }
 
+            int totalCustomers = GameManager.Instance.CustomersQueue.Count;
+            if (currentCustomer != null)
+                totalCustomers++;
+
+            if (GameManager.Instance.CheckCustomerLimit(totalCustomers))
+            {
+                GameOver(GameManager.Instance.LoseReason);
+                return;
+            }
+
+
             UpdateCounters();
         }
 
@@ -469,12 +512,12 @@ namespace WinForms
 
             var allBooks = GameManager.Instance.Store.GetAllBooks();
 
+
             if (allBooks.Count > 0)
             {
                 foreach (var book in allBooks)
                 {
-                    cmbAvailableBooks.Items.Add(
-                        $"«{book.Title}» ({book.Genre}) — {book.Price:F2} ₽ (ID: {book.id})");
+                    cmbAvailableBooks.Items.Add(book);
                 }
                 cmbAvailableBooks.Enabled = true;
             }

@@ -220,5 +220,11 @@ namespace ClassLibrary
                 : $"{title} {newNumber}";
         }
 
+        // Для вывода книг в покупателях
+        public override string ToString()
+        {
+            return $"«{Title}» ({Genre}) — {Price:F2} ₽";
+        }
+
     }
 }

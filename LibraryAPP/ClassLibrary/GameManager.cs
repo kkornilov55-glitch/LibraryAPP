@@ -133,12 +133,13 @@ namespace ClassLibrary
             }
 
             //Поражения и причины
-            if (CustomersQueue.Count > maxCustomersQueue)
-            {
-                Lose = true;
-                LoseReason = "В очереди слишком много покупателей!";
-                return;
-            }
+            //if (CustomersQueue.Count > maxCustomersQueue)
+            //{
+            //    Lose = true;
+            //    LoseReason = "В очереди слишком много покупателей!";
+            //    return;
+            //}
+
             else if (SuppliesQueue.Count > maxSuppliesQueue)
             {
                 Lose = true;
@@ -171,6 +172,19 @@ namespace ClassLibrary
                 SuppliesQueue.Enqueue(Supply);
             }
         }
+
+       // Добавила проверку очереди тут отдельно, если что - пофикси, мне просто нужен был отдельный метод
+        public bool CheckCustomerLimit(int totalCustomers)
+        {
+            if (totalCustomers > maxCustomersQueue)
+            {
+                Lose = true;
+                LoseReason = "В очереди слишком много покупателей!";
+                return true;
+            }
+            return false;
+        }
+
         private Customer GenerateRandomCustomer()
         {
             Customer customer;

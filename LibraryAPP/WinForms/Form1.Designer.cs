@@ -251,7 +251,7 @@
             AddBookB.Name = "AddBookB";
             AddBookB.Size = new Size(411, 50);
             AddBookB.TabIndex = 13;
-            AddBookB.Text = "СОХРАНИТЬ";
+            AddBookB.Text = "ЗАКАЗАТЬ";
             AddBookB.UseVisualStyleBackColor = false;
             // 
             // panel6
@@ -667,11 +667,11 @@
             // SearchResultTP
             // 
             SearchResultTP.Controls.Add(SearchedBookGrid);
-            SearchResultTP.Location = new Point(4, 29);
+            SearchResultTP.Location = new Point(4, 27);
             SearchResultTP.Margin = new Padding(3, 2, 3, 2);
             SearchResultTP.Name = "SearchResultTP";
             SearchResultTP.Padding = new Padding(3, 2, 3, 2);
-            SearchResultTP.Size = new Size(417, 222);
+            SearchResultTP.Size = new Size(417, 224);
             SearchResultTP.TabIndex = 1;
             SearchResultTP.Text = "Результаты поиска";
             SearchResultTP.UseVisualStyleBackColor = true;
@@ -688,7 +688,7 @@
             SearchedBookGrid.Margin = new Padding(3, 2, 3, 2);
             SearchedBookGrid.Name = "SearchedBookGrid";
             SearchedBookGrid.RowHeadersWidth = 51;
-            SearchedBookGrid.Size = new Size(411, 218);
+            SearchedBookGrid.Size = new Size(411, 220);
             SearchedBookGrid.TabIndex = 0;
             // 
             // ID
