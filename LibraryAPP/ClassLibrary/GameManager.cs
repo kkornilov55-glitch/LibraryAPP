@@ -267,7 +267,8 @@ namespace ClassLibrary
                 //{
                 //    newAuthor = Book.GenerateBook(Store.GetAllBooks(), "").Author; Book.counter--;
                 //}
-                newAuthor = DB.GetRandomBook()[1];
+                while (newAuthor == book.Author)
+                    newAuthor = DB.GetRandomBook()[1];
 
                 book.Author = newAuthor;
             }
