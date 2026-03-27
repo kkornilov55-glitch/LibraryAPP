@@ -141,7 +141,7 @@ namespace ClassLibrary
             SuppliesArrived = false;
             
             //День пережит!
-            if (DayLength >= newTime)
+            if (newTime >= DayLength)
             {
                 Win = true;
                 return;
