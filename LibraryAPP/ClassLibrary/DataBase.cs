@@ -67,7 +67,7 @@ namespace ClassLibrary
             {
                 LibraryBooks.Add((book.Title, book.Author));
 
-                string line = $"\n{book.Title}|{book.Author}";
+                string line = $"{book.Title}|{book.Author}" + Environment.NewLine;
 
                 File.AppendAllText(DataPath, line);
             }
