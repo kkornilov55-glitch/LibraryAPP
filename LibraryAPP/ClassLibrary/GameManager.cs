@@ -75,17 +75,17 @@ namespace ClassLibrary
         {
             Instance = this;
             Store = new BookStore(5, 1000);
-
-            DB = new DataBase();    
-            DB.ReadFile();
-
-            // вот здесь вот добавила инициализацию очереди
+            
+            //Инициализация очередей и базы данных
             CustomersQueue = new Queue<Customer>();
             SuppliesQueue = new Queue<Supply>();
+            DB = new DataBase();
 
+            //Настройка сложности
             Difficulty = difficulty;
             DifficultySettings();
 
+            //Установка длинны дня
             DayLength = dayLength;
 
         }
@@ -193,7 +193,7 @@ namespace ClassLibrary
         {
             Customer customer;
 
-            Book wishBook = Book.GenerateBook(Store.GetAllBooks(), "");
+            Book wishBook = Book.GenerateBook(Store.GetAllBooks(), ""); Book.counter--;
             int wish = rnd.Next(2); //0 -> конкретная книга, 1 -> жанр
 
             switch(wish)
@@ -252,7 +252,7 @@ namespace ClassLibrary
                 string newAuthor = book.Author;
                 while (newAuthor == book.Author)
                 {
-                    newAuthor = Book.GenerateBook(Store.GetAllBooks(), "").Author;
+                    newAuthor = Book.GenerateBook(Store.GetAllBooks(), "").Author; Book.counter--;
                 }
                 book.Author = newAuthor;
             }
@@ -285,12 +285,17 @@ namespace ClassLibrary
                 UnhappyCustomersCount++;
             }
         }
+
         /// <summary>
-        /// Метод для обработки поставки, согласно выбору пользователя --НЕ РЕАЛИЗОВАНО--
+        /// Обрабатывает поставку: принимает или отклоняет книгу.
+        /// Возвращает true, если поставка обработана и удалена из очереди.
+        /// Возвращает false, если книга осталась в очереди (нет места на полке).
         /// </summary>
         /// <param name="supply">Обрабатываемая поставка</param>
-        /// <param name="playerChoice">Выбор принять/не принять поставку</param>
-        public void SupplyProcessing(Supply supply, bool playerChoice)
+        /// <param name="playerChoice">true = принять, false = отклонить</param>
+        /// <param name="errorType">То какая ошибка, по мнению игрока. Виды(Что передавать): "ОПЕЧАТКА", "ПЛАГИАТ" (по умолчанию = null => не выделил ошибок)</param>
+        /// <returns>True если книга обработана и удалена из очереди</returns>
+        public bool SupplyProcessing(Supply supply, bool playerChoice, string errorType)
         {
             FineArrived = false;
             BonusArrived = false;
@@ -298,31 +303,79 @@ namespace ClassLibrary
             //Принимает поставку
             if (playerChoice)
             {
-                Store.AddBook(supply.Book); //Добавляем книгу
-                
-            }
-
-            //Проверка случайной поставки
-            if (!supply.IsOrdered)
-            {
-                //Какая-то проблема с книгой
-                if (DB.IsMispell(supply.Book) || DB.IsPlagiarism(supply.Book))
+                try
                 {
-                    if (playerChoice)
+                    Store.SubtractFromBalance(supply.Price); //Списываем деньги
+                    Store.AddBook(supply.Book); //Добавляем книгу
+
+                    // Логика бонусов/штрафов для случайных поставок с ошибками
+                    if (!supply.IsOrdered && supply.HasError)
                     {
-                        Store.Balance -= Fine;
-                        FineArrived = true;
+                        if (supply.ErrorType == errorType)
+                        {
+                            // Игрок правильно определил ошибку при принятии => бонус
+                            Store.Balance += Bonus;
+                            BonusArrived = true;
+                        }
+                        else
+                        {
+                            // Игрок не заметил ошибку => штраф
+                            Store.Balance -= Fine;
+                            FineArrived = true;
+                        }
                     }
-                    else
+
+                    // Добавляем в БД только корректные книги (без ошибок)
+                    if (!supply.HasError)
                     {
-                        Store.Balance += Bonus;
-                        BonusArrived = true;
+                        DB.AddBook(supply.Book);
                     }
-                }    
+
+                    //Поставка принята
+                    return true;
+                }
+                catch (InvalidOperationException)
+                {
+                    // Нет места на полке — возвращаем средства и НЕ удаляем из очереди
+                    Store.Balance += supply.Price;
+                    return false; // Книга осталась в очереди
+                }
+            }
+            else
+            {
+                //Игрок отклоняет книгу
+                if (!supply.IsOrdered && supply.HasError && supply.ErrorType == errorType)
+                {
+                    // Правильно отклонил книгу с ошибкой → бонус
+                    Store.Balance += Bonus;
+                    BonusArrived = true;
+                }
+                //Если отклонил нормальную книгу — просто теряем её, без возврата средств
+
+                return true; //Книга отклонена и удалена из очереди
             }
 
-            DB.AddBook(supply.Book); //Добавляем книгу в БД
-            SuppliesQueue.Dequeue(); //В результате обработки поставка выходит из очереди
+            ////Проверка случайной поставки
+            //if (!supply.IsOrdered)
+            //{
+            //    //Какая-то проблема с книгой
+            //    if (DB.IsMispell(supply.Book) || DB.IsPlagiarism(supply.Book))
+            //    {
+            //        if (playerChoice)
+            //        {
+            //            Store.Balance -= Fine;
+            //            FineArrived = true;
+            //        }
+            //        else
+            //        {
+            //            Store.Balance += Bonus;
+            //            BonusArrived = true;
+            //        }
+            //    }    
+            //}
+
+            //DB.AddBook(supply.Book); //Добавляем книгу в БД
+            //SuppliesQueue.Dequeue(); //В результате обработки поставка выходит из очереди
         }
     }
 }

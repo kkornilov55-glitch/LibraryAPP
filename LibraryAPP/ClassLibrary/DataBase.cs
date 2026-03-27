@@ -112,7 +112,7 @@ namespace ClassLibrary
 
             foreach (var ExistingBook in LibraryBooks)
             {
-                if (ExistingBook.Author.Equals(book.Author, StringComparison.OrdinalIgnoreCase)) //Если автор существует укаазываем это
+                if (ExistingBook.Author.Equals(book.Author, StringComparison.OrdinalIgnoreCase)) //Если автор существует указываем это
                 {
                     AuthorExists = true;
 
