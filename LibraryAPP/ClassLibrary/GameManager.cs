@@ -286,11 +286,11 @@ namespace ClassLibrary
         /// <param name="price">Цена, по которой игрок желает продать книгу</param>
         public void SellToCustomer(Customer customer, Book book, double price)
         {
-            Customer targetCustomer = CustomersQueue.Dequeue();
+            //Customer targetCustomer = CustomersQueue.Dequeue();
 
             //Пробуем продать
-            targetCustomer.MatchedBook(book, price);
-            if (targetCustomer.isHappy) //Понравилась, принял
+            customer.MatchedBook(book, price);
+            if (customer.isHappy) //Понравилась, принял
             {
                 Store.Balance += price - book.Price; //Зачисляем наценку
                 Store.SellBook(book.id); //Зачисляем цену книги

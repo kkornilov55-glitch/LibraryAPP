@@ -366,7 +366,7 @@ namespace WinForms
                 return;
             }
 
-            // Получаем объект книги из ComboBox (хранится как объект, не строка)
+            // Получаем объект книги из ComboBox
             Book bookToSell = cmbAvailableBooks.SelectedItem as Book;
 
             if (bookToSell == null)
@@ -377,46 +377,37 @@ namespace WinForms
             }
 
             // Проверяем, доволен ли покупатель книгой и ценой
-            currentCustomer.MatchedBook(bookToSell, sellPrice);
+            GameManager.Instance.SellToCustomer(currentCustomer, bookToSell, sellPrice);
 
+            // Обрабатываем результат
             if (!currentCustomer.isHappy)
             {
-                // Покупатель недоволен: увеличиваем счётчик, показываем причину
-                GameManager.Instance.UnhappyCustomersCount++;
-
-                string reason = "Неподходящая книга или цена";
-                double maxPrice = bookToSell.Price * 1.15;
-                if (sellPrice > maxPrice)
-                    reason = $"Цена {sellPrice:F2} ₽ > макс. {maxPrice:F2} ₽";
-                else
-                    reason = "Книга не соответствует запросу";
-
+                // Сообщаем о результате
                 MessageBox.Show(
-                    $"Покупатель ушёл!\nПричина: {reason}",
+                    $"Покупатель ушёл!\nКнига не соответствует его требованиям.",
                     "Отказ", MessageBoxButtons.OK, MessageBoxIcon.Warning);
 
-                // Проверка условия проигрыша по недовольным клиентам
+                // Проверка условия проигрыша
                 if (GameManager.Instance.UnhappyCustomersCount >= GameManager.Instance.maxUnhappyCustomres)
                 {
                     GameOver(GameManager.Instance.LoseReason);
                     return;
                 }
-
                 currentCustomer = null;
                 UpdateCustomerView();
                 return;
             }
+            else
+            {
+                // Успешная продажа: вычисляем прибыль для отображения
+                double profit = sellPrice - bookToSell.Price;
 
-            // Успешная продажа: обновляем баланс, удаляем книгу
-            GameManager.Instance.Store.SellBook(bookToSell.id);
-            double profit = sellPrice - bookToSell.Price;
-            GameManager.Instance.Store.Balance += profit;
-
-            MessageBox.Show(
-                $"Продано!\n" +
-                $"Книга: «{bookToSell.Title}»\n" +
-                $"Цена: {sellPrice:F2} ₽ | Прибыль: {profit:F2} ₽",
-                "Успех!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show(
+                    $"Продано!\n" +
+                    $"Книга: «{bookToSell.Title}»\n" +
+                    $"Цена: {sellPrice:F2} ₽ | Прибыль: {profit:F2} ₽",
+                    "Успех!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
 
             currentCustomer = null;
             UpdateCustomerView();
