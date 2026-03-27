@@ -8,6 +8,9 @@ using System.Windows.Forms;
 
 namespace WinForms
 {
+    /// <summary>
+    /// Информация о разработчиках игры
+    /// </summary>
     public partial class Info : Form
     {
         public Info()

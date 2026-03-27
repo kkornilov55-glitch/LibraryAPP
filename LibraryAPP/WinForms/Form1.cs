@@ -7,15 +7,29 @@ using ClassLibrary;
 namespace WinForms
 {
     /// <summary>
-    /// Главная форма
+    /// Главная форма приложения "Книжный магазин"
+    /// Отвечает за отображение интерфейса, обработку пользовательского ввода и координацию с GameManager
     /// </summary>
     public partial class BookStoreF : Form
     {
+        // ============================================================================
+        // ПОЛЯ КЛАССА
+        // ============================================================================
 
-
-        // Храним ссылку на последнюю сгенерированную, но не сохраненную книгу
+        /// <summary>
+        /// Хранит ссылку на последнюю сгенерированную, но ещё не сохранённую книгу
+        /// Используется для корректного управления счётчиком ID при отмене генерации
+        /// </summary>
         private Book _currentGeneratedBook = null;
 
+
+        // ============================================================================
+        // КОНСТРУКТОР И ИНИЦИАЛИЗАЦИЯ
+        // ============================================================================
+
+        /// <summary>
+        /// Конструктор формы: инициализирует UI, подписывает события, запускает таймер
+        /// </summary>
         public BookStoreF()
         {
             InitializeComponent();
@@ -25,7 +39,6 @@ namespace WinForms
 
             UpdateCounters();
             timeCustomer.Start();
-
 
             // Скрываем вкладку панель с покупателями по умолчанию
             pnlCustomerArea.Visible = false;
@@ -43,7 +56,10 @@ namespace WinForms
             Refresh();
         }
 
-        //ВАЛИДАЦИЯ
+
+        // ============================================================================
+        // ВАЛИДАЦИЯ ВВОДА
+        // ============================================================================
 
         /// <summary>Проверяет, что строка не пустая.</summary>
         private bool Required(string s, string name) =>
@@ -63,9 +79,15 @@ namespace WinForms
             return false;
         }
 
-        //ОСНОВНЫЕ ДЕЙСТВИЯ
 
-        /// <summary>Добавляет книгу</summary>
+        // ============================================================================
+        // ОСНОВНЫЕ ДЕЙСТВИЯ: КНИГИ
+        // ============================================================================
+
+        /// <summary>
+        /// Добавляет книгу в магазин по данным из формы
+        /// Проверяет валидность ввода, баланс, уникальность названия, списывает средства
+        /// </summary>
         private void AddBook()
         {
             var t = TitleTB.Text.Trim();
@@ -90,6 +112,7 @@ namespace WinForms
 
             try
             {
+                // Проверка баланса перед покупкой
                 if (GameManager.Instance.Store.Balance < pr)
                 {
                     MessageBox.Show($"Недостаточно средств!", "Ошибка",
@@ -97,17 +120,19 @@ namespace WinForms
                     return;
                 }
 
+                // Списываем средства и добавляем книгу в магазин
                 GameManager.Instance.Store.SubtractFromBalance(pr);
                 GameManager.Instance.Store.AddBook(newBook);
 
                 MessageBox.Show($"Добавлено!", "Готово", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 ClearForm();
                 Refresh();
+
                 // Обновляем список книг для текущего жанра
                 if (GenreSelectCB.SelectedItem != null)
                     ShowBooks();
 
-                // Если есть текущий покупатель — обновляем для него
+                // Обновляем ComboBox покупателя, если он активен
                 if (currentCustomer != null)
                 {
                     FillAvailableBooksComboBox(currentCustomer);
@@ -131,8 +156,6 @@ namespace WinForms
             }
         }
 
-
-
         /// <summary>Генерирует книгу через библиотеку и заполняет форму.</summary>
         private void Generate()
         {
@@ -144,6 +167,7 @@ namespace WinForms
 
             _currentGeneratedBook = Book.GenerateBook(GameManager.Instance.Store.GetAllBooks(), "");
 
+            // Заполняем форму сгенерированными данными
             TitleTB.Text = _currentGeneratedBook.Title;
             AuthorTB.Text = _currentGeneratedBook.Author;
             GenreTB.Text = _currentGeneratedBook.Genre;
@@ -154,7 +178,7 @@ namespace WinForms
             MessageBox.Show($"Сгенерировано: {_currentGeneratedBook.Title}", "Готово", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
-        /// <summary>Продаёт выделенную книгу через библиотеку.</summary>
+        /// <summary>Продаёт выделенную книгу через библиотеку (без покупателя).</summary>
         private void Sell()
         {
             if (dataGridView1.SelectedRows.Count == 0 && SearchedBookGrid.SelectedRows.Count == 0)
@@ -163,6 +187,7 @@ namespace WinForms
                 return;
             }
 
+            // Получаем ID книги из выделенной строки
             var v = dataGridView1.SelectedRows.Count == 0 ? SearchedBookGrid.SelectedRows[0].Cells["ID"].Value : dataGridView1.SelectedRows[0].Cells["colId"].Value;
             if (v == null || !int.TryParse(v.ToString(), out var id))
             {
@@ -177,7 +202,7 @@ namespace WinForms
             Refresh(); ShowBooks();
         }
 
-        /// <summary>Очищает шкаф выбранного жанра.</summary>
+        /// <summary>Очищает (продает все книги) шкаф выбранного жанра.</summary>
         private void ClearShelf()
         {
             var g = GenreSelectCB.SelectedItem?.ToString();
@@ -203,8 +228,12 @@ namespace WinForms
             SearchBooks(book);
         }
 
-        //ВСПОМОГАТЕЛЬНЫЕ МЕТОДЫ
 
+        // ============================================================================
+        // ВСПОМОГАТЕЛЬНЫЕ МЕТОДЫ ОТОБРАЖЕНИЯ
+        // ============================================================================
+
+        /// <summary> Очищает поля формы заказа книги </summary>
         private void ClearForm()
         {
             TitleTB.Clear(); AuthorTB.Clear(); GenreTB.Clear();
@@ -213,6 +242,7 @@ namespace WinForms
             _currentGeneratedBook = null;
         }
 
+        /// <summary> Обновляет отображение баланса и списка жанров в интерфейсе </summary>
         private void Refresh()
         {
             BalanceL.Text = $"{GameManager.Instance.Store.Balance:F2} ₽";
@@ -228,6 +258,7 @@ namespace WinForms
                 dataGridView1.Rows.Clear();
         }
 
+        /// <summary> Отображает книги выбранного жанра в DataGridView (вкладка Магазин) </summary>
         private void ShowBooks()
         {
             var g = GenreSelectCB.SelectedItem?.ToString();
@@ -257,6 +288,7 @@ namespace WinForms
             }
         }
 
+        /// <summary> Отображает найденную книгу в отдельной таблице и переключает вкладку </summary>
         private void SearchBooks(Book b)
         {
             SearchedBookGrid.Rows.Clear();
@@ -281,6 +313,7 @@ namespace WinForms
                 MessageBoxButtons.OK, b != null ? MessageBoxIcon.Information : MessageBoxIcon.Warning);
         }
 
+        /// <summary> Возврат в главное меню </summary>
         private void btnHome_Click(object sender, EventArgs e)
         {
             this.Hide();
@@ -290,12 +323,16 @@ namespace WinForms
 
 
 
-        // ============= ПОКУПАТЕЛИ ================
+        // ============================================================================
+        // ПОКУПАТЕЛИ
+        // ============================================================================
 
-        private Customer currentCustomer = null;
-        private int gameTimer = 0;
+        private Customer currentCustomer = null; // Текущий обслуживаемый покупатель
+        private int gameTimer = 0; // Счётчик игрового времени (секунды)
 
-        // Кнопка продать
+        /// <summary>
+        /// Кнопка продать: проверяет соответствие книги запросу, цену, обновляет баланс и статистику
+        /// </summary>
         private void btnSellToCustomer_Click(object sender, EventArgs e)
         {
             if (currentCustomer == null)
@@ -319,6 +356,7 @@ namespace WinForms
                 return;
             }
 
+            // Получаем объект книги из ComboBox (хранится как объект, не строка)
             Book bookToSell = cmbAvailableBooks.SelectedItem as Book;
 
             if (bookToSell == null)
@@ -328,10 +366,12 @@ namespace WinForms
                 return;
             }
 
+            // Проверяем, доволен ли покупатель книгой и ценой
             currentCustomer.MatchedBook(bookToSell, sellPrice);
 
             if (!currentCustomer.isHappy)
             {
+                // Покупатель недоволен: увеличиваем счётчик, показываем причину
                 GameManager.Instance.UnhappyCustomersCount++;
 
                 string reason = "Неподходящая книга или цена";
@@ -345,6 +385,7 @@ namespace WinForms
                     $"Покупатель ушёл!\nПричина: {reason}",
                     "Отказ", MessageBoxButtons.OK, MessageBoxIcon.Warning);
 
+                // Проверка условия проигрыша по недовольным клиентам
                 if (GameManager.Instance.UnhappyCustomersCount >= GameManager.Instance.maxUnhappyCustomres)
                 {
                     GameOver(GameManager.Instance.LoseReason);
@@ -356,6 +397,7 @@ namespace WinForms
                 return;
             }
 
+            // Успешная продажа: обновляем баланс, удаляем книгу
             GameManager.Instance.Store.SellBook(bookToSell.id);
             double profit = sellPrice - bookToSell.Price;
             GameManager.Instance.Store.Balance += profit;
@@ -371,7 +413,9 @@ namespace WinForms
             Refresh();
         }
 
-        // Кнопка отказать
+        /// <summary>
+        /// Кнопка отказать: увеличивает счётчик недовольных, переходит к следующему покупателю
+        /// </summary>
         private void btnRejectCustomer_Click(object sender, EventArgs e)
         {
             if (currentCustomer == null)
@@ -394,7 +438,10 @@ namespace WinForms
             UpdateCustomerView();
         }
 
-        // Экран проигрыша
+        /// <summary>
+        /// Экран завершения игры (победа или проигрыш)
+        /// </summary>
+        /// <param name="reason">Причина проигрыша</param>
         private void GameOver(string reason)
         {
             GameManager.Instance.Lose = true;
@@ -427,7 +474,14 @@ namespace WinForms
             mainMenu.Show();
         }
 
-        // Таймер
+
+        // ============================================================================
+        // ТАЙМЕР ИГРЫ
+        // ============================================================================
+
+        /// <summary>
+        /// Обработчик игрового таймера: обновляет события, проверяет приходы покупателей/поставок
+        /// </summary>
         private void timeCustomer_Tick(object sender, EventArgs e)
         {
             gameTimer++;
@@ -455,10 +509,17 @@ namespace WinForms
             UpdateCounters();
         }
 
-        // Обновление отображения очереди и текущего покупателя
+        // ============================================================================
+        // ОТОБРАЖЕНИЕ ПОКУПАТЕЛЕЙ
+        // ============================================================================
+
+        /// <summary>
+        /// Обновляет отображение очереди и текущего покупателя на форме
+        /// Также проверяет лимит очереди и завершает игру при превышении лимита
+        /// </summary>
         private void UpdateCustomerView()
         {
-
+            // Обновляем список очереди
             lstCustomersQueue.Items.Clear();
             foreach (var customer in GameManager.Instance.CustomersQueue)
             {
@@ -466,7 +527,7 @@ namespace WinForms
                 lstCustomersQueue.Items.Add(displayText);
             }
 
-            // Показываем/скрываем панель
+            // Показываем/скрываем панель покупателя
             if (GameManager.Instance.CustomersQueue.Count == 0 && currentCustomer == null)
             {
 
@@ -477,7 +538,8 @@ namespace WinForms
             {
 
                 pnlCustomerArea.Visible = true;
-
+              
+                // Если нет текущего, но есть очередь — берём следующего
                 if (currentCustomer == null && GameManager.Instance.CustomersQueue.Count > 0)
                 {
                     currentCustomer = GameManager.Instance.CustomersQueue.Dequeue();
@@ -485,6 +547,7 @@ namespace WinForms
                 }
             }
 
+            // Проверка лимита покупателей (очередь + текущий)
             int totalCustomers = GameManager.Instance.CustomersQueue.Count;
             if (currentCustomer != null)
                 totalCustomers++;
@@ -499,13 +562,17 @@ namespace WinForms
             UpdateCounters();
         }
 
-        // Получение текста для отображения покупателя
+        /// <summary>
+        /// Получение текста для отображения покупателя
+        /// </summary>
         private string GetCustomerDisplayText(Customer customer)
         {
             return $"{customer.RequestDisplayText}";
         }
 
-        // Показать текущего покупателя
+        /// <summary>
+        /// Показывает текущего покупателя и заполняет ComboBox доступными книгами
+        /// </summary>
         private void ShowCurrentCustomer(Customer customer)
         {
             lblCustomerRequest.Text = customer.RequestDisplayText;
@@ -513,7 +580,9 @@ namespace WinForms
             txtSellPrice.Clear();
         }
 
-        // Заполнить ComboBox книгами
+        /// <summary>
+        /// Заполняет ComboBox объектами книг из магазина для выбора покупателем
+        /// </summary>
         private void FillAvailableBooksComboBox(Customer customer)
         {
             cmbAvailableBooks.Items.Clear();
@@ -538,7 +607,9 @@ namespace WinForms
             cmbAvailableBooks.SelectedIndex = 0;
         }
 
-        // Обновление счётчиков на верхней панели
+        /// <summary>
+        /// Обновление счётчиков на верхней панели (очередь покупателей и недовольные клиенты)
+        /// </summary>
         private void UpdateCounters()
         {
             int totalInQueue = GameManager.Instance.CustomersQueue.Count;
@@ -552,9 +623,15 @@ namespace WinForms
             lblUnhappyCount.Text = $"{GameManager.Instance.UnhappyCustomersCount}/{GameManager.Instance.maxUnhappyCustomres}";
         }
 
-        // ============= ПОСТАВКИ ================
 
-        // Показывает текущую книгу из очереди поставок
+        // ============================================================================
+        // ПОСТАВКИ
+        // ============================================================================
+      
+        /// <summary>
+        /// Показывает текущую книгу из очереди поставок на вкладке "Поставки"
+        /// Заполняет поля только для чтения, устанавливает RadioButton по типу ошибки
+        /// </summary>
         private void ShowCurrentSupply()
         {
             if (GameManager.Instance.SuppliesQueue.Count == 0)
@@ -583,8 +660,9 @@ namespace WinForms
             lblSuppliesQueue.Text = $"В очереди поставок: {GameManager.Instance.SuppliesQueue.Count}";
         }
 
-
-        // Проверяет появление новых поставок и показывает вкладку
+        /// <summary>
+        /// Проверяет появление новых поставок и автоматически показывает вкладку "Поставки"
+        /// </summary>
         private void ProcessSupplyArrival()
         {
             if (GameManager.Instance.SuppliesQueue.Count > 0 && !MainTC.TabPages.Contains(Supples))
@@ -594,13 +672,17 @@ namespace WinForms
             }
         }
 
-        // Кнопка принять (книгу)
+        /// <summary>
+        /// Кнопка принять (книгу) В РАБОТЕ
+        /// </summary>
         private void btnAcceptSupply_Click(object sender, EventArgs e)
         {
 
         }
 
-        // Кнопка отклонить (книгу)
+        /// <summary>
+        /// Кнопка отклонить (книгу) В РАБОТЕ
+        /// </summary>
         private void btnRejectSupply_Click(object sender, EventArgs e)
         {
 

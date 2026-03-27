@@ -8,6 +8,9 @@ using System.Windows.Forms;
 
 namespace WinForms
 {
+    /// <summary>
+    /// Информация об игре: правила, инструкция, информация об игре
+    /// </summary>
     public partial class AboutForm : Form
     {
         public AboutForm()

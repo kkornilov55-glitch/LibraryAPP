@@ -9,6 +9,9 @@ using ClassLibrary;
 
 namespace WinForms
 {
+    /// <summary>
+    /// Главное меню игры
+    /// </summary>
     public partial class MainMenu : Form
     {
         public MainMenu()
@@ -16,6 +19,9 @@ namespace WinForms
             InitializeComponent();
         }
 
+        /// <summary>
+        /// Кнопка начать игру, открывает диалог выбора сложности
+        /// </summary>
         private void butGameStart_Click(object sender, EventArgs e)
         {
             DifficultySelectionDialog difficultyDialog = new DifficultySelectionDialog();
@@ -34,12 +40,18 @@ namespace WinForms
             }
         }
 
+        /// <summary>
+        /// Кнопка Об игре
+        /// </summary>
         private void btnAboutGame_Click(object sender, EventArgs e)
         {
             AboutForm aboutForm = new AboutForm();
             aboutForm.ShowDialog();
         }
 
+        /// <summary>
+        /// Кнопка выхода из игры
+        /// </summary>
         private void btnExit_Click(object sender, EventArgs e)
         {
             DialogResult result = MessageBox.Show(
@@ -54,6 +66,9 @@ namespace WinForms
             }
         }
 
+        /// <summary>
+        ///  Кнопка информации о разработчиках
+        /// </summary>
         private void btnInfo_Click(object sender, EventArgs e)
         {
             Info infoForm = new Info();
