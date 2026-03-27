@@ -235,22 +235,19 @@ namespace ClassLibrary
             if (rnd.Next(2) == 0) //Опечатка
             {
                 errorType = "ОПЕЧАТКА";
-                while (!DB.IsMispell(book))
+                if (rnd.Next(2) == 0) //В названии
                 {
-                    if (rnd.Next(2) == 0) //В названии
-                    {
-                        int chr = rnd.Next(0, book.Title.Length); //Индекс буквы
-                        char[] chrs = book.Title.ToCharArray(); //Название книги -> массив символов
-                        chrs[chr] = Convert.ToChar(rnd.Next(1, 50)); //Замена случайного символа
-                        book.Title = new string(chrs); //Подменяем название
-                    }
-                    else //В авторе
-                    {
-                        int chr = rnd.Next(0, book.Author.Length);
-                        char[] chrs = book.Author.ToCharArray();
-                        chrs[chr] = Convert.ToChar(rnd.Next(1, 50));
-                        book.Author = new string(chrs);
-                    }
+                    int chr = rnd.Next(0, book.Title.Length); //Индекс буквы
+                    char[] chrs = book.Title.ToCharArray(); //Название книги -> массив символов
+                    chrs[chr] = Convert.ToChar(rnd.Next(1, 50)); //Замена случайного символа
+                    book.Title = new string(chrs); //Подменяем название
+                }
+                else //В авторе
+                {
+                    int chr = rnd.Next(0, book.Author.Length);
+                    char[] chrs = book.Author.ToCharArray();
+                    chrs[chr] = Convert.ToChar(rnd.Next(1, 50));
+                    book.Author = new string(chrs);
                 }
             }
             else //Плагиат
@@ -261,8 +258,7 @@ namespace ClassLibrary
                 //{
                 //    newAuthor = Book.GenerateBook(Store.GetAllBooks(), "").Author; Book.counter--;
                 //}
-                while (!DB.IsPlagiarism(book))
-                    newAuthor = DB.GetRandomBook()[1];
+                newAuthor = DB.GetRandomBook()[1];
 
                 book.Author = newAuthor;
             }
