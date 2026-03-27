@@ -670,8 +670,9 @@ namespace WinForms
             if (GameManager.Instance.SuppliesQueue.Count > 0 && !MainTC.TabPages.Contains(Supples))
             {
                 MainTC.TabPages.Add(Supples);
-                ShowCurrentSupply();
             }
+
+            ShowCurrentSupply();
         }
 
         /// <summary>
