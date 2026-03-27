@@ -14,7 +14,7 @@ namespace ClassLibrary
         public string ErrorType { get; set; }
 
         // Конструктор
-        public Supply(Book book, bool isOrdered, double price, bool hasError, string errorType)
+        public Supply(Book book, bool isOrdered, bool hasError, string errorType)
         {
             Book = book;
             IsOrdered = isOrdered;

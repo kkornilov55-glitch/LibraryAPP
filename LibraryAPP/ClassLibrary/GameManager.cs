@@ -236,7 +236,7 @@ namespace ClassLibrary
 
             }
 
-            Supply supply = new Supply(book, false, book.Price, bookHasError,errorType);
+            Supply supply = new Supply(book, false, bookHasError,errorType);
             return supply;
         }
         private Book GenerateRandomError(Book book, out string errorType)
@@ -390,6 +390,27 @@ namespace ClassLibrary
 
             //DB.AddBook(supply.Book); //Добавляем книгу в БД
             //SuppliesQueue.Dequeue(); //В результате обработки поставка выходит из очереди
+        }
+
+        public bool BuyBook(Book book)
+        {
+            try
+            {
+                Supply orderedSupply = new Supply(book, true, false, "");
+                SuppliesQueue.Enqueue(orderedSupply);
+            }
+            catch (InvalidOperationException)
+            {
+                throw new InvalidOperationException("Недостаточно средств!");
+            }
+
+            if (SuppliesQueue.Count > maxSuppliesQueue)
+            {
+                Lose = true;
+                return false;
+            }
+
+            return true;
         }
     }
 }
