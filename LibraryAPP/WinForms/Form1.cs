@@ -200,6 +200,16 @@ namespace WinForms
             GameManager.Instance.Store.SellBook(id);
             MessageBox.Show("Продано!", "Готово", MessageBoxButtons.OK, MessageBoxIcon.Information);
             Refresh(); ShowBooks();
+
+            // Обновляем ComboBox у покупателя (если он есть)
+            if (currentCustomer != null)
+            {
+                FillAvailableBooksComboBox(currentCustomer);
+            }
+            else if (GameManager.Instance.CustomersQueue.Count > 0)
+            {
+                FillAvailableBooksComboBox(GameManager.Instance.CustomersQueue.Peek());
+            }
         }
 
         /// <summary>Очищает (продает все книги) шкаф выбранного жанра.</summary>
