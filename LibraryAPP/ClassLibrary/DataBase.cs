@@ -16,11 +16,11 @@ namespace ClassLibrary
         public void ReadFile()
         {
 
-            if (!File.Exists(DataPath))
+            if (new FileInfo(DataPath).Length  == 0)
             {
                 if (File.Exists(PrePath))
                 {
-                    File.Copy(PrePath, DataPath);
+                    File.Copy(PrePath, DataPath, true);
                 }
 
                 else

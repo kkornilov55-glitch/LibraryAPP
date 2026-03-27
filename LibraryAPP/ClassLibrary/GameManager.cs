@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Net;
 using System.Text;
+using System.IO;
 
 namespace ClassLibrary
 {
@@ -74,6 +75,9 @@ namespace ClassLibrary
         {
             Instance = this;
             Store = new BookStore(5, 1000);
+
+            DB = new DataBase();    
+            DB.ReadFile();
 
             // вот здесь вот добавила инициализацию очереди
             CustomersQueue = new Queue<Customer>();
@@ -295,6 +299,7 @@ namespace ClassLibrary
             if (playerChoice)
             {
                 Store.AddBook(supply.Book); //Добавляем книгу
+                DB.AddBook(supply.Book);
             }
 
             //Проверка случайной поставки
@@ -316,7 +321,7 @@ namespace ClassLibrary
                 }    
             }
 
-            DB.AddBook(supply.Book); //Добавляем книгу в БД
+             //Добавляем книгу в БД
             SuppliesQueue.Dequeue(); //В результате обработки поставка выходит из очереди
         }
     }
