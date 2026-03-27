@@ -299,7 +299,7 @@ namespace ClassLibrary
             else //Не понравилась, не принял
             {
                 UnhappyCustomersCount++;
-                if (UnhappyCustomersCount > maxUnhappyCustomres)
+                if (UnhappyCustomersCount >= maxUnhappyCustomres)
                 {
                     Lose = true;
                     LoseReason = "Слишком много недовольных покупателей";
