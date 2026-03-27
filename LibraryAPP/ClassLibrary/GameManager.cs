@@ -248,16 +248,27 @@ namespace ClassLibrary
 
                 if (rnd.Next(2) == 0) //В названии
                 {
-                    int chr = rnd.Next(0, book.Title.Length); //Индекс буквы
+                    //В пробелы не ставим букв
+                    int chr;
+                    do
+                    {
+                        chr = rnd.Next(1, book.Title.Length); //Индекс буквы
+                    } while (book.Title[chr] == ' ');
+
                     char[] chrs = book.Title.ToCharArray(); //Название книги -> массив символов
-                    chrs[chr] = Convert.ToChar(rnd.Next(1, 50)); //Замена случайного символа
+                    chrs[chr] = Convert.ToChar(rnd.Next('а', 'я')); //Замена случайного символа
                     book.Title = new string(chrs); //Подменяем название
                 }
                 else //В авторе
                 {
-                    int chr = rnd.Next(0, book.Author.Length);
+                    int chr;
+                    do
+                    {
+                        chr = rnd.Next(1, book.Author.Length);
+                    } while (book.Author[chr] == ' ');
+
                     char[] chrs = book.Author.ToCharArray();
-                    chrs[chr] = Convert.ToChar(rnd.Next(1, 50));
+                    chrs[chr] = Convert.ToChar(rnd.Next('а', 'я'));
                     book.Author = new string(chrs);
                 }
             }
