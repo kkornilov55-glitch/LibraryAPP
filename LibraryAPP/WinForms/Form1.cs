@@ -124,6 +124,7 @@ namespace WinForms
                 //GameManager.Instance.Store.SubtractFromBalance(pr);
                 //GameManager.Instance.Store.AddBook(newBook);
                 GameManager.Instance.BuyBook(newBook);
+                GameManager.Instance.DB.AddBook(newBook);
 
                 MessageBox.Show($"Заказ скоро будет доставлен!", "Ожидайте", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 ClearForm();
