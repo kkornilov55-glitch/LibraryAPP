@@ -240,7 +240,7 @@ namespace ClassLibrary
             return supply;
         }
         private Book GenerateRandomError(Book book, out string errorType)
-        {
+       {
             if (rnd.Next(2) == 0) //Опечатка
             {
                 errorType = "ОПЕЧАТКА";
@@ -298,6 +298,11 @@ namespace ClassLibrary
             else //Не понравилась, не принял
             {
                 UnhappyCustomersCount++;
+                if (UnhappyCustomersCount > maxUnhappyCustomres)
+                {
+                    Lose = true;
+                    return;
+                }    
             }
         }
 
