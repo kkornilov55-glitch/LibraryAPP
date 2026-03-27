@@ -80,6 +80,7 @@ namespace ClassLibrary
             CustomersQueue = new Queue<Customer>();
             SuppliesQueue = new Queue<Supply>();
             DB = new DataBase();
+            DB.ReadFile();
 
             //Настройка сложности
             Difficulty = difficulty;
