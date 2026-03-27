@@ -245,6 +245,7 @@ namespace ClassLibrary
             if (rnd.Next(2) == 0) //Опечатка
             {
                 errorType = "ОПЕЧАТКА";
+
                 if (rnd.Next(2) == 0) //В названии
                 {
                     int chr = rnd.Next(0, book.Title.Length); //Индекс буквы
@@ -263,14 +264,10 @@ namespace ClassLibrary
             else //Плагиат
             {
                 errorType = "ПЛАГИАТ";
+
                 string newAuthor = book.Author;
-                //while (newAuthor == book.Author)
-                //{
-                //    newAuthor = Book.GenerateBook(Store.GetAllBooks(), "").Author; Book.counter--;
-                //}
                 while (newAuthor == book.Author)
                     newAuthor = DB.GetRandomBook()[1];
-
                 book.Author = newAuthor;
             }
             return book;
@@ -370,28 +367,6 @@ namespace ClassLibrary
                 SuppliesQueue.Dequeue();
                 return; //Книга отклонена и удалена из очереди
             }
-
-            ////Проверка случайной поставки
-            //if (!supply.IsOrdered)
-            //{
-            //    //Какая-то проблема с книгой
-            //    if (DB.IsMispell(supply.Book) || DB.IsPlagiarism(supply.Book))
-            //    {
-            //        if (playerChoice)
-            //        {
-            //            Store.Balance -= Fine;
-            //            FineArrived = true;
-            //        }
-            //        else
-            //        {
-            //            Store.Balance += Bonus;
-            //            BonusArrived = true;
-            //        }
-            //    }    
-            //}
-
-            //DB.AddBook(supply.Book); //Добавляем книгу в БД
-            //SuppliesQueue.Dequeue(); //В результате обработки поставка выходит из очереди
         }
 
         public void BuyBook(Book book)
