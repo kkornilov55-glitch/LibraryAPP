@@ -301,7 +301,7 @@ namespace ClassLibrary
         /// <param name="playerChoice">true = принять, false = отклонить</param>
         /// <param name="errorType">То какая ошибка, по мнению игрока. Виды(Что передавать): "ОПЕЧАТКА", "ПЛАГИАТ" (по умолчанию = null => не выделил ошибок)</param>
         /// <returns>True если книга обработана и удалена из очереди</returns>
-        public bool SupplyProcessing(Supply supply, bool playerChoice, string errorType)
+        public void SupplyProcessing(Supply supply, bool playerChoice, string errorType)
         {
             FineArrived = false;
             BonusArrived = false;
@@ -317,18 +317,9 @@ namespace ClassLibrary
                     // Логика бонусов/штрафов для случайных поставок с ошибками
                     if (supply.HasError)
                     {
-                        if (supply.ErrorType == errorType)
-                        {
-                            // Игрок правильно определил ошибку при принятии => бонус
-                            Store.Balance += Bonus;
-                            BonusArrived = true;
-                        }
-                        else
-                        {
-                            // Игрок не заметил ошибку => штраф
-                            Store.Balance -= Fine;
-                            FineArrived = true;
-                        }
+                        // Игрок не заметил ошибку => штраф
+                        Store.Balance -= Fine;
+                        FineArrived = true;
                     }
 
                     // Добавляем в БД только корректные книги (без ошибок)
@@ -338,27 +329,29 @@ namespace ClassLibrary
                     }
 
                     //Поставка принята
-                    return true;
+                    SuppliesQueue.Dequeue();
+                    return;
                 }
                 catch (InvalidOperationException)
                 {
                     // Нет места на полке — возвращаем средства и НЕ удаляем из очереди
                     Store.Balance += supply.Price;
-                    return false; // Книга осталась в очереди
+                    return; // Книга осталась в очереди
                 }
             }
             else
             {
                 //Игрок отклоняет книгу
-                if (!supply.IsOrdered && supply.HasError && supply.ErrorType == errorType)
+                if (supply.HasError && supply.ErrorType == errorType)
                 {
-                    // Правильно отклонил книгу с ошибкой → бонус
+                    //Правильно отклонил книгу с ошибкой → бонус
                     Store.Balance += Bonus;
                     BonusArrived = true;
                 }
-                //Если отклонил нормальную книгу — просто теряем её, без возврата средств
+                //Если отклонил нормальную книгу — просто теряем её
 
-                return true; //Книга отклонена и удалена из очереди
+                SuppliesQueue.Dequeue();
+                return; //Книга отклонена и удалена из очереди
             }
 
             ////Проверка случайной поставки
