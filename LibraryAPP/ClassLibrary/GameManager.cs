@@ -299,7 +299,7 @@ namespace ClassLibrary
             if (playerChoice)
             {
                 Store.AddBook(supply.Book); //Добавляем книгу
-                DB.AddBook(supply.Book);
+                
             }
 
             //Проверка случайной поставки
@@ -321,7 +321,7 @@ namespace ClassLibrary
                 }    
             }
 
-             //Добавляем книгу в БД
+            DB.AddBook(supply.Book); //Добавляем книгу в БД
             SuppliesQueue.Dequeue(); //В результате обработки поставка выходит из очереди
         }
     }
