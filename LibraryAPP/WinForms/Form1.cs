@@ -123,6 +123,7 @@ namespace WinForms
                 // Списываем средства и добавляем книгу в магазин
                 GameManager.Instance.Store.SubtractFromBalance(pr);
                 GameManager.Instance.Store.AddBook(newBook);
+                GameManager.Instance.DB.AddBook(newBook);
 
                 MessageBox.Show($"Добавлено!", "Готово", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 ClearForm();

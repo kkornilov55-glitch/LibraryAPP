@@ -16,7 +16,7 @@ namespace ClassLibrary
         //Ссылка на магазин
         /// <summary>Ссылка на магазин с которым работает менеджер</summary>
         public BookStore Store;
-        private DataBase DB;
+        public DataBase DB;
         private static Random rnd = new Random();
 
 

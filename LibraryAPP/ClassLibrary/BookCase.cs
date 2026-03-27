@@ -14,7 +14,7 @@ namespace ClassLibrary
         private List<Book> books;
         public int capacity { get; private set; }
         public string genre { get; private set; }
-
+        
         /// <summary>
         /// Конструктор класса BookCase, инициализирует книжный шкаф с именем и вместимостью.
         /// </summary>
@@ -53,6 +53,7 @@ namespace ClassLibrary
 
             //book.Title = GetUniqueTitle(book.Title, book.Author);
             books.Add(book);
+
         }
         /// <summary>
         /// Метод для поиска книги по её id.
