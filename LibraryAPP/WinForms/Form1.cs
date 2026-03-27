@@ -126,6 +126,8 @@ namespace WinForms
                 GameManager.Instance.BuyBook(newBook);
                 GameManager.Instance.DB.AddBook(newBook);
 
+                CheckGameState();
+
                 MessageBox.Show($"Заказ скоро будет доставлен!", "Ожидайте", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 ClearForm();
                 Refresh();
@@ -381,11 +383,7 @@ namespace WinForms
             // Проверяем, доволен ли покупатель книгой и ценой
             GameManager.Instance.SellToCustomer(currentCustomer, bookToSell, sellPrice);
 
-            if (GameManager.Instance.Lose)
-            {
-                GameOver(GameManager.Instance.LoseReason);
-                return;
-            }
+            CheckGameState();
 
             // Обрабатываем результат
             if (!currentCustomer.isHappy)
@@ -429,15 +427,25 @@ namespace WinForms
 
             GameManager.Instance.UnhappyCustomersCount++;
 
-            if (GameManager.Instance.UnhappyCustomersCount >= GameManager.Instance.maxUnhappyCustomres)
-            {
-                GameOver("Слишком много недовольных клиентов!");
-                return;
-            }
+            CheckGameState();
+
+            if (GameManager.Instance.Lose) return;
 
             // Переходим к следующему покупателю
             currentCustomer = null;
             UpdateCustomerView();
+        }
+
+        /// <summary>
+        /// Проверяет флаги победы/поражения в GameManager и завершает игру при необходимости
+        /// Вызывается после действий, которые могут изменить состояние игры
+        /// </summary>
+        private void CheckGameState()
+        {
+            if (GameManager.Instance.Lose || GameManager.Instance.Win)
+            {
+                GameOver(GameManager.Instance.LoseReason);
+            }
         }
 
         /// <summary>
@@ -508,6 +516,7 @@ namespace WinForms
                 ProcessSupplyArrival();
             }
 
+            CheckGameState();
             UpdateCounters();
         }
 
@@ -714,6 +723,8 @@ namespace WinForms
                     playerChoice: true,      // true = принять
                     errorType: userErrorType // что выбрал игрок
                 );
+
+                CheckGameState();
 
                 // Показываем результат на основе флагов
                 if (GameManager.Instance.FineArrived)
