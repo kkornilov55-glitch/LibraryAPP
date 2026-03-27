@@ -167,6 +167,13 @@ namespace ClassLibrary
                 LoseReason = "Слишком много недовольных покупателей";
                 return;
             }
+            else if (Store.Balance <= 0)
+            {
+                Lose = true;
+                LoseReason = "Баланс магазина исчерпан!";
+                return;
+            }
+
 
             //Проверяем пора ли приходить покупателям
             if (newTime % CustomerTimeArrive == 0)
