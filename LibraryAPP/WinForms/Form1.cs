@@ -381,6 +381,12 @@ namespace WinForms
             // Проверяем, доволен ли покупатель книгой и ценой
             GameManager.Instance.SellToCustomer(currentCustomer, bookToSell, sellPrice);
 
+            if (GameManager.Instance.Lose)
+            {
+                GameOver(GameManager.Instance.LoseReason);
+                return;
+            }
+
             // Обрабатываем результат
             if (!currentCustomer.isHappy)
             {
@@ -388,13 +394,6 @@ namespace WinForms
                 MessageBox.Show(
                     $"Покупатель ушёл!\nКнига не соответствует его требованиям.",
                     "Отказ", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-
-                // Проверка условия проигрыша
-                if (GameManager.Instance.UnhappyCustomersCount >= GameManager.Instance.maxUnhappyCustomres)
-                {
-                    GameOver(GameManager.Instance.LoseReason);
-                    return;
-                }
                 currentCustomer = null;
                 UpdateCustomerView();
                 return;

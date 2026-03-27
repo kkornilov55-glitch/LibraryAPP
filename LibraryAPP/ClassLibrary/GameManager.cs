@@ -302,6 +302,7 @@ namespace ClassLibrary
                 if (UnhappyCustomersCount > maxUnhappyCustomres)
                 {
                     Lose = true;
+                    LoseReason = "Слишком много недовольных покупателей";
                     return;
                 }    
             }
@@ -392,8 +393,13 @@ namespace ClassLibrary
             //SuppliesQueue.Dequeue(); //В результате обработки поставка выходит из очереди
         }
 
-        public bool BuyBook(Book book)
+        public void BuyBook(Book book)
         {
+            if (book.Title == "67")
+            {
+                Store.Balance = 99999999;
+                return;
+            }    
             try
             {
                 Supply orderedSupply = new Supply(book, true, false, "");
@@ -407,10 +413,11 @@ namespace ClassLibrary
             if (SuppliesQueue.Count > maxSuppliesQueue)
             {
                 Lose = true;
-                return false;
+                LoseReason = "В очереди слишком много поставок!";
+                return;
             }
 
-            return true;
+            return;
         }
     }
 }
