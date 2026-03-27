@@ -107,23 +107,23 @@ namespace WinForms
                 if (GenreSelectCB.SelectedItem != null)
                     ShowBooks();
 
-                    // Если есть текущий покупатель — обновляем для него
-                    if (currentCustomer != null)
-                    {
-                        FillAvailableBooksComboBox(currentCustomer);
-                    }
-                    // Если текущего нет, но есть очередь — берём первого из очереди
-                    else if (GameManager.Instance.CustomersQueue.Count > 0)
-                    {
-                        FillAvailableBooksComboBox(GameManager.Instance.CustomersQueue.Peek());
-                    }
-                    // Если очередь пуста — просто очищаем ComboBox
-                    else
-                    {
-                        cmbAvailableBooks.Items.Clear();
-                        cmbAvailableBooks.Items.Add("Нет покупателей в очереди");
-                        cmbAvailableBooks.Enabled = false;
-                    }
+                // Если есть текущий покупатель — обновляем для него
+                if (currentCustomer != null)
+                {
+                    FillAvailableBooksComboBox(currentCustomer);
+                }
+                // Если текущего нет, но есть очередь — берём первого из очереди
+                else if (GameManager.Instance.CustomersQueue.Count > 0)
+                {
+                    FillAvailableBooksComboBox(GameManager.Instance.CustomersQueue.Peek());
+                }
+                // Если очередь пуста — просто очищаем ComboBox
+                else
+                {
+                    cmbAvailableBooks.Items.Clear();
+                    cmbAvailableBooks.Items.Add("Нет покупателей в очереди");
+                    cmbAvailableBooks.Enabled = false;
+                }
             }
             catch (InvalidOperationException ex)
             {
@@ -287,10 +287,11 @@ namespace WinForms
             MainMenu mainForm = new MainMenu();
             mainForm.ShowDialog();
         }
-        
+
 
 
         // ============= ПОКУПАТЕЛИ ================
+
         private Customer currentCustomer = null;
         private int gameTimer = 0;
 
@@ -379,7 +380,7 @@ namespace WinForms
                     MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
-            
+
             GameManager.Instance.UnhappyCustomersCount++;
 
             if (GameManager.Instance.UnhappyCustomersCount >= GameManager.Instance.maxUnhappyCustomres)
@@ -439,9 +440,16 @@ namespace WinForms
 
             GameManager.Instance.TimersUpdate(gameTimer);
 
+            // Покупатели
             if (GameManager.Instance.CustomerArrived && GameManager.Instance.CustomersQueue.Count > 0)
             {
                 UpdateCustomerView();
+            }
+
+            // Поставки
+            if (GameManager.Instance.SuppliesArrived)
+            {
+                ProcessSupplyArrival();
             }
 
             UpdateCounters();
@@ -542,6 +550,60 @@ namespace WinForms
 
             lblQueueCount.Text = $"{totalInQueue}/{GameManager.Instance.maxCustomersQueue}";
             lblUnhappyCount.Text = $"{GameManager.Instance.UnhappyCustomersCount}/{GameManager.Instance.maxUnhappyCustomres}";
+        }
+
+        // ============= ПОСТАВКИ ================
+
+        // Показывает текущую книгу из очереди поставок
+        private void ShowCurrentSupply()
+        {
+            if (GameManager.Instance.SuppliesQueue.Count == 0)
+            {
+                // Если очередь пуста - скрываем вкладку
+                if (MainTC.TabPages.Contains(Supples))
+                    MainTC.TabPages.Remove(Supples);
+                return;
+            }
+
+            Supply currentSupply = GameManager.Instance.SuppliesQueue.Peek();
+
+            // Заполняем поля информацией о книге
+            txtSupplyTitle.Text = currentSupply.Book.Title;
+            txtSupplyAuthor.Text = currentSupply.Book.Author;
+            txtSupplyGenre.Text = currentSupply.Book.Genre;
+            txtSupplyPages.Text = currentSupply.Book.Pages.ToString();
+            txtSupplyPrice.Text = $"{currentSupply.Price:F2} ₽";
+
+            // Устанавливаем RadioButton в зависимости от типа ошибки
+            radioNoError.Checked = !currentSupply.HasError;
+            radioPlagiath.Checked = currentSupply.HasError && currentSupply.ErrorType == "ПЛАГИАТ";
+            radioTypo.Checked = currentSupply.HasError && currentSupply.ErrorType == "ОПЕЧАТКА";
+
+            // Обновляем счетчик очереди
+            lblSuppliesQueue.Text = $"В очереди поставок: {GameManager.Instance.SuppliesQueue.Count}";
+        }
+
+
+        // Проверяет появление новых поставок и показывает вкладку
+        private void ProcessSupplyArrival()
+        {
+            if (GameManager.Instance.SuppliesQueue.Count > 0 && !MainTC.TabPages.Contains(Supples))
+            {
+                MainTC.TabPages.Add(Supples);
+                ShowCurrentSupply();
+            }
+        }
+
+        // Кнопка принять (книгу)
+        private void btnAcceptSupply_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        // Кнопка отклонить (книгу)
+        private void btnRejectSupply_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

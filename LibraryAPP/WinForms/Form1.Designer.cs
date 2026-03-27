@@ -106,14 +106,31 @@
             lblQueueTitle = new Label();
             label13 = new Label();
             Supples = new TabPage();
+            lblSuppliesQueue = new Label();
+            btnRejectSupply = new Button();
+            groupBox1 = new GroupBox();
+            radioTypo = new RadioButton();
+            radioPlagiath = new RadioButton();
+            radioNoError = new RadioButton();
+            btnAcceptSupply = new Button();
+            panel21 = new Panel();
+            txtSupplyTitle = new TextBox();
+            lblSupplyTitle = new Label();
             panel15 = new Panel();
+            panel22 = new Panel();
+            txtSupplyAuthor = new TextBox();
+            lblSupplyAuthor = new Label();
             panel16 = new Panel();
+            panel23 = new Panel();
+            txtSupplyGenre = new TextBox();
+            lblSupplyGenre = new Label();
             label10 = new Label();
-            label17 = new Label();
-            label16 = new Label();
-            label15 = new Label();
-            label14 = new Label();
-            label12 = new Label();
+            panel24 = new Panel();
+            txtSupplyPages = new TextBox();
+            lblSupplyPages = new Label();
+            panel25 = new Panel();
+            txtSupplyPrice = new TextBox();
+            lblSupplyPrice = new Label();
             BalanceL = new Label();
             pictureBoxMoney = new PictureBox();
             pictureBoxGood = new PictureBox();
@@ -139,6 +156,12 @@
             Customers.SuspendLayout();
             pnlCustomerArea.SuspendLayout();
             Supples.SuspendLayout();
+            groupBox1.SuspendLayout();
+            panel21.SuspendLayout();
+            panel22.SuspendLayout();
+            panel23.SuspendLayout();
+            panel24.SuspendLayout();
+            panel25.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBoxMoney).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBoxGood).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBoxBad).BeginInit();
@@ -272,10 +295,10 @@
             PriceTB.BorderStyle = BorderStyle.None;
             PriceTB.Cursor = Cursors.IBeam;
             PriceTB.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point, 204);
-            PriceTB.Location = new Point(187, 20);
+            PriceTB.Location = new Point(189, 20);
             PriceTB.Margin = new Padding(3, 2, 3, 2);
             PriceTB.Name = "PriceTB";
-            PriceTB.Size = new Size(299, 16);
+            PriceTB.Size = new Size(280, 16);
             PriceTB.TabIndex = 1;
             // 
             // label6
@@ -310,10 +333,10 @@
             PagesCountTB.BorderStyle = BorderStyle.None;
             PagesCountTB.Cursor = Cursors.IBeam;
             PagesCountTB.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point, 204);
-            PagesCountTB.Location = new Point(187, 20);
+            PagesCountTB.Location = new Point(189, 20);
             PagesCountTB.Margin = new Padding(3, 2, 3, 2);
             PagesCountTB.Name = "PagesCountTB";
-            PagesCountTB.Size = new Size(299, 16);
+            PagesCountTB.Size = new Size(280, 16);
             PagesCountTB.TabIndex = 1;
             // 
             // label5
@@ -348,10 +371,10 @@
             GenreTB.BorderStyle = BorderStyle.None;
             GenreTB.Cursor = Cursors.IBeam;
             GenreTB.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point, 204);
-            GenreTB.Location = new Point(187, 20);
+            GenreTB.Location = new Point(189, 20);
             GenreTB.Margin = new Padding(3, 2, 3, 2);
             GenreTB.Name = "GenreTB";
-            GenreTB.Size = new Size(299, 16);
+            GenreTB.Size = new Size(280, 16);
             GenreTB.TabIndex = 1;
             // 
             // label4
@@ -386,11 +409,11 @@
             ID_TB.BorderStyle = BorderStyle.None;
             ID_TB.Cursor = Cursors.IBeam;
             ID_TB.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point, 204);
-            ID_TB.Location = new Point(187, 20);
+            ID_TB.Location = new Point(189, 20);
             ID_TB.Margin = new Padding(3, 2, 3, 2);
             ID_TB.Name = "ID_TB";
             ID_TB.ReadOnly = true;
-            ID_TB.Size = new Size(299, 16);
+            ID_TB.Size = new Size(280, 16);
             ID_TB.TabIndex = 1;
             ID_TB.Text = "Авто";
             // 
@@ -426,10 +449,10 @@
             AuthorTB.BorderStyle = BorderStyle.None;
             AuthorTB.Cursor = Cursors.IBeam;
             AuthorTB.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point, 204);
-            AuthorTB.Location = new Point(187, 20);
+            AuthorTB.Location = new Point(189, 20);
             AuthorTB.Margin = new Padding(3, 2, 3, 2);
             AuthorTB.Name = "AuthorTB";
-            AuthorTB.Size = new Size(299, 16);
+            AuthorTB.Size = new Size(280, 16);
             AuthorTB.TabIndex = 1;
             // 
             // label2
@@ -464,10 +487,10 @@
             TitleTB.BorderStyle = BorderStyle.None;
             TitleTB.Cursor = Cursors.IBeam;
             TitleTB.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point, 204);
-            TitleTB.Location = new Point(187, 20);
+            TitleTB.Location = new Point(189, 20);
             TitleTB.Margin = new Padding(3, 2, 3, 2);
             TitleTB.Name = "TitleTB";
-            TitleTB.Size = new Size(299, 16);
+            TitleTB.Size = new Size(280, 16);
             TitleTB.TabIndex = 1;
             // 
             // label1
@@ -1095,19 +1118,165 @@
             // 
             Supples.BackColor = Color.FromArgb(171, 136, 106);
             Supples.BackgroundImage = Properties.Resources.bgList;
+            Supples.Controls.Add(lblSuppliesQueue);
+            Supples.Controls.Add(btnRejectSupply);
+            Supples.Controls.Add(groupBox1);
+            Supples.Controls.Add(btnAcceptSupply);
+            Supples.Controls.Add(panel21);
             Supples.Controls.Add(panel15);
+            Supples.Controls.Add(panel22);
             Supples.Controls.Add(panel16);
+            Supples.Controls.Add(panel23);
             Supples.Controls.Add(label10);
-            Supples.Controls.Add(label17);
-            Supples.Controls.Add(label16);
-            Supples.Controls.Add(label15);
-            Supples.Controls.Add(label14);
-            Supples.Controls.Add(label12);
+            Supples.Controls.Add(panel24);
+            Supples.Controls.Add(panel25);
             Supples.Location = new Point(4, 29);
             Supples.Name = "Supples";
             Supples.Size = new Size(585, 553);
             Supples.TabIndex = 3;
             Supples.Text = "Поставки";
+            // 
+            // lblSuppliesQueue
+            // 
+            lblSuppliesQueue.AutoSize = true;
+            lblSuppliesQueue.BackColor = Color.Transparent;
+            lblSuppliesQueue.Font = new Font("Kepler 296", 12F);
+            lblSuppliesQueue.Location = new Point(48, 82);
+            lblSuppliesQueue.Name = "lblSuppliesQueue";
+            lblSuppliesQueue.Size = new Size(202, 23);
+            lblSuppliesQueue.TabIndex = 39;
+            lblSuppliesQueue.Text = "В очереди поставок: 0";
+            // 
+            // btnRejectSupply
+            // 
+            btnRejectSupply.BackColor = Color.Transparent;
+            btnRejectSupply.BackgroundImage = Properties.Resources.btn5;
+            btnRejectSupply.BackgroundImageLayout = ImageLayout.Stretch;
+            btnRejectSupply.Cursor = Cursors.Hand;
+            btnRejectSupply.FlatAppearance.BorderSize = 0;
+            btnRejectSupply.FlatAppearance.MouseDownBackColor = Color.Transparent;
+            btnRejectSupply.FlatAppearance.MouseOverBackColor = Color.Transparent;
+            btnRejectSupply.FlatStyle = FlatStyle.Flat;
+            btnRejectSupply.Font = new Font("Kepler 296", 13F);
+            btnRejectSupply.ForeColor = Color.FromArgb(64, 0, 0);
+            btnRejectSupply.Location = new Point(302, 465);
+            btnRejectSupply.Name = "btnRejectSupply";
+            btnRejectSupply.Size = new Size(232, 61);
+            btnRejectSupply.TabIndex = 12;
+            btnRejectSupply.Text = "ОТКЛОНИТЬ";
+            btnRejectSupply.UseVisualStyleBackColor = false;
+            btnRejectSupply.Click += btnRejectSupply_Click;
+            // 
+            // groupBox1
+            // 
+            groupBox1.BackColor = Color.Transparent;
+            groupBox1.Controls.Add(radioTypo);
+            groupBox1.Controls.Add(radioPlagiath);
+            groupBox1.Controls.Add(radioNoError);
+            groupBox1.FlatStyle = FlatStyle.Flat;
+            groupBox1.Font = new Font("Cambria", 12F, FontStyle.Bold);
+            groupBox1.Location = new Point(48, 372);
+            groupBox1.Name = "groupBox1";
+            groupBox1.Size = new Size(486, 73);
+            groupBox1.TabIndex = 38;
+            groupBox1.TabStop = false;
+            groupBox1.Text = "Проверка книги";
+            // 
+            // radioTypo
+            // 
+            radioTypo.AutoSize = true;
+            radioTypo.Font = new Font("Kepler 296", 12F);
+            radioTypo.Location = new Point(368, 30);
+            radioTypo.Name = "radioTypo";
+            radioTypo.Size = new Size(111, 27);
+            radioTypo.TabIndex = 2;
+            radioTypo.TabStop = true;
+            radioTypo.Text = "Опечатка";
+            radioTypo.UseVisualStyleBackColor = true;
+            // 
+            // radioPlagiath
+            // 
+            radioPlagiath.AutoSize = true;
+            radioPlagiath.Font = new Font("Kepler 296", 12F);
+            radioPlagiath.Location = new Point(205, 30);
+            radioPlagiath.Name = "radioPlagiath";
+            radioPlagiath.Size = new Size(99, 27);
+            radioPlagiath.TabIndex = 1;
+            radioPlagiath.TabStop = true;
+            radioPlagiath.Text = "Плагиат";
+            radioPlagiath.UseVisualStyleBackColor = true;
+            // 
+            // radioNoError
+            // 
+            radioNoError.AutoSize = true;
+            radioNoError.Checked = true;
+            radioNoError.Font = new Font("Kepler 296", 12F);
+            radioNoError.Location = new Point(13, 30);
+            radioNoError.Name = "radioNoError";
+            radioNoError.Size = new Size(130, 27);
+            radioNoError.TabIndex = 0;
+            radioNoError.TabStop = true;
+            radioNoError.Text = "Ошибок нет";
+            radioNoError.UseVisualStyleBackColor = true;
+            // 
+            // btnAcceptSupply
+            // 
+            btnAcceptSupply.BackColor = Color.Transparent;
+            btnAcceptSupply.BackgroundImage = Properties.Resources.btn1_1;
+            btnAcceptSupply.BackgroundImageLayout = ImageLayout.Stretch;
+            btnAcceptSupply.Cursor = Cursors.Hand;
+            btnAcceptSupply.FlatAppearance.BorderSize = 0;
+            btnAcceptSupply.FlatAppearance.MouseDownBackColor = Color.Transparent;
+            btnAcceptSupply.FlatAppearance.MouseOverBackColor = Color.Transparent;
+            btnAcceptSupply.FlatStyle = FlatStyle.Flat;
+            btnAcceptSupply.Font = new Font("Kepler 296", 13F);
+            btnAcceptSupply.ForeColor = Color.DarkGreen;
+            btnAcceptSupply.Location = new Point(45, 465);
+            btnAcceptSupply.Name = "btnAcceptSupply";
+            btnAcceptSupply.Size = new Size(232, 61);
+            btnAcceptSupply.TabIndex = 11;
+            btnAcceptSupply.Text = "ПРИНЯТЬ";
+            btnAcceptSupply.UseVisualStyleBackColor = false;
+            btnAcceptSupply.Click += btnAcceptSupply_Click;
+            // 
+            // panel21
+            // 
+            panel21.BackColor = Color.FromArgb(199, 160, 122);
+            panel21.BorderStyle = BorderStyle.FixedSingle;
+            panel21.Controls.Add(txtSupplyTitle);
+            panel21.Controls.Add(lblSupplyTitle);
+            panel21.Location = new Point(48, 118);
+            panel21.Margin = new Padding(3, 2, 3, 2);
+            panel21.Name = "panel21";
+            panel21.Size = new Size(487, 45);
+            panel21.TabIndex = 19;
+            // 
+            // txtSupplyTitle
+            // 
+            txtSupplyTitle.BackColor = Color.FromArgb(199, 160, 122);
+            txtSupplyTitle.BorderStyle = BorderStyle.None;
+            txtSupplyTitle.Cursor = Cursors.IBeam;
+            txtSupplyTitle.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point, 204);
+            txtSupplyTitle.Location = new Point(189, 14);
+            txtSupplyTitle.Margin = new Padding(3, 2, 3, 2);
+            txtSupplyTitle.Name = "txtSupplyTitle";
+            txtSupplyTitle.ReadOnly = true;
+            txtSupplyTitle.Size = new Size(280, 16);
+            txtSupplyTitle.TabIndex = 1;
+            // 
+            // lblSupplyTitle
+            // 
+            lblSupplyTitle.BackColor = Color.FromArgb(115, 65, 40);
+            lblSupplyTitle.Dock = DockStyle.Left;
+            lblSupplyTitle.Font = new Font("Cambria", 12F, FontStyle.Bold);
+            lblSupplyTitle.ForeColor = Color.FromArgb(253, 252, 232);
+            lblSupplyTitle.Location = new Point(0, 0);
+            lblSupplyTitle.Name = "lblSupplyTitle";
+            lblSupplyTitle.Padding = new Padding(11, 0, 11, 0);
+            lblSupplyTitle.Size = new Size(173, 43);
+            lblSupplyTitle.TabIndex = 0;
+            lblSupplyTitle.Text = "Название";
+            lblSupplyTitle.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // panel15
             // 
@@ -1120,6 +1289,45 @@
             panel15.Size = new Size(589, 9);
             panel15.TabIndex = 37;
             // 
+            // panel22
+            // 
+            panel22.BackColor = Color.FromArgb(199, 160, 122);
+            panel22.BorderStyle = BorderStyle.FixedSingle;
+            panel22.Controls.Add(txtSupplyAuthor);
+            panel22.Controls.Add(lblSupplyAuthor);
+            panel22.Location = new Point(48, 167);
+            panel22.Margin = new Padding(3, 2, 3, 2);
+            panel22.Name = "panel22";
+            panel22.Size = new Size(487, 45);
+            panel22.TabIndex = 20;
+            // 
+            // txtSupplyAuthor
+            // 
+            txtSupplyAuthor.BackColor = Color.FromArgb(199, 160, 122);
+            txtSupplyAuthor.BorderStyle = BorderStyle.None;
+            txtSupplyAuthor.Cursor = Cursors.IBeam;
+            txtSupplyAuthor.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point, 204);
+            txtSupplyAuthor.Location = new Point(189, 12);
+            txtSupplyAuthor.Margin = new Padding(3, 2, 3, 2);
+            txtSupplyAuthor.Name = "txtSupplyAuthor";
+            txtSupplyAuthor.ReadOnly = true;
+            txtSupplyAuthor.Size = new Size(280, 16);
+            txtSupplyAuthor.TabIndex = 1;
+            // 
+            // lblSupplyAuthor
+            // 
+            lblSupplyAuthor.BackColor = Color.FromArgb(115, 65, 40);
+            lblSupplyAuthor.Dock = DockStyle.Left;
+            lblSupplyAuthor.Font = new Font("Cambria", 12F, FontStyle.Bold);
+            lblSupplyAuthor.ForeColor = Color.FromArgb(253, 252, 232);
+            lblSupplyAuthor.Location = new Point(0, 0);
+            lblSupplyAuthor.Name = "lblSupplyAuthor";
+            lblSupplyAuthor.Padding = new Padding(11, 0, 11, 0);
+            lblSupplyAuthor.Size = new Size(173, 43);
+            lblSupplyAuthor.TabIndex = 0;
+            lblSupplyAuthor.Text = "Автор";
+            lblSupplyAuthor.TextAlign = ContentAlignment.MiddleLeft;
+            // 
             // panel16
             // 
             panel16.BackColor = Color.Orange;
@@ -1130,6 +1338,45 @@
             panel16.Name = "panel16";
             panel16.Size = new Size(589, 9);
             panel16.TabIndex = 36;
+            // 
+            // panel23
+            // 
+            panel23.BackColor = Color.FromArgb(199, 160, 122);
+            panel23.BorderStyle = BorderStyle.FixedSingle;
+            panel23.Controls.Add(txtSupplyGenre);
+            panel23.Controls.Add(lblSupplyGenre);
+            panel23.Location = new Point(48, 216);
+            panel23.Margin = new Padding(3, 2, 3, 2);
+            panel23.Name = "panel23";
+            panel23.Size = new Size(487, 45);
+            panel23.TabIndex = 21;
+            // 
+            // txtSupplyGenre
+            // 
+            txtSupplyGenre.BackColor = Color.FromArgb(199, 160, 122);
+            txtSupplyGenre.BorderStyle = BorderStyle.None;
+            txtSupplyGenre.Cursor = Cursors.IBeam;
+            txtSupplyGenre.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point, 204);
+            txtSupplyGenre.Location = new Point(189, 14);
+            txtSupplyGenre.Margin = new Padding(3, 2, 3, 2);
+            txtSupplyGenre.Name = "txtSupplyGenre";
+            txtSupplyGenre.ReadOnly = true;
+            txtSupplyGenre.Size = new Size(280, 16);
+            txtSupplyGenre.TabIndex = 1;
+            // 
+            // lblSupplyGenre
+            // 
+            lblSupplyGenre.BackColor = Color.FromArgb(115, 65, 40);
+            lblSupplyGenre.Dock = DockStyle.Left;
+            lblSupplyGenre.Font = new Font("Cambria", 12F, FontStyle.Bold);
+            lblSupplyGenre.ForeColor = Color.FromArgb(253, 252, 232);
+            lblSupplyGenre.Location = new Point(0, 0);
+            lblSupplyGenre.Name = "lblSupplyGenre";
+            lblSupplyGenre.Padding = new Padding(11, 0, 11, 0);
+            lblSupplyGenre.Size = new Size(173, 43);
+            lblSupplyGenre.TabIndex = 0;
+            lblSupplyGenre.Text = "Жанр";
+            lblSupplyGenre.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // label10
             // 
@@ -1144,60 +1391,83 @@
             label10.Text = "Поставки";
             label10.TextAlign = ContentAlignment.MiddleCenter;
             // 
-            // label17
+            // panel24
             // 
-            label17.AutoSize = true;
-            label17.BackColor = Color.Transparent;
-            label17.Font = new Font("Cambria", 18F);
-            label17.Location = new Point(45, 222);
-            label17.Name = "label17";
-            label17.Size = new Size(66, 28);
-            label17.TabIndex = 22;
-            label17.Text = "Цена";
+            panel24.BackColor = Color.FromArgb(199, 160, 122);
+            panel24.BorderStyle = BorderStyle.FixedSingle;
+            panel24.Controls.Add(txtSupplyPages);
+            panel24.Controls.Add(lblSupplyPages);
+            panel24.Location = new Point(48, 265);
+            panel24.Margin = new Padding(3, 2, 3, 2);
+            panel24.Name = "panel24";
+            panel24.Size = new Size(487, 45);
+            panel24.TabIndex = 22;
             // 
-            // label16
+            // txtSupplyPages
             // 
-            label16.AutoSize = true;
-            label16.BackColor = Color.Transparent;
-            label16.Font = new Font("Cambria", 18F);
-            label16.Location = new Point(49, 192);
-            label16.Name = "label16";
-            label16.Size = new Size(123, 28);
-            label16.TabIndex = 21;
-            label16.Text = "Страницы";
+            txtSupplyPages.BackColor = Color.FromArgb(199, 160, 122);
+            txtSupplyPages.BorderStyle = BorderStyle.None;
+            txtSupplyPages.Cursor = Cursors.IBeam;
+            txtSupplyPages.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point, 204);
+            txtSupplyPages.Location = new Point(189, 14);
+            txtSupplyPages.Margin = new Padding(3, 2, 3, 2);
+            txtSupplyPages.Name = "txtSupplyPages";
+            txtSupplyPages.ReadOnly = true;
+            txtSupplyPages.Size = new Size(280, 16);
+            txtSupplyPages.TabIndex = 1;
             // 
-            // label15
+            // lblSupplyPages
             // 
-            label15.AutoSize = true;
-            label15.BackColor = Color.Transparent;
-            label15.Font = new Font("Cambria", 18F);
-            label15.Location = new Point(49, 154);
-            label15.Name = "label15";
-            label15.Size = new Size(73, 28);
-            label15.TabIndex = 20;
-            label15.Text = "Жанр";
+            lblSupplyPages.BackColor = Color.FromArgb(115, 65, 40);
+            lblSupplyPages.Dock = DockStyle.Left;
+            lblSupplyPages.Font = new Font("Cambria", 12F, FontStyle.Bold);
+            lblSupplyPages.ForeColor = Color.FromArgb(253, 252, 232);
+            lblSupplyPages.Location = new Point(0, 0);
+            lblSupplyPages.Name = "lblSupplyPages";
+            lblSupplyPages.Padding = new Padding(11, 0, 11, 0);
+            lblSupplyPages.Size = new Size(173, 43);
+            lblSupplyPages.TabIndex = 0;
+            lblSupplyPages.Text = "Количество страниц";
+            lblSupplyPages.TextAlign = ContentAlignment.MiddleLeft;
             // 
-            // label14
+            // panel25
             // 
-            label14.AutoSize = true;
-            label14.BackColor = Color.Transparent;
-            label14.Font = new Font("Cambria", 18F);
-            label14.Location = new Point(46, 124);
-            label14.Name = "label14";
-            label14.Size = new Size(78, 28);
-            label14.TabIndex = 19;
-            label14.Text = "Автор";
+            panel25.BackColor = Color.FromArgb(199, 160, 122);
+            panel25.BorderStyle = BorderStyle.FixedSingle;
+            panel25.Controls.Add(txtSupplyPrice);
+            panel25.Controls.Add(lblSupplyPrice);
+            panel25.Location = new Point(48, 314);
+            panel25.Margin = new Padding(3, 2, 3, 2);
+            panel25.Name = "panel25";
+            panel25.Size = new Size(487, 45);
+            panel25.TabIndex = 23;
             // 
-            // label12
+            // txtSupplyPrice
             // 
-            label12.AutoSize = true;
-            label12.BackColor = Color.Transparent;
-            label12.Font = new Font("Cambria", 18F);
-            label12.Location = new Point(48, 94);
-            label12.Name = "label12";
-            label12.Size = new Size(116, 28);
-            label12.TabIndex = 18;
-            label12.Text = "Название";
+            txtSupplyPrice.BackColor = Color.FromArgb(199, 160, 122);
+            txtSupplyPrice.BorderStyle = BorderStyle.None;
+            txtSupplyPrice.Cursor = Cursors.IBeam;
+            txtSupplyPrice.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point, 204);
+            txtSupplyPrice.Location = new Point(189, 14);
+            txtSupplyPrice.Margin = new Padding(3, 2, 3, 2);
+            txtSupplyPrice.Name = "txtSupplyPrice";
+            txtSupplyPrice.ReadOnly = true;
+            txtSupplyPrice.Size = new Size(280, 16);
+            txtSupplyPrice.TabIndex = 1;
+            // 
+            // lblSupplyPrice
+            // 
+            lblSupplyPrice.BackColor = Color.FromArgb(115, 65, 40);
+            lblSupplyPrice.Dock = DockStyle.Left;
+            lblSupplyPrice.Font = new Font("Cambria", 12F, FontStyle.Bold);
+            lblSupplyPrice.ForeColor = Color.FromArgb(253, 252, 232);
+            lblSupplyPrice.Location = new Point(0, 0);
+            lblSupplyPrice.Name = "lblSupplyPrice";
+            lblSupplyPrice.Padding = new Padding(11, 0, 11, 0);
+            lblSupplyPrice.Size = new Size(173, 43);
+            lblSupplyPrice.TabIndex = 0;
+            lblSupplyPrice.Text = "Цена";
+            lblSupplyPrice.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // BalanceL
             // 
@@ -1343,6 +1613,18 @@
             pnlCustomerArea.PerformLayout();
             Supples.ResumeLayout(false);
             Supples.PerformLayout();
+            groupBox1.ResumeLayout(false);
+            groupBox1.PerformLayout();
+            panel21.ResumeLayout(false);
+            panel21.PerformLayout();
+            panel22.ResumeLayout(false);
+            panel22.PerformLayout();
+            panel23.ResumeLayout(false);
+            panel23.PerformLayout();
+            panel24.ResumeLayout(false);
+            panel24.PerformLayout();
+            panel25.ResumeLayout(false);
+            panel25.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBoxMoney).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBoxGood).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBoxBad).EndInit();
@@ -1388,11 +1670,6 @@
         private Label label8;
         private ComboBox GenreSelectCB;
         private Label BalanceL;
-        private Label label17;
-        private Label label16;
-        private Label label15;
-        private Label label14;
-        private Label label12;
         private PictureBox pictureBoxMoney;
         private PictureBox pictureBoxGood;
         private PictureBox pictureBoxBad;
@@ -1443,5 +1720,27 @@
         private Label label7;
         private Panel panel19;
         private Panel panel20;
+        private Panel panel21;
+        private TextBox txtSupplyTitle;
+        private Label lblSupplyTitle;
+        private Panel panel22;
+        private TextBox txtSupplyAuthor;
+        private Label lblSupplyAuthor;
+        private Panel panel23;
+        private TextBox txtSupplyGenre;
+        private Label lblSupplyGenre;
+        private Panel panel24;
+        private TextBox txtSupplyPages;
+        private Label lblSupplyPages;
+        private Panel panel25;
+        private TextBox txtSupplyPrice;
+        private Label lblSupplyPrice;
+        private GroupBox groupBox1;
+        private RadioButton radioTypo;
+        private RadioButton radioPlagiath;
+        private RadioButton radioNoError;
+        private Button btnRejectSupply;
+        private Button btnAcceptSupply;
+        private Label lblSuppliesQueue;
     }
 }
