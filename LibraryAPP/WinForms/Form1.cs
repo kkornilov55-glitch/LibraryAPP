@@ -753,7 +753,7 @@ namespace WinForms
             {
                 Supply currentSupply = GameManager.Instance.SuppliesQueue.Peek();
 
-                // Определяем выбор игрока
+                // Определяем, что выбрал игрок
                 string userErrorType = null;
                 if (radioPlagiath.Checked)
                     userErrorType = "ПЛАГИАТ";
@@ -763,9 +763,10 @@ namespace WinForms
                 // Вызываем метод обработки
                 GameManager.Instance.SupplyProcessing(
                     currentSupply,
-                    playerChoice: false,     // false = отклонить
-                    errorType: userErrorType
+                    playerChoice: false,      // false = отклонить
+                    errorType: userErrorType // что выбрал игрок
                 );
+
 
                 // Показываем результат
                 if (GameManager.Instance.BonusArrived)
@@ -785,7 +786,7 @@ namespace WinForms
                     }
                     else if (userErrorType != currentSupply.ErrorType)
                     {
-                        // Выбрал не тот тип ошибки
+                        // Выбрал НЕ тот тип ошибки
                         MessageBox.Show($"Книга отклонена, но вы ошиблись с типом ошибки: это {currentSupply.ErrorType?.ToLower()}, а не {userErrorType?.ToLower()}. Бонус не начислен.",
                             "Отклонено", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
@@ -796,11 +797,10 @@ namespace WinForms
                     MessageBox.Show($"Книга «{currentSupply.Book.Title}» отклонена.",
                         "Отклонено", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
-            }
 
-                // Обновляем интерфейс
                 ShowCurrentSupply();
                 Refresh();
+
             }
             catch (Exception ex)
             {
