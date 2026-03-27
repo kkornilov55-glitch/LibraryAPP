@@ -223,7 +223,7 @@ namespace ClassLibrary
         // Для вывода книг в покупателях
         public override string ToString()
         {
-            return $"«{Title}» ({Genre}) — {Price:F2} ₽";
+            return $"«{Title}» ({Author}, {Genre}) — {Price:F2} ₽";
         }
 
     }

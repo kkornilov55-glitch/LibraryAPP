@@ -132,7 +132,7 @@ namespace WinForms
                 if (GenreSelectCB.SelectedItem != null)
                     ShowBooks();
 
-                // Обновляем ComboBox покупателя, если он активен
+                // Обновляем ComboBox покупателя
                 if (currentCustomer != null)
                 {
                     FillAvailableBooksComboBox(currentCustomer);
@@ -547,6 +547,8 @@ namespace WinForms
                 }
             }
 
+            UpdateCounters();
+
             // Проверка лимита покупателей (очередь + текущий)
             int totalCustomers = GameManager.Instance.CustomersQueue.Count;
             if (currentCustomer != null)
@@ -558,8 +560,6 @@ namespace WinForms
                 return;
             }
 
-
-            UpdateCounters();
         }
 
         /// <summary>
@@ -651,10 +651,10 @@ namespace WinForms
             txtSupplyPages.Text = currentSupply.Book.Pages.ToString();
             txtSupplyPrice.Text = $"{currentSupply.Price:F2} ₽";
 
-            // Устанавливаем RadioButton в зависимости от типа ошибки
-            radioNoError.Checked = !currentSupply.HasError;
-            radioPlagiath.Checked = currentSupply.HasError && currentSupply.ErrorType == "ПЛАГИАТ";
-            radioTypo.Checked = currentSupply.HasError && currentSupply.ErrorType == "ОПЕЧАТКА";
+            // По умолчанию выбрано "Ошибок нет" — игрок сам меняет, если видит проблему
+            radioNoError.Checked = true;
+            radioPlagiath.Checked = false;
+            radioTypo.Checked = false;
 
             // Обновляем счетчик очереди
             lblSuppliesQueue.Text = $"В очереди поставок: {GameManager.Instance.SuppliesQueue.Count}";
@@ -673,19 +673,140 @@ namespace WinForms
         }
 
         /// <summary>
-        /// Кнопка принять (книгу) В РАБОТЕ
+        /// Кнопка принять (книгу)
         /// </summary>
         private void btnAcceptSupply_Click(object sender, EventArgs e)
         {
+            if (GameManager.Instance.SuppliesQueue.Count == 0)
+            {
+                MessageBox.Show("Нет книг в очереди поставок!", "Ошибка",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
 
+            try
+            {
+                // Получаем текущую поставку
+                Supply currentSupply = GameManager.Instance.SuppliesQueue.Peek();
+
+                // Проверка баланса
+                if (GameManager.Instance.Store.Balance < currentSupply.Price)
+                {
+                    MessageBox.Show($"Недостаточно средств! Нужно {currentSupply.Price:F2} ₽",
+                        "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                // Определяем, что выбрал игрок (для передачи в метод)
+                string userErrorType = null;
+                if (radioPlagiath.Checked)
+                    userErrorType = "ПЛАГИАТ";
+                else if (radioTypo.Checked)
+                    userErrorType = "ОПЕЧАТКА";
+
+
+                // Вызываем метод обработки
+                GameManager.Instance.SupplyProcessing(
+                    currentSupply,
+                    playerChoice: true,      // true = принять
+                    errorType: userErrorType // что выбрал игрок
+                );
+
+                // Показываем результат на основе флагов
+                if (GameManager.Instance.FineArrived)
+                    MessageBox.Show($"Вы приняли книгу с ошибкой типа {currentSupply.ErrorType?.ToLower()}!\nШтраф: -{150} ₽",
+                        "Штраф!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                else
+                    MessageBox.Show($"Книга «{currentSupply.Book.Title}» принята и размещена на полке!",
+                        "Успех", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                // Обновляем ComboBox покупателя
+                if (currentCustomer != null)
+                    FillAvailableBooksComboBox(currentCustomer);
+                else if (GameManager.Instance.CustomersQueue.Count > 0)
+                    FillAvailableBooksComboBox(GameManager.Instance.CustomersQueue.Peek());
+
+                // Обновляем интерфейс
+                ShowCurrentSupply();
+                Refresh();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ошибка: {ex.Message}", "Ошибка",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         /// <summary>
-        /// Кнопка отклонить (книгу) В РАБОТЕ
+        /// Кнопка отклонить (книгу)
         /// </summary>
         private void btnRejectSupply_Click(object sender, EventArgs e)
         {
+            if (GameManager.Instance.SuppliesQueue.Count == 0)
+            {
+                MessageBox.Show("Нет книг в очереди поставок!", "Ошибка",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
 
+            try
+            {
+                Supply currentSupply = GameManager.Instance.SuppliesQueue.Peek();
+
+                // Определяем выбор игрока
+                string userErrorType = null;
+                if (radioPlagiath.Checked)
+                    userErrorType = "ПЛАГИАТ";
+                else if (radioTypo.Checked)
+                    userErrorType = "ОПЕЧАТКА";
+
+                // Вызываем метод обработки
+                GameManager.Instance.SupplyProcessing(
+                    currentSupply,
+                    playerChoice: false,     // false = отклонить
+                    errorType: userErrorType
+                );
+
+                // Показываем результат
+                if (GameManager.Instance.BonusArrived)
+                {
+                    // Правильно определил ошибку и отклонил
+                    MessageBox.Show($"Отлично! Вы отклонили книгу с типом ошибки {currentSupply.ErrorType?.ToLower()} и получили бонус +{100} ₽",
+                        "Бонус!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else if (currentSupply.HasError)
+                {
+                    // Книга с ошибкой, но игрок не выбрал правильный тип
+                    if (userErrorType == null)
+                    {
+                        // Вообще не выбрал ошибку
+                        MessageBox.Show($"Книга отклонена, но вы не заметили в ней тип ошибки {currentSupply.ErrorType?.ToLower()}. Бонус не начислен.",
+                            "Отклонено", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    else if (userErrorType != currentSupply.ErrorType)
+                    {
+                        // Выбрал не тот тип ошибки
+                        MessageBox.Show($"Книга отклонена, но вы ошиблись с типом ошибки: это {currentSupply.ErrorType?.ToLower()}, а не {userErrorType?.ToLower()}. Бонус не начислен.",
+                            "Отклонено", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                }
+                else
+                {
+                    // Книга без ошибок — просто отклонена
+                    MessageBox.Show($"Книга «{currentSupply.Book.Title}» отклонена.",
+                        "Отклонено", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+
+                // Обновляем интерфейс
+                ShowCurrentSupply();
+                Refresh();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ошибка: {ex.Message}", "Ошибка",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }
