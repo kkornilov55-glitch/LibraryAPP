@@ -127,6 +127,12 @@ namespace ClassLibrary
                                  
 
         }
+
+        public void DataBaseClear()
+        {
+            LibraryBooks.Clear();
+            File.WriteAllText(DataPath, string.Empty);
+        }
     }
 }
  
