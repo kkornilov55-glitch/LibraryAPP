@@ -42,7 +42,7 @@ namespace ClassLibrary
 
 
         //Флаги результатов игры, когда один из них true игра заканчивается
-        /// <summary>Длинна дня (5 минут)</summary>
+        /// <summary>Длина дня (5 минут)</summary>
         public int DayLength = 300;
         /// <summary>Флаг поражения</summary>
         public bool Lose = false;
@@ -140,7 +140,7 @@ namespace ClassLibrary
             SuppliesArrived = false;
             
             //День пережит!
-            if (DayLength == newTime)
+            if (DayLength >= newTime)
             {
                 Win = true;
                 return;
