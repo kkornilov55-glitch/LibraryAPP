@@ -124,7 +124,7 @@ namespace WinForms
                 //GameManager.Instance.Store.SubtractFromBalance(pr);
                 //GameManager.Instance.Store.AddBook(newBook);
                 GameManager.Instance.BuyBook(newBook);
-                GameManager.Instance.DB.AddBook(newBook);
+                //GameManager.Instance.DB.AddBook(newBook);
 
                 CheckGameState();
 

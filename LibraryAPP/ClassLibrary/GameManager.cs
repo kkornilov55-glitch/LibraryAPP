@@ -410,7 +410,7 @@ namespace ClassLibrary
                 LoseReason = "В очереди слишком много поставок!";
                 return;
             }
-
+            DB.AddBook(book);
             return;
         }
     }
