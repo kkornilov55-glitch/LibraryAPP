@@ -58,7 +58,7 @@ namespace ClassLibrary
         public static Book GenerateBook(List<Book> ExistingBooks, string genreHint) //список ExistingBooks должен содержать в себе все созданные книги.                                                                           //он будет заполняться в классе реализующем логику книжного шкаф
         {
             // Получаем случайную строку из файла
-            string randomLine = GetRandomLineFromFile("BookAuthor.txt");
+            string randomLine = GetRandomLineFromFile("DataBase.txt");
 
             // Парсим строку на название и автора
             string[] parts = randomLine.Split('|');
