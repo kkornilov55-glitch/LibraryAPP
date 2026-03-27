@@ -117,4 +117,19 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="labelTeam.Text" xml:space="preserve">
+    <value>• Корнилов Кирилл 
+• Коннонов Савва
+• Ленин Егор
+• Михайлов Никита
+• Мовсисян Давид
+• Морозов Матвей
+• Ярославцева Полина
+
+Группа: Б.ПИН.ИИ.25.16
+Тверской государственный
+технический университет
+Кафедра "Программного обеспечения"
+2026 г.</value>
+  </data>
 </root>

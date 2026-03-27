@@ -28,7 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Info));
             btnClose = new Button();
+            labelTeam = new Label();
             SuspendLayout();
             // 
             // btnClose
@@ -48,6 +50,19 @@
             btnClose.UseVisualStyleBackColor = false;
             btnClose.Click += btnClose_Click;
             // 
+            // labelTeam
+            // 
+            labelTeam.AutoSize = true;
+            labelTeam.BackColor = Color.Transparent;
+            labelTeam.Font = new Font("Kepler 296", 10F);
+            labelTeam.ForeColor = Color.FromArgb(57, 30, 16);
+            labelTeam.Location = new Point(102, 148);
+            labelTeam.Name = "labelTeam";
+            labelTeam.Size = new Size(303, 260);
+            labelTeam.TabIndex = 1;
+            labelTeam.Text = resources.GetString("labelTeam.Text");
+            labelTeam.TextAlign = ContentAlignment.MiddleCenter;
+            // 
             // Info
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -55,6 +70,7 @@
             BackgroundImage = Properties.Resources.CoverDevelopers;
             BackgroundImageLayout = ImageLayout.Stretch;
             ClientSize = new Size(509, 507);
+            Controls.Add(labelTeam);
             Controls.Add(btnClose);
             DoubleBuffered = true;
             MaximumSize = new Size(525, 546);
@@ -63,10 +79,12 @@
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Книжный магазин";
             ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
 
         private Button btnClose;
+        private Label labelTeam;
     }
 }

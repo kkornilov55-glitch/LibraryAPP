@@ -36,6 +36,7 @@
             // richTextBoxDescription
             // 
             richTextBoxDescription.BackColor = Color.FromArgb(243, 227, 198);
+            richTextBoxDescription.Font = new Font("Segoe UI Emoji", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
             richTextBoxDescription.ForeColor = Color.FromArgb(75, 46, 46);
             richTextBoxDescription.Location = new Point(94, 153);
             richTextBoxDescription.Name = "richTextBoxDescription";
