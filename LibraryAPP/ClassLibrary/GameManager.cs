@@ -28,6 +28,8 @@ namespace ClassLibrary
         public int maxSuppliesQueue;
         /// <summary>Максимальное число недовольных покупателей</summary>
         public int maxUnhappyCustomres;
+        /// <summary>Начальный баланс</summary>
+        public int startBalance;
 
 
         //Очереди и счётчики
@@ -74,7 +76,6 @@ namespace ClassLibrary
         public void StartGame(int difficulty, int dayLength = 300)
         {
             Instance = this;
-            Store = new BookStore(5, 1000);
             
             //Инициализация очередей и базы данных
             CustomersQueue = new Queue<Customer>();
@@ -85,6 +86,8 @@ namespace ClassLibrary
             //Настройка сложности
             Difficulty = difficulty;
             DifficultySettings();
+
+            Store = new BookStore(5, startBalance);
 
             //Установка длинны дня
             DayLength = dayLength;
@@ -100,6 +103,8 @@ namespace ClassLibrary
                 maxCustomersQueue = 10;
                 maxSuppliesQueue = 15;
                 maxUnhappyCustomres = 5;
+
+                startBalance = 2500;
             }
             else if (Difficulty == 1)
             {
@@ -109,6 +114,8 @@ namespace ClassLibrary
                 maxCustomersQueue = 8;
                 maxSuppliesQueue = 10;
                 maxUnhappyCustomres = 3;
+
+                startBalance = 1500;
             }
             else
             {
@@ -118,6 +125,8 @@ namespace ClassLibrary
                 maxCustomersQueue = 6;
                 maxSuppliesQueue = 8;
                 maxUnhappyCustomres = 1;
+
+                startBalance = 1000;
             }
         }
         /// <summary>
