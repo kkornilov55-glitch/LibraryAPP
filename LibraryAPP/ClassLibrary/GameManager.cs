@@ -214,6 +214,9 @@ namespace ClassLibrary
         private Supply GenerateRandomSupply()
         {         
             Book book = Book.GenerateBook(Store.GetAllBooks(), "");
+            string[] randomBook = DB.GetRandomBook();
+            book.Title = randomBook[0];
+            book.Author = randomBook[1];
 
             //Будет ли ошибка?
             bool bookHasError = rnd.Next(2) == 0 ? false : true;
@@ -232,29 +235,35 @@ namespace ClassLibrary
             if (rnd.Next(2) == 0) //Опечатка
             {
                 errorType = "ОПЕЧАТКА";
-                if (rnd.Next(2) == 0) //В названии
+                while (!DB.IsMispell(book))
                 {
-                    int chr = rnd.Next(0, book.Title.Length); //Индекс буквы
-                    char[] chrs = book.Title.ToCharArray(); //Название книги -> массив символов
-                    chrs[chr] = Convert.ToChar(rnd.Next(1, 50)); //Замена случайного символа
-                    book.Title = new string(chrs); //Подменяем название
-                }
-                else //В авторе
-                {
-                    int chr = rnd.Next(0, book.Author.Length);
-                    char[] chrs = book.Author.ToCharArray();
-                    chrs[chr] = Convert.ToChar(rnd.Next(1, 50));
-                    book.Author = new string(chrs);
+                    if (rnd.Next(2) == 0) //В названии
+                    {
+                        int chr = rnd.Next(0, book.Title.Length); //Индекс буквы
+                        char[] chrs = book.Title.ToCharArray(); //Название книги -> массив символов
+                        chrs[chr] = Convert.ToChar(rnd.Next(1, 50)); //Замена случайного символа
+                        book.Title = new string(chrs); //Подменяем название
+                    }
+                    else //В авторе
+                    {
+                        int chr = rnd.Next(0, book.Author.Length);
+                        char[] chrs = book.Author.ToCharArray();
+                        chrs[chr] = Convert.ToChar(rnd.Next(1, 50));
+                        book.Author = new string(chrs);
+                    }
                 }
             }
             else //Плагиат
             {
                 errorType = "ПЛАГИАТ";
                 string newAuthor = book.Author;
-                while (newAuthor == book.Author)
-                {
-                    newAuthor = Book.GenerateBook(Store.GetAllBooks(), "").Author; Book.counter--;
-                }
+                //while (newAuthor == book.Author)
+                //{
+                //    newAuthor = Book.GenerateBook(Store.GetAllBooks(), "").Author; Book.counter--;
+                //}
+                while (!DB.IsPlagiarism(book))
+                    newAuthor = DB.GetRandomBook()[1];
+
                 book.Author = newAuthor;
             }
             return book;
@@ -310,7 +319,7 @@ namespace ClassLibrary
                     Store.AddBook(supply.Book); //Добавляем книгу
 
                     // Логика бонусов/штрафов для случайных поставок с ошибками
-                    if (!supply.IsOrdered && supply.HasError)
+                    if (supply.HasError)
                     {
                         if (supply.ErrorType == errorType)
                         {
