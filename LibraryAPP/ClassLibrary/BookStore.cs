@@ -50,12 +50,6 @@ namespace ClassLibrary
             if (book == null)
                 throw new ArgumentNullException(nameof(book));
 
-            if (book.Title == "67")
-            {
-                Balance = 99999999999999;
-                return;
-            }
-
             //if (book.Price > Balance)
             //    throw new InvalidOperationException("Недостаточно средств для покупки книги!");
 
