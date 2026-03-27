@@ -139,6 +139,8 @@
             btnHome = new Button();
             lblQueueCount = new Label();
             timeCustomer = new System.Windows.Forms.Timer(components);
+            panel26 = new Panel();
+            panel27 = new Panel();
             OrderBook.SuspendLayout();
             panel6.SuspendLayout();
             panel5.SuspendLayout();
@@ -556,7 +558,7 @@
             StoreTP.Margin = new Padding(3, 2, 3, 2);
             StoreTP.Name = "StoreTP";
             StoreTP.Padding = new Padding(3, 2, 3, 2);
-            StoreTP.Size = new Size(585, 553);
+            StoreTP.Size = new Size(585, 551);
             StoreTP.TabIndex = 2;
             StoreTP.Text = "Магазин";
             // 
@@ -1118,6 +1120,9 @@
             // 
             Supples.BackColor = Color.FromArgb(171, 136, 106);
             Supples.BackgroundImage = Properties.Resources.bgList;
+            Supples.BackgroundImageLayout = ImageLayout.Stretch;
+            Supples.Controls.Add(panel26);
+            Supples.Controls.Add(panel27);
             Supples.Controls.Add(lblSuppliesQueue);
             Supples.Controls.Add(btnRejectSupply);
             Supples.Controls.Add(groupBox1);
@@ -1383,7 +1388,6 @@
             label10.BackColor = Color.FromArgb(57, 30, 16);
             label10.Font = new Font("Cambria", 24F, FontStyle.Regular, GraphicsUnit.Point, 204);
             label10.ForeColor = Color.FromArgb(253, 252, 232);
-            label10.Image = Properties.Resources.bookLabel;
             label10.Location = new Point(0, 0);
             label10.Name = "label10";
             label10.Size = new Size(589, 57);
@@ -1560,6 +1564,28 @@
             // 
             timeCustomer.Interval = 1000;
             timeCustomer.Tick += timeCustomer_Tick;
+            // 
+            // panel26
+            // 
+            panel26.BackColor = Color.Orange;
+            panel26.BorderStyle = BorderStyle.FixedSingle;
+            panel26.ForeColor = SystemColors.ActiveCaption;
+            panel26.Location = new Point(115, 3);
+            panel26.Margin = new Padding(3, 2, 3, 2);
+            panel26.Name = "panel26";
+            panel26.Size = new Size(10, 56);
+            panel26.TabIndex = 44;
+            // 
+            // panel27
+            // 
+            panel27.BackColor = Color.Orange;
+            panel27.BorderStyle = BorderStyle.FixedSingle;
+            panel27.ForeColor = SystemColors.ActiveCaption;
+            panel27.Location = new Point(457, 0);
+            panel27.Margin = new Padding(3, 2, 3, 2);
+            panel27.Name = "panel27";
+            panel27.Size = new Size(10, 56);
+            panel27.TabIndex = 43;
             // 
             // BookStoreF
             // 
@@ -1742,5 +1768,7 @@
         private Button btnRejectSupply;
         private Button btnAcceptSupply;
         private Label lblSuppliesQueue;
+        private Panel panel26;
+        private Panel panel27;
     }
 }
