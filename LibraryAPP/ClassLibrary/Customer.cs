@@ -72,7 +72,7 @@ namespace ClassLibrary
 
             //Проверяем цену: наценка не должна превышать 15%
             //Базовая цена = book.Price (цена закупки книги)
-            double maxAcceptablePrice = book.Price * 1.15;
+            double maxAcceptablePrice = Math.Round(book.Price * 1.15, 2);
             bool priceAcceptable = (price <= maxAcceptablePrice);
 
             //Покупатель доволен, если книга подходит И цена устраивает
